@@ -2,25 +2,239 @@
 
 :root {
   --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
+  --foreground: #0a0a0a;
+  --primary: #F97316;
+  --primary-hover: #FB923C;
+  --secondary: #3B82F6;
+  --muted: #52525b;
+  --muted-subtle: #71717a;
+  --card: #f4f4f5;
+  --card-border: #e4e4e7;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-primary: var(--primary);
+  --color-secondary: var(--secondary);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Geist', system-ui, -apple-system, sans-serif;
 }
+
+/* Dark Mode */
+.dark {
+  --background: #000000;
+  --foreground: #fefefe;
+  --muted: #a1a1aa;
+  --muted-subtle: #71717a;
+  --card: #111111;
+  --card-border: #27272A;
+}
+
+/* Container */
+.container {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--background);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--card-border);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--muted-subtle);
+}
+
+/* Hero title effects (STR Energy) */
+@keyframes strGradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.str-hero-line {
+  position: relative;
+  display: inline-block;
+  isolation: isolate;
+  letter-spacing: -0.035em;
+  font-family: var(--font-display), var(--font-geist-sans), system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+.str-hero-line::after {
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: 0.35;
+  filter: blur(18px);
+  transform: translateZ(0);
+  pointer-events: none;
+}
+
+.str-hero-line--primary {
+  color: transparent;
+  background-image: linear-gradient(90deg, #0a0a0a, #27272a, #0a0a0a);
+  background-size: 200% 100%;
+  background-position: 0% 50%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  animation: strGradientShift 7s ease-in-out infinite;
+}
+
+.str-hero-line--primary::after {
+  background-image: radial-gradient(circle at 50% 45%, rgba(0,0,0,0.24), rgba(0,0,0,0));
+}
+
+.str-hero-line--accent {
+  color: transparent;
+  background-image: linear-gradient(
+    110deg,
+    #0a0a0a 0%,
+    #2563eb 22%,
+    #3b82f6 38%,
+    #fbbf24 62%,
+    #f97316 80%,
+    #0a0a0a 100%
+  );
+  background-size: 320% 100%;
+  background-position: 0% 50%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 18px rgba(8, 145, 178, 0.12);
+  animation: strGradientShift 8.5s ease-in-out infinite;
+}
+
+.str-hero-line--accent::after {
+  opacity: 0.16;
+  filter: blur(22px);
+  color: rgba(8, 145, 178, 0.35);
+  background-image: none;
+}
+
+/* Hero line: plain style (same typography, no gradient colors) */
+.str-hero-line--plain {
+  color: inherit;
+  background-image: none;
+  -webkit-text-fill-color: currentColor;
+  text-shadow: none;
+  animation: none;
+}
+
+/* Hero beams + particles (CSS-only animation) */
+/* Hero beams: flowing strokes along path */
+.hero-beams .hero-beam {
+  stroke-dasharray: 0.9 0.1;
+  stroke-dashoffset: var(--beam-from, 1);
+  opacity: var(--beam-opacity, 0.6);
+  will-change: stroke-dashoffset;
+}
+
+.hero-beam-base path {
+  opacity: 0.18;
+}
+
+/* Flow along the path without opacity flicker */
+.hero-beams--active .hero-beam {
+  animation: beamFlow var(--beam-dur, 8s) linear var(--beam-delay, 0s) infinite;
+}
+
+@keyframes beamFlow {
+  0%   { stroke-dashoffset: var(--beam-from, 1); }
+  100% { stroke-dashoffset: var(--beam-to, -1); }
+}
+
+.hero-particle {
+  animation: heroParticle var(--p-dur) ease-in-out var(--p-delay) infinite;
+  will-change: transform, opacity;
+  transform: translateZ(0);
+}
+
+@keyframes heroParticle {
+  0% {
+    transform: translate(-6px, -10px);
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.6;
+  }
+  100% {
+    transform: translate(6px, 12px);
+    opacity: 0;
+  }
+}
+
+/* Global heading typography: match hero title style without gradient colors */
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-display), var(--font-geist-sans), system-ui, -apple-system, "Segoe UI", sans-serif;
+  letter-spacing: -0.035em;
+}
+
+/* Hero title effects: dark mode overrides */
+.dark .str-hero-line--primary {
+  background-image: linear-gradient(90deg, #ffffff, #d4d4d8, #ffffff);
+}
+
+.dark .str-hero-line--primary::after {
+  background-image: radial-gradient(circle at 50% 45%, rgba(255,255,255,0.45), rgba(255,255,255,0));
+}
+
+.dark .str-hero-line--accent {
+  background-image: linear-gradient(
+    110deg,
+    #ffffff 0%,
+    #3b82f6 24%,
+    #60a5fa 40%,
+    #f59e0b 62%,
+    #fdba74 80%,
+    #ffffff 100%
+  );
+  text-shadow: 0 0 22px rgba(165, 243, 252, 0.10);
+}
+
+.dark .str-hero-line--accent::after {
+  color: rgba(165, 243, 252, 0.55);
+}
+
+/* Hero title: lock gradient motion to avoid flicker */
+.hero-static .str-hero-line--primary,
+.hero-static .str-hero-line--accent {
+  animation: none !important;
+  background-position: 50% 50%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .str-hero-line--primary,
+  .str-hero-line--accent {
+    animation: none;
+  }
+  .hero-beam,
+  .hero-particle {
+    animation: none !important;
+    opacity: 0.2;
+  }
+}
+
+

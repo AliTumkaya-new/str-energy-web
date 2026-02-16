@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <radialGradient id="glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#f97316" stop-opacity="0.15"/>
+      <stop offset="80%" stop-color="#09090b" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="orange" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f97316"/>
+      <stop offset="100%" stop-color="#ea580c"/>
+    </linearGradient>
+  </defs>
+  <!-- Background -->
+  <rect width="1200" height="630" fill="#09090b"/>
+  <!-- Center glow -->
+  <ellipse cx="600" cy="315" rx="500" ry="300" fill="url(#glow)"/>
+  <!-- Grid lines -->
+  <g stroke="#f97316" stroke-opacity="0.06" stroke-width="1">
+    <line x1="0" y1="100" x2="1200" y2="100"/>
+    <line x1="0" y1="200" x2="1200" y2="200"/>
+    <line x1="0" y1="300" x2="1200" y2="300"/>
+    <line x1="0" y1="400" x2="1200" y2="400"/>
+    <line x1="0" y1="500" x2="1200" y2="500"/>
+    <line x1="200" y1="0" x2="200" y2="630"/>
+    <line x1="400" y1="0" x2="400" y2="630"/>
+    <line x1="600" y1="0" x2="600" y2="630"/>
+    <line x1="800" y1="0" x2="800" y2="630"/>
+    <line x1="1000" y1="0" x2="1000" y2="630"/>
+  </g>
+  <!-- STR text -->
+  <text x="600" y="250" font-family="system-ui, -apple-system, sans-serif" font-size="96" font-weight="800" fill="white" text-anchor="middle" letter-spacing="-2">STR</text>
+  <!-- Energy text with orange -->
+  <text x="600" y="330" font-family="system-ui, -apple-system, sans-serif" font-size="56" font-weight="600" fill="url(#orange)" text-anchor="middle">Energy</text>
+  <!-- Subtitle -->
+  <text x="600" y="400" font-family="system-ui, -apple-system, sans-serif" font-size="24" fill="#a1a1aa" text-anchor="middle" letter-spacing="6">ENERJİ YAZILIM AR-GE</text>
+  <!-- Bottom line accent -->
+  <rect x="500" y="440" width="200" height="3" rx="1.5" fill="url(#orange)" opacity="0.6"/>
+  <!-- Domain -->
+  <text x="600" y="570" font-family="system-ui, -apple-system, sans-serif" font-size="18" fill="#52525b" text-anchor="middle">www.str.energy</text>
+</svg>

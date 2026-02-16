@@ -1,0 +1,26 @@
+{
+  "name": "STR Energy",
+  "short_name": "STR Energy",
+  "description": "Enerji verisi yönetimi, tahminleme, güvenlik ve analiz çözümleri.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#09090b",
+  "theme_color": "#f97316",
+  "orientation": "portrait-primary",
+  "categories": ["business", "utilities"],
+  "lang": "tr",
+  "icons": [
+    {
+      "src": "/str-logo0.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/str-logo0.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
