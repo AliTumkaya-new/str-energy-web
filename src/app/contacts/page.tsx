@@ -6,7 +6,7 @@ import Footer from "@/components/Footer";
 import HeroPatternLayer from "@/components/HeroPatternLayer";
 import { useHeroSpotlight } from "@/lib/useHeroSpotlight";
 import { useTheme } from "@/context/ThemeContext";
-import { Mail, Phone, MapPin } from "lucide-react";
+import { Phone, MapPin } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
 
 export default function ContactsPage() {
@@ -15,7 +15,6 @@ export default function ContactsPage() {
   const isDark = theme === "dark";
   const { heroRef, patternHot, onHeroPointerEnter, onHeroPointerLeave, onHeroPointerMove } = useHeroSpotlight();
   const cards = [
-    { icon: Mail, titleKey: "contacts.card.email", desc: t("contacts.value.email") },
     { icon: Phone, titleKey: "contacts.card.phone", desc: t("contacts.value.phone") },
     { icon: MapPin, titleKey: "contacts.card.office", desc: t("contacts.value.office") },
   ];

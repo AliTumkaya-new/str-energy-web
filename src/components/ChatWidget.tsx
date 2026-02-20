@@ -106,9 +106,9 @@ const knowledgeBase: KBEntry[] = [
   {
     keywords: ["iletişim", "contact", "связь", "email", "mail", "telefon", "phone"],
     answer: {
-      tr: "STR Energy ile iletişime geçmek için web sitemizin İletişim sayfasını ziyaret edebilir veya info@str.energy adresine e-posta gönderebilirsiniz. Demo talebi için de aynı adresi kullanabilirsiniz.",
-      en: "To contact STR Energy, visit the Contact page on our website or email info@str.energy. You can also use the same address for demo requests.",
-      ru: "Для связи с STR Energy посетите страницу Контакты на нашем сайте или напишите на info@str.energy.",
+      tr: "STR Energy ile iletişime geçmek için web sitemizin İletişim sayfasını ziyaret edebilir veya +90 544 918 70 90 numarasını arayabilirsiniz. Demo talebi için de aynı numarayı kullanabilirsiniz.",
+      en: "To contact STR Energy, visit the Contact page on our website or call +90 544 918 70 90. You can also use the same number for demo requests.",
+      ru: "Для связи с STR Energy посетите страницу Контакты на нашем сайте или позвоните по номеру +90 544 918 70 90.",
     },
   },
   /* ───── EPİAŞ / Live Data ───── */
@@ -124,9 +124,9 @@ const knowledgeBase: KBEntry[] = [
   {
     keywords: ["demo", "deneme", "trial", "демо"],
     answer: {
-      tr: "Ürünlerimizin ücretsiz demosunu talep etmek için İletişim sayfamızı ziyaret edebilir veya info@str.energy adresine 'Demo Talebi' konusuyla e-posta gönderebilirsiniz. Ekibimiz en kısa sürede size dönecektir.",
-      en: "To request a free demo of our products, visit our Contact page or email info@str.energy with 'Demo Request' in the subject. Our team will get back to you shortly.",
-      ru: "Для бесплатной демо-версии посетите страницу Контакты или отправьте письмо на info@str.energy с темой 'Запрос демо'.",
+      tr: "Ürünlerimizin ücretsiz demosunu talep etmek için İletişim sayfamızı ziyaret edebilir veya +90 544 918 70 90 numarasını arayabilirsiniz. Ekibimiz en kısa sürede size dönecektir.",
+      en: "To request a free demo of our products, visit our Contact page or call +90 544 918 70 90. Our team will get back to you shortly.",
+      ru: "Для бесплатной демо-версии посетите страницу Контакты или позвоните по номеру +90 544 918 70 90.",
     },
   },
   /* ───── Pricing ───── */
@@ -159,9 +159,9 @@ const knowledgeBase: KBEntry[] = [
 ];
 
 const defaultAnswer: { tr: string; en: string; ru: string } = {
-  tr: "Bu konuda şu an detaylı bilgi veremiyorum, ancak aşağıdaki konularda yardımcı olabilirim:\n\n• PTF ve YEKDEM verileri\n• EnergyOS, EnergyCloud, PowerForecast\n• GridAnalytics, SecureGrid, SmartMeter\n• STR Energy hakkında genel bilgi\n• Demo talebi ve iletişim\n\nLütfen bu konulardan birini sorun veya info@str.energy adresine yazın.",
-  en: "I don't have detailed information on that topic right now, but I can help with:\n\n• PTF and YEKDEM data\n• EnergyOS, EnergyCloud, PowerForecast\n• GridAnalytics, SecureGrid, SmartMeter\n• General info about STR Energy\n• Demo requests and contact\n\nPlease ask about one of these topics or email info@str.energy.",
-  ru: "По этой теме у меня нет данных, но я могу помочь с:\n\n• PTF и YEKDEM\n• EnergyOS, EnergyCloud, PowerForecast\n• GridAnalytics, SecureGrid, SmartMeter\n• Общая информация о STR Energy\n• Запрос демо и контакты\n\nЗадайте вопрос по одной из тем или напишите на info@str.energy.",
+  tr: "Bu konuda şu an detaylı bilgi veremiyorum, ancak aşağıdaki konularda yardımcı olabilirim:\n\n• PTF ve YEKDEM verileri\n• EnergyOS, EnergyCloud, PowerForecast\n• GridAnalytics, SecureGrid, SmartMeter\n• STR Energy hakkında genel bilgi\n• Demo talebi ve iletişim\n\nLütfen bu konulardan birini sorun veya +90 544 918 70 90 numarasını arayın.",
+  en: "I don't have detailed information on that topic right now, but I can help with:\n\n• PTF and YEKDEM data\n• EnergyOS, EnergyCloud, PowerForecast\n• GridAnalytics, SecureGrid, SmartMeter\n• General info about STR Energy\n• Demo requests and contact\n\nPlease ask about one of these topics or call +90 544 918 70 90.",
+  ru: "По этой теме у меня нет данных, но я могу помочь с:\n\n• PTF и YEKDEM\n• EnergyOS, EnergyCloud, PowerForecast\n• GridAnalytics, SecureGrid, SmartMeter\n• Общая информация о STR Energy\n• Запрос демо и контакты\n\nЗадайте вопрос по одной из тем или звоните +90 544 918 70 90.",
 };
 
 function findAnswer(question: string, lang: Lang): string {

@@ -352,8 +352,8 @@ export default function Header({ variant = "default" }: HeaderProps) {
 
             {/* Phone */}
             <a
-              href="tel:+994505155400"
-              title={"+994 50 515 54 00"}
+              href="tel:+905449187090"
+              title={"+90 544 918 70 90"}
               aria-label="Telefon"
               className="flex items-center gap-2 px-3 py-2 text-orange-500 hover:bg-orange-500/10 rounded-lg transition-all"
             >
@@ -540,7 +540,7 @@ export default function Header({ variant = "default" }: HeaderProps) {
                     </div>
 
                     <a
-                      href="tel:+994505155400"
+                      href="tel:+905449187090"
                       className="ml-auto p-2 text-orange-500 hover:bg-orange-500/10 rounded-lg transition-all"
                       aria-label="Telefon"
                     >

@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { Mail, Phone, MapPin, Instagram, Linkedin, Send, MessageCircle } from "lucide-react";
+import { Phone, MapPin, Instagram, Linkedin, Send, MessageCircle } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
 import { useTheme } from "@/context/ThemeContext";
 import { usePathname } from "next/navigation";
@@ -41,7 +41,7 @@ export default function Footer() {
   const pathname = usePathname();
   const currentLocale = (getLocaleFromPathname(pathname) || "tr") as SupportedLocale;
   const withLocale = (href: string) => prefixHrefWithLocale(href, currentLocale);
-  const email = t("contacts.value.email");
+
   const phoneDisplay = t("contacts.value.phone");
   const phoneHref = t("contacts.value.phone.href");
   const office = t("contacts.value.office");
@@ -100,7 +100,7 @@ export default function Footer() {
               {t("footer.cta.title")}
             </h2>
             <motion.a
-              href={`mailto:${email}`}
+              href={withLocale("/contacts")}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               className="inline-flex items-center justify-center px-8 py-4 bg-orange-500 hover:bg-orange-400 text-black font-semibold rounded-full transition-all hover:shadow-lg hover:shadow-orange-500/25"
@@ -229,17 +229,6 @@ export default function Footer() {
             <div>
               <h4 className={`${isDark ? "text-white" : "text-zinc-900"} font-semibold mb-4`}>{t("footer.contacts")}</h4>
               <ul className="space-y-4">
-                <li>
-                  <a
-                    href={`mailto:${email}`}
-                    className={`flex items-center gap-3 hover:text-orange-500 transition-colors ${
-                      isDark ? "text-gray-500" : "text-zinc-600"
-                    }`}
-                  >
-                    <Mail className="w-4 h-4 text-orange-500" />
-                    {email}
-                  </a>
-                </li>
                 <li>
                   <a
                     href={`tel:${phoneHref}`}

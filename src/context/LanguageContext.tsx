@@ -249,10 +249,9 @@ const translations: Translations = {
   "contacts.card.email": { tr: "E‑posta", en: "Email", ru: "Эл. почта" },
   "contacts.card.phone": { tr: "Telefon", en: "Phone", ru: "Телефон" },
   "contacts.card.office": { tr: "Ofis", en: "Office", ru: "Офис" },
-  "contacts.value.email": { tr: "support@strenergy.az", en: "support@strenergy.az", ru: "support@strenergy.az" },
-  "contacts.value.phone": { tr: "+994 50 515 54 00", en: "+994 50 515 54 00", ru: "+994 50 515 54 00" },
-  "contacts.value.phone.href": { tr: "+994505155400", en: "+994505155400", ru: "+994505155400" },
-  "contacts.value.office": { tr: "Baku, Azerbaijan", en: "Baku, Azerbaijan", ru: "Баку, Азербайджан" },
+  "contacts.value.phone": { tr: "+90 544 918 70 90", en: "+90 544 918 70 90", ru: "+90 544 918 70 90" },
+  "contacts.value.phone.href": { tr: "+905449187090", en: "+905449187090", ru: "+905449187090" },
+  "contacts.value.office": { tr: "Mücahitler, 72037. Sk No:2, Okan Towers, 27060 Şehitkamil/Gaziantep", en: "Mücahitler, 72037. Sk No:2, Okan Towers, 27060 Şehitkamil/Gaziantep", ru: "Мюджахитлер, 72037. Sk No:2, Okan Towers, 27060 Шехиткамиль/Газиантеп" },
 
   // FAQ
   "faq.title": { tr: "Sıkça Sorulan Sorular", en: "Frequently Asked Questions", ru: "Часто задаваемые вопросы" },
