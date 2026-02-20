@@ -352,9 +352,11 @@ export default function Header({ variant = "default" }: HeaderProps) {
 
             {/* Phone */}
             <a
-              href="tel:+905449187090"
+              href="https://wa.me/905449187090"
+              target="_blank"
+              rel="noopener noreferrer"
               title={"+90 544 918 70 90"}
-              aria-label="Telefon"
+              aria-label="WhatsApp"
               className="flex items-center gap-2 px-3 py-2 text-orange-500 hover:bg-orange-500/10 rounded-lg transition-all"
             >
               <Phone className="w-4 h-4" />
@@ -540,9 +542,11 @@ export default function Header({ variant = "default" }: HeaderProps) {
                     </div>
 
                     <a
-                      href="tel:+905449187090"
+                      href="https://wa.me/905449187090"
+                      target="_blank"
+                      rel="noopener noreferrer"
                       className="ml-auto p-2 text-orange-500 hover:bg-orange-500/10 rounded-lg transition-all"
-                      aria-label="Telefon"
+                      aria-label="WhatsApp"
                     >
                       <Phone className="w-5 h-5" />
                     </a>

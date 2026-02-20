@@ -15,8 +15,8 @@ export default function ContactsPage() {
   const isDark = theme === "dark";
   const { heroRef, patternHot, onHeroPointerEnter, onHeroPointerLeave, onHeroPointerMove } = useHeroSpotlight();
   const cards = [
-    { icon: Phone, titleKey: "contacts.card.phone", desc: t("contacts.value.phone") },
-    { icon: MapPin, titleKey: "contacts.card.office", desc: t("contacts.value.office") },
+    { icon: Phone, titleKey: "contacts.card.phone", desc: t("contacts.value.phone"), href: "https://wa.me/905449187090" },
+    { icon: MapPin, titleKey: "contacts.card.office", desc: t("contacts.value.office"), href: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(t("contacts.value.office"))}` },
   ];
 
   const pageBg = isDark ? "bg-black text-white" : "bg-white text-zinc-900";
@@ -49,21 +49,28 @@ export default function ContactsPage() {
       </section>
 
       <section className={`py-16 ${sectionAlt}`}>
-        <div className="container grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="container grid sm:grid-cols-2 gap-6 max-w-2xl mx-auto">
           {cards.map((item) => (
-            <motion.div
+            <a
               key={item.titleKey}
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className={`${isDark ? "bg-zinc-900/60 border-zinc-800" : "bg-white border-black/10"} border rounded-2xl p-6`}
+              href={item.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block"
             >
-              <div className="w-11 h-11 rounded-xl bg-orange-500/10 border border-orange-500/20 flex items-center justify-center mb-4">
-                <item.icon className="w-5 h-5 text-orange-500" />
-              </div>
-              <h3 className={`font-semibold text-lg mb-2 ${heading}`}>{t(item.titleKey)}</h3>
-              <p className={`${desc} text-sm leading-relaxed`}>{item.desc}</p>
-            </motion.div>
+              <motion.div
+                initial={{ opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                className={`${isDark ? "bg-zinc-900/60 border-zinc-800 hover:border-orange-500/40" : "bg-white border-black/10 hover:border-orange-500/40"} border rounded-2xl p-6 transition-colors cursor-pointer`}
+              >
+                <div className="w-11 h-11 rounded-xl bg-orange-500/10 border border-orange-500/20 flex items-center justify-center mb-4">
+                  <item.icon className="w-5 h-5 text-orange-500" />
+                </div>
+                <h3 className={`font-semibold text-lg mb-2 ${heading}`}>{t(item.titleKey)}</h3>
+                <p className={`${desc} text-sm leading-relaxed`}>{item.desc}</p>
+              </motion.div>
+            </a>
           ))}
         </div>
       </section>

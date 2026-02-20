@@ -231,7 +231,9 @@ export default function Footer() {
               <ul className="space-y-4">
                 <li>
                   <a
-                    href={`tel:${phoneHref}`}
+                    href={`https://wa.me/${phoneHref.replace('+', '')}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className={`flex items-center gap-3 hover:text-orange-500 transition-colors ${
                       isDark ? "text-gray-500" : "text-zinc-600"
                     }`}
@@ -240,9 +242,18 @@ export default function Footer() {
                     {phoneDisplay}
                   </a>
                 </li>
-                <li className={`flex items-start gap-3 ${isDark ? "text-gray-500" : "text-zinc-600"}`}>
-                  <MapPin className="w-4 h-4 text-orange-500 mt-0.5" />
-                  {office}
+                <li>
+                  <a
+                    href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(office)}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`flex items-start gap-3 hover:text-orange-500 transition-colors ${
+                      isDark ? "text-gray-500" : "text-zinc-600"
+                    }`}
+                  >
+                    <MapPin className="w-4 h-4 text-orange-500 mt-0.5" />
+                    {office}
+                  </a>
                 </li>
               </ul>
             </div>
