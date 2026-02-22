@@ -154,6 +154,16 @@ const weightedAvgMap: Record<string, { label: { tr: string; en: string; ru: stri
   price: { label: { tr: "GİP AOF (TL/MWh)", en: "WAP (TL/MWh)", ru: "WAP (TL/MWh)" }, aliases: ["price", "weightedAveragePrice", "wap", "avgPrice"] },
 };
 
+const yekdemMap: Record<string, { label: { tr: string; en: string; ru: string }; aliases: string[] }> = {
+  period: { label: { tr: "Dönem", en: "Period", ru: "Период" }, aliases: ["period"] },
+  version: { label: { tr: "Versiyon", en: "Version", ru: "Версия" }, aliases: ["version"] },
+  supplierUnitCost: { label: { tr: "Tedarikçi Birim Maliyet", en: "Supplier Unit Cost", ru: "Стоимость поставщика" }, aliases: ["supplierUnitCost", "supplieRunitCost", "supplierunitcost"] },
+  unitCost: { label: { tr: "Birim Maliyet", en: "Unit Cost", ru: "Стоимость" }, aliases: ["unitCost", "unitcost"] },
+  ptf: { label: { tr: "PTF (TL/MWh)", en: "PTF (TL/MWh)", ru: "PTF (TL/MWh)" }, aliases: ["ptf"] },
+};
+
+const yekdemOrder = Object.keys(yekdemMap);
+
 const generationOrder = Object.keys(generationMap);
 
 type DatasetKey = "generation" | "yekdem-unit-cost" | "ptf" | "load-plan" | "weighted-avg";
@@ -328,6 +338,7 @@ export default function LiveEnergyDashboard() {
     if (dataset === "ptf") return ["date", "hour", "price"];
     if (dataset === "load-plan") return ["date", "hour", "lep"];
     if (dataset === "weighted-avg") return ["date", "hour", "price"];
+    if (dataset === "yekdem-unit-cost") return yekdemOrder;
     return columns;
   }, [dataset, columns]);
 
@@ -386,6 +397,26 @@ export default function LiveEnergyDashboard() {
         } as Record<string, unknown>;
       });
     }
+    if (dataset === "yekdem-unit-cost") {
+      return filteredRows.map((row) => {
+        const source = row as Record<string, unknown>;
+        const formatYekdemDate = (val: unknown) => {
+          if (!val) return "";
+          const s = String(val);
+          // "2025-12-01T00:00:00+03:00" → "12.2025" or "2026-01" → "01.2026"
+          const match = s.match(/(\d{4})-(\d{2})/);
+          if (match) return `${match[2]}.${match[1]}`;
+          return s;
+        };
+        return {
+          period: formatYekdemDate(pickValue(source, yekdemMap.period.aliases)),
+          version: formatYekdemDate(pickValue(source, yekdemMap.version.aliases)),
+          supplierUnitCost: formatNumber(pickValue(source, yekdemMap.supplierUnitCost.aliases) ?? 0),
+          unitCost: formatNumber(pickValue(source, yekdemMap.unitCost.aliases) ?? 0),
+          ptf: formatNumber(pickValue(source, yekdemMap.ptf.aliases) ?? 0),
+        } as Record<string, unknown>;
+      });
+    }
     return filteredRows;
   }, [dataset, filteredRows]);
 
@@ -402,6 +433,10 @@ export default function LiveEnergyDashboard() {
     }
     if (dataset === "load-plan") {
       displayColumns.forEach((col) => { result[col] = col === "lep"; });
+      return result;
+    }
+    if (dataset === "yekdem-unit-cost") {
+      displayColumns.forEach((col) => { result[col] = col !== "period" && col !== "version"; });
       return result;
     }
     const sample = displayRows[0] || {};
@@ -460,6 +495,7 @@ export default function LiveEnergyDashboard() {
       if (dataset === "ptf") return ptfMap;
       if (dataset === "load-plan") return loadPlanMap;
       if (dataset === "weighted-avg") return weightedAvgMap;
+      if (dataset === "yekdem-unit-cost") return yekdemMap;
       return {};
     };
     const colMap = getColumnMap();
@@ -545,6 +581,7 @@ export default function LiveEnergyDashboard() {
     if (dataset === "ptf") return ptfMap;
     if (dataset === "load-plan") return loadPlanMap;
     if (dataset === "weighted-avg") return weightedAvgMap;
+    if (dataset === "yekdem-unit-cost") return yekdemMap;
     return {} as Record<string, { label: { tr: string; en: string; ru: string }; aliases: string[] }>;
   };
 
