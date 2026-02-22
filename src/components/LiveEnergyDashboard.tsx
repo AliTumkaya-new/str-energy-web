@@ -403,9 +403,9 @@ export default function LiveEnergyDashboard() {
         const formatYekdemDate = (val: unknown) => {
           if (!val) return "";
           const s = String(val);
-          // "2025-12-01T00:00:00+03:00" → "12.2025" or "2026-01" → "01.2026"
+          // "2025-12-01T00:00:00+03:00" → "12/2025" or "2026-01" → "01/2026"
           const match = s.match(/(\d{4})-(\d{2})/);
-          if (match) return `${match[2]}.${match[1]}`;
+          if (match) return `${match[2]}/${match[1]}`;
           return s;
         };
         return {
