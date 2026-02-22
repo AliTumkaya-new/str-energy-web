@@ -6,7 +6,7 @@ import Footer from "@/components/Footer";
 import HeroPatternLayer from "@/components/HeroPatternLayer";
 import { useHeroSpotlight } from "@/lib/useHeroSpotlight";
 import { useTheme } from "@/context/ThemeContext";
-import { Phone, MapPin } from "lucide-react";
+import { Phone, MapPin, Mail } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
 
 export default function ContactsPage() {
@@ -16,6 +16,7 @@ export default function ContactsPage() {
   const { heroRef, patternHot, onHeroPointerEnter, onHeroPointerLeave, onHeroPointerMove } = useHeroSpotlight();
   const cards = [
     { icon: Phone, titleKey: "contacts.card.phone", desc: t("contacts.value.phone"), href: "https://wa.me/905449187090" },
+    { icon: Mail, titleKey: "contacts.card.email", desc: "support@str-energy.com", href: null },
     { icon: MapPin, titleKey: "contacts.card.office", desc: t("contacts.value.office"), href: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(t("contacts.value.office"))}` },
   ];
 
@@ -49,20 +50,14 @@ export default function ContactsPage() {
       </section>
 
       <section className={`py-16 ${sectionAlt}`}>
-        <div className="container grid sm:grid-cols-2 gap-6 max-w-2xl mx-auto">
-          {cards.map((item) => (
-            <a
-              key={item.titleKey}
-              href={item.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="block"
-            >
+        <div className="container grid sm:grid-cols-3 gap-6 max-w-3xl mx-auto">
+          {cards.map((item) => {
+            const content = (
               <motion.div
                 initial={{ opacity: 0, y: 16 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                className={`${isDark ? "bg-zinc-900/60 border-zinc-800 hover:border-orange-500/40" : "bg-white border-black/10 hover:border-orange-500/40"} border rounded-2xl p-6 transition-colors cursor-pointer`}
+                className={`${isDark ? "bg-zinc-900/60 border-zinc-800 hover:border-orange-500/40" : "bg-white border-black/10 hover:border-orange-500/40"} border rounded-2xl p-6 transition-colors ${item.href ? "cursor-pointer" : ""}`}
               >
                 <div className="w-11 h-11 rounded-xl bg-orange-500/10 border border-orange-500/20 flex items-center justify-center mb-4">
                   <item.icon className="w-5 h-5 text-orange-500" />
@@ -70,8 +65,24 @@ export default function ContactsPage() {
                 <h3 className={`font-semibold text-lg mb-2 ${heading}`}>{t(item.titleKey)}</h3>
                 <p className={`${desc} text-sm leading-relaxed`}>{item.desc}</p>
               </motion.div>
-            </a>
-          ))}
+            );
+
+            return item.href ? (
+              <a
+                key={item.titleKey}
+                href={item.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block"
+              >
+                {content}
+              </a>
+            ) : (
+              <div key={item.titleKey} className="block">
+                {content}
+              </div>
+            );
+          })}
         </div>
       </section>
 

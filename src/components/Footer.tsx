@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { Phone, MapPin, Instagram, Linkedin, Send, MessageCircle } from "lucide-react";
+import { Phone, MapPin, Mail, Instagram, Linkedin, Send, MessageCircle } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
 import { useTheme } from "@/context/ThemeContext";
 import { usePathname } from "next/navigation";
@@ -28,7 +28,6 @@ const products = [
 
 const company = [
   { key: "nav.about", href: "/about" },
-  { key: "nav.testimonials", href: "/testimonials" },
   { key: "nav.news", href: "/news" },
   { key: "nav.privacy", href: "/privacy" },
 ];
@@ -241,6 +240,16 @@ export default function Footer() {
                     <Phone className="w-4 h-4 text-orange-500" />
                     {phoneDisplay}
                   </a>
+                </li>
+                <li>
+                  <span
+                    className={`flex items-center gap-3 ${
+                      isDark ? "text-gray-500" : "text-zinc-600"
+                    }`}
+                  >
+                    <Mail className="w-4 h-4 text-orange-500" />
+                    support@str-energy.com
+                  </span>
                 </li>
                 <li>
                   <a

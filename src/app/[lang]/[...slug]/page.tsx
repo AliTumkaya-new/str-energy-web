@@ -2,7 +2,7 @@ import type { ReactNode } from "react";
 import { notFound } from "next/navigation";
 
 import AboutPage from "../../about/page";
-import TestimonialsPage from "../../testimonials/page";
+
 import PrivacyPage from "../../privacy/page";
 import HelpPage from "../../help/page";
 import ContactsPage from "../../contacts/page";
@@ -18,7 +18,7 @@ import NewsPage from "../../news/page";
 
 const routeMap: Record<string, () => ReactNode> = {
   "about": () => <AboutPage />,
-  "testimonials": () => <TestimonialsPage />,
+
   "privacy": () => <PrivacyPage />,
   "help": () => <HelpPage />,
   "contacts": () => <ContactsPage />,
