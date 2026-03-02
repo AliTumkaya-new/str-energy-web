@@ -1,6 +1,7 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { formatContext, getRelevantChunks } from "@/lib/rag/siteIndex";
 import { getLiveEnergyData } from "@/lib/rag/epias";
+import { checkRateLimit, isAllowedOrigin, parseChatPayload } from "@/lib/apiSecurity";
 
 export const runtime = "nodejs";
 
@@ -36,14 +37,28 @@ function getSystemPrompt(locale: string, context: string, liveData: unknown) {
 
 export async function POST(request: NextRequest) {
   try {
-    const { messages, locale } = await request.json();
-    if (!Array.isArray(messages)) {
+    if (!isAllowedOrigin(request)) {
+      return NextResponse.json({ error: "Forbidden origin" }, { status: 403 });
+    }
+
+    const rateLimit = checkRateLimit(request, "chat", 30, 60_000);
+    if (rateLimit.limited) {
+      return NextResponse.json(
+        { error: "Too many requests" },
+        { status: 429, headers: { "Retry-After": String(rateLimit.retryAfter) } }
+      );
+    }
+
+    const payload = parseChatPayload(await request.json());
+    if (!payload) {
       return NextResponse.json({ error: "Invalid payload" }, { status: 400 });
     }
+    const { messages, locale } = payload;
 
     const apiKey = process.env.OPENAI_API_KEY;
     if (!apiKey) {
-      return NextResponse.json({ error: "OPENAI_API_KEY is missing" }, { status: 500 });
+      console.error("[api/chat] OPENAI_API_KEY is missing");
+      return NextResponse.json({ error: "Service unavailable" }, { status: 503 });
     }
 
     const lastUserMessage = [...messages].reverse().find((msg) => msg?.role === "user") as ChatMessage | undefined;
@@ -55,25 +70,34 @@ export async function POST(request: NextRequest) {
 
     const systemPrompt = getSystemPrompt(locale || "tr", context, liveData);
 
-    const response = await fetch("https://api.openai.com/v1/responses", {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${apiKey}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        model: process.env.OPENAI_MODEL || "gpt-4.1-mini",
-        input: [
-          { role: "system", content: systemPrompt },
-          ...messages,
-        ],
-        temperature: 0.2,
-      }),
-    });
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 20_000);
+
+    let response: Response;
+    try {
+      response = await fetch("https://api.openai.com/v1/responses", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${apiKey}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          model: process.env.OPENAI_MODEL || "gpt-4.1-mini",
+          input: [
+            { role: "system", content: systemPrompt },
+            ...messages,
+          ],
+          temperature: 0.2,
+        }),
+        signal: controller.signal,
+      });
+    } finally {
+      clearTimeout(timeout);
+    }
 
     if (!response.ok) {
-      const errorText = await response.text();
-      return NextResponse.json({ error: errorText || "OpenAI request failed" }, { status: 502 });
+      console.error("[api/chat] OpenAI upstream failed", { status: response.status });
+      return NextResponse.json({ error: "Upstream service error" }, { status: 502 });
     }
 
     const data = await response.json();
@@ -82,7 +106,8 @@ export async function POST(request: NextRequest) {
       || "";
 
     return NextResponse.json({ reply });
-  } catch {
+  } catch (error) {
+    console.error("[api/chat] Unexpected server error", error);
     return NextResponse.json({ error: "Unexpected server error" }, { status: 500 });
   }
 }

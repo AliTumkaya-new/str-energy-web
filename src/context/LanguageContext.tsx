@@ -284,24 +284,23 @@ interface LanguageContextType {
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
-  const [language, setLanguage] = useState<Language>("tr");
   const pathname = usePathname();
+  const pathLocale = getLocaleFromPathname(pathname) as Language | null;
+  const [storedLanguage, setStoredLanguage] = useState<Language>(() => {
+    if (typeof window === "undefined") return "tr";
+    const saved = localStorage.getItem("language");
+    if (saved === "tr" || saved === "en" || saved === "ru") return saved;
+    return "tr";
+  });
+  const language = pathLocale ?? storedLanguage;
+
+  const setLanguage = useCallback((lang: Language) => {
+    setStoredLanguage(lang);
+    localStorage.setItem("language", lang);
+  }, []);
 
   useEffect(() => {
-    const pathLocale = getLocaleFromPathname(pathname) as SupportedLocale | null;
-    if (pathLocale && pathLocale !== language) {
-      setLanguage(pathLocale);
-      localStorage.setItem("language", pathLocale);
-      return;
-    }
-
-    const savedLanguage = localStorage.getItem("language") as Language | null;
-    if (!pathLocale && savedLanguage && supportedLocales.includes(savedLanguage as SupportedLocale)) {
-      setLanguage(savedLanguage);
-    }
-  }, [pathname, language]);
-
-  useEffect(() => {
+    if (!supportedLocales.includes(language as SupportedLocale)) return;
     localStorage.setItem("language", language);
   }, [language]);
 

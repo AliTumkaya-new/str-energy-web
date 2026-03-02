@@ -12,33 +12,25 @@ interface ThemeContextType {
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
-  const [theme, setTheme] = useState<Theme>("light");
-  const [mounted, setMounted] = useState(false);
+  const [theme, setTheme] = useState<Theme>(() => {
+    if (typeof window === "undefined") return "light";
+    const savedTheme = localStorage.getItem("theme");
+    return savedTheme === "dark" ? "dark" : "light";
+  });
 
   useEffect(() => {
-    setMounted(true);
-    const savedTheme = localStorage.getItem("theme") as Theme;
-    if (savedTheme) {
-      setTheme(savedTheme);
-    }
-  }, []);
-
-  useEffect(() => {
-    if (mounted) {
-      localStorage.setItem("theme", theme);
-      document.documentElement.classList.remove("light", "dark");
-      document.documentElement.classList.add(theme);
-    }
-  }, [theme, mounted]);
+    localStorage.setItem("theme", theme);
+    document.documentElement.classList.remove("light", "dark");
+    document.documentElement.classList.add(theme);
+  }, [theme]);
 
   const toggleTheme = () => {
     setTheme((prev) => (prev === "dark" ? "light" : "dark"));
   };
 
-  // Always provide context, but use default theme before mounting
   return (
     <ThemeContext.Provider value={{ theme, toggleTheme }}>
-      <div className={mounted ? theme : "light"}>{children}</div>
+      <div className={theme} suppressHydrationWarning>{children}</div>
     </ThemeContext.Provider>
   );
 }

@@ -131,12 +131,13 @@ export default function Footer() {
               </p>
               <div className="flex items-center gap-4">
                 <a
-                  href="#"
+                  href={withLocale("/contacts")}
                   className={`w-10 h-10 rounded-full flex items-center justify-center hover:text-orange-500 transition-colors ${
                     isDark
                       ? "bg-white/5 text-gray-400 hover:bg-white/10"
                       : "bg-black/5 text-zinc-600 hover:bg-black/10"
                   }`}
+                  aria-label="Instagram"
                 >
                   <Instagram className="w-5 h-5" />
                 </a>
@@ -152,22 +153,24 @@ export default function Footer() {
                   <Linkedin className="w-5 h-5" />
                 </a>
                 <a
-                  href="#"
+                  href={withLocale("/contacts")}
                   className={`w-10 h-10 rounded-full flex items-center justify-center hover:text-orange-500 transition-colors ${
                     isDark
                       ? "bg-white/5 text-gray-400 hover:bg-white/10"
                       : "bg-black/5 text-zinc-600 hover:bg-black/10"
                   }`}
+                  aria-label="Contact"
                 >
                   <Send className="w-5 h-5" />
                 </a>
                 <a
-                  href="#"
+                  href={withLocale("/contacts")}
                   className={`w-10 h-10 rounded-full flex items-center justify-center hover:text-orange-500 transition-colors ${
                     isDark
                       ? "bg-white/5 text-gray-400 hover:bg-white/10"
                       : "bg-black/5 text-zinc-600 hover:bg-black/10"
                   }`}
+                  aria-label="Contact chat"
                 >
                   <MessageCircle className="w-5 h-5" />
                 </a>

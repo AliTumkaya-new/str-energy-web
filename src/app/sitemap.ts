@@ -12,7 +12,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/testimonials",
     "/privacy",
     "/help",
-    "/portal",
   ];
 
   const productPages = [
