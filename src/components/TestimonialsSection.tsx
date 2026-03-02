@@ -8,6 +8,16 @@ import { useTheme } from "@/context/ThemeContext";
 const testimonials = [
   {
     quote: {
+      tr: "STR Enerji ile geliştirdiğimiz donanım çözümleri, üretim kalitemizi ve verimliliğimizi artırdı. Elektronik üretim ve tedarik zincirinde mükemmel bir entegrasyon sağladık.",
+      en: "The hardware solutions we developed with STR Energy have enhanced our production quality and efficiency. We achieved seamless integration in electronic manufacturing and supply chain.",
+      ru: "Аппаратные решения, разработанные совместно с STR Energy, повысили качество и эффективность нашего производства. Мы добились идеальной интеграции в цепочке поставок электроники."
+    },
+    name: "Henry Dai",
+    role: { tr: "Üretim ve Operasyon Yöneticisi, PCBA Meline", en: "Manufacturing & Operations Manager, PCBA Meline", ru: "Менеджер по производству и операциям, PCBA Meline" },
+    rating: 5
+  },
+  {
+    quote: {
       tr: "STR Enerji entegrasyonu, müşterilerimizle süreçleri otomatikleştirmemizi sağladı. Artık hiçbir talep kaybolmuyor ve analizler planlamaya yardımcı oluyor.",
       en: "STR Energy integration helped us automate key workflows. Now no request is lost, and analytics supports planning.",
       ru: "Интеграция STR Energy помогла автоматизировать ключевые процессы. Теперь ни один запрос не теряется, а аналитика помогает планировать."
