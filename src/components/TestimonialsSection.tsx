@@ -57,7 +57,7 @@ export default function TestimonialsSection() {
   const loopedTestimonials = [...testimonials, ...testimonials];
 
   return (
-    <section id="testimonials" className={`py-12 mt-12 md:mt-24 overflow-hidden ${isDark ? "bg-zinc-950" : "bg-zinc-50"}`}>
+    <section id="testimonials" className={`pt-8 pb-12 mt-8 md:mt-16 overflow-hidden ${isDark ? "bg-zinc-950" : "bg-zinc-50"}`}>
       <style>{`
         @keyframes marquee {
           0% { transform: translateX(0%); }
@@ -87,7 +87,7 @@ export default function TestimonialsSection() {
         </motion.div>
       </div>
 
-      <div className="relative flex w-full overflow-hidden pb-12">
+      <div className="relative flex w-full overflow-hidden pb-12 mt-6 md:mt-10">
         {/* Fading Edges */}
         <div className={`absolute left-0 top-0 bottom-0 w-16 md:w-32 z-10 pointer-events-none bg-gradient-to-r ${isDark ? "from-zinc-950 to-transparent" : "from-zinc-50 to-transparent"}`} />
         <div className={`absolute right-0 top-0 bottom-0 w-16 md:w-32 z-10 pointer-events-none bg-gradient-to-l ${isDark ? "from-zinc-950 to-transparent" : "from-zinc-50 to-transparent"}`} />
