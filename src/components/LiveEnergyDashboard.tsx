@@ -169,6 +169,19 @@ const generationOrder = Object.keys(generationMap);
 type DatasetKey = "generation" | "yekdem-unit-cost" | "ptf" | "load-plan" | "weighted-avg";
 type RegionKey = "tr" | "eu" | "global";
 
+const localeByLanguage = {
+  tr: "tr-TR",
+  en: "en-GB",
+  ru: "ru-RU",
+} as const;
+
+const getIntlLocale = (language: string) => {
+  if (language === "en" || language === "ru" || language === "tr") {
+    return localeByLanguage[language];
+  }
+  return localeByLanguage.tr;
+};
+
 /* ─────────────── helpers ─────────────── */
 const pickValue = (source: Record<string, unknown>, aliases: string[]) => {
   for (const key of aliases) {
@@ -187,16 +200,17 @@ const parseNumber = (value: unknown) => {
   return 0;
 };
 
-const formatNumber = (value: unknown) => {
-  if (value === null || value === undefined || value === "") return "0,00";
+const formatNumber = (value: unknown, locale: string) => {
+  const formatter = new Intl.NumberFormat(locale, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  if (value === null || value === undefined || value === "") return formatter.format(0);
   if (typeof value === "number") {
-    return new Intl.NumberFormat("tr-TR", { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(value);
+    return formatter.format(value);
   }
   if (typeof value === "string") {
     const normalized = value.replace(/\s/g, "").replace(/\./g, "").replace(",", ".");
     const parsed = Number(normalized);
     if (!Number.isNaN(parsed)) {
-      return new Intl.NumberFormat("tr-TR", { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(parsed);
+      return formatter.format(parsed);
     }
   }
   return value;
@@ -223,15 +237,24 @@ const toDateString = (d: Date) => {
   return `${y}-${m}-${day}`;
 };
 
-const displayDate = (value: string) => {
+const displayDate = (value: string, locale: string) => {
   if (!value) return "";
   const parts = value.split("-");
   if (parts.length !== 3) return value;
-  return `${parts[2]}.${parts[1]}.${parts[0]}`;
+  const year = Number(parts[0]);
+  const month = Number(parts[1]);
+  const day = Number(parts[2]);
+  if (!year || !month || !day) return value;
+  const date = new Date(year, month - 1, day);
+  return new Intl.DateTimeFormat(locale, {
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+  }).format(date);
 };
 
-const monthLabel = (date: Date) =>
-  date.toLocaleString("tr-TR", { month: "long", year: "numeric" });
+const monthLabel = (date: Date, locale: string) =>
+  date.toLocaleString(locale, { month: "long", year: "numeric" });
 
 const buildCalendar = (view: Date) => {
   const year = view.getFullYear();
@@ -254,6 +277,7 @@ export default function LiveEnergyDashboard() {
   const isDark = theme === "dark";
   const { language } = useLanguage();
   const copy = copyByLang[language] ?? copyByLang.tr;
+  const uiLocale = getIntlLocale(language);
 
   /* state */
   const [region, setRegion] = useState<RegionKey>("tr");
@@ -310,14 +334,14 @@ export default function LiveEnergyDashboard() {
       if (!response.ok) throw new Error("request failed");
       const data = await response.json();
       setRows(Array.isArray(data?.items) ? data.items : []);
-      setLastFetchTime(new Date().toLocaleTimeString("tr-TR", { hour: "2-digit", minute: "2-digit" }));
+      setLastFetchTime(new Date().toLocaleTimeString(uiLocale, { hour: "2-digit", minute: "2-digit" }));
     } catch {
       setRows([]);
       setError(copy.errorMsg);
     } finally {
       setIsLoading(false);
     }
-  }, [region, dataset, startDate, endDate, copy.errorMsg]);
+  }, [region, dataset, startDate, endDate, copy.errorMsg, uiLocale]);
 
   /* computed columns + rows */
   const columns = useMemo(() => {
@@ -356,7 +380,7 @@ export default function LiveEnergyDashboard() {
         generationOrder.forEach((key) => {
           if (key === "date" || key === "hour") return;
           const aliases = generationMap[key]?.aliases || [key];
-          mapped[key] = formatNumber(pickValue(source, aliases) ?? 0);
+          mapped[key] = formatNumber(pickValue(source, aliases) ?? 0, uiLocale);
         });
         return mapped;
       });
@@ -369,7 +393,7 @@ export default function LiveEnergyDashboard() {
         return {
           date: formatDateLabel(dateValue),
           hour: formatTimeLabel(hourValue || dateValue),
-          price: formatNumber(pickValue(source, ptfMap.price.aliases) ?? 0),
+          price: formatNumber(pickValue(source, ptfMap.price.aliases) ?? 0, uiLocale),
         } as Record<string, unknown>;
       });
     }
@@ -381,7 +405,7 @@ export default function LiveEnergyDashboard() {
         return {
           date: formatDateLabel(dateValue),
           hour: formatTimeLabel(hourValue || dateValue),
-          lep: formatNumber(pickValue(source, loadPlanMap.lep.aliases) ?? 0),
+          lep: formatNumber(pickValue(source, loadPlanMap.lep.aliases) ?? 0, uiLocale),
         } as Record<string, unknown>;
       });
     }
@@ -393,7 +417,7 @@ export default function LiveEnergyDashboard() {
         return {
           date: formatDateLabel(dateValue),
           hour: formatTimeLabel(hourValue || dateValue),
-          price: formatNumber(pickValue(source, weightedAvgMap.price.aliases) ?? 0),
+          price: formatNumber(pickValue(source, weightedAvgMap.price.aliases) ?? 0, uiLocale),
         } as Record<string, unknown>;
       });
     }
@@ -411,14 +435,14 @@ export default function LiveEnergyDashboard() {
         return {
           period: formatYekdemDate(pickValue(source, yekdemMap.period.aliases)),
           version: formatYekdemDate(pickValue(source, yekdemMap.version.aliases)),
-          supplierUnitCost: formatNumber(pickValue(source, yekdemMap.supplierUnitCost.aliases) ?? 0),
-          unitCost: formatNumber(pickValue(source, yekdemMap.unitCost.aliases) ?? 0),
-          ptf: formatNumber(pickValue(source, yekdemMap.ptf.aliases) ?? 0),
+          supplierUnitCost: formatNumber(pickValue(source, yekdemMap.supplierUnitCost.aliases) ?? 0, uiLocale),
+          unitCost: formatNumber(pickValue(source, yekdemMap.unitCost.aliases) ?? 0, uiLocale),
+          ptf: formatNumber(pickValue(source, yekdemMap.ptf.aliases) ?? 0, uiLocale),
         } as Record<string, unknown>;
       });
     }
     return filteredRows;
-  }, [dataset, filteredRows]);
+  }, [dataset, filteredRows, uiLocale]);
 
 
   const columnIsNumeric = useMemo(() => {
@@ -463,7 +487,7 @@ export default function LiveEnergyDashboard() {
         if (key === "date" || key === "hour") return;
         const aliases = generationMap[key]?.aliases || [key];
         const sum = filteredRows.reduce((acc, row) => acc + parseNumber(pickValue(row as Record<string, unknown>, aliases)), 0);
-        totals[key] = formatNumber(sum);
+        totals[key] = formatNumber(sum, uiLocale);
       });
       return totals;
     }
@@ -471,10 +495,10 @@ export default function LiveEnergyDashboard() {
     displayColumns.forEach((col) => {
       if (!columnIsNumeric[col]) return;
       const sum = filteredRows.reduce((acc, row) => acc + parseNumber((row as Record<string, unknown>)[col]), 0);
-      totals[col] = formatNumber(sum);
+      totals[col] = formatNumber(sum, uiLocale);
     });
     return totals;
-  }, [dataset, displayRows.length, displayColumns, filteredRows, columnIsNumeric, copy.total]);
+  }, [dataset, displayRows.length, displayColumns, filteredRows, columnIsNumeric, copy.total, uiLocale]);
 
   const datasetLabel = {
     generation: copy.optGeneration,
@@ -488,6 +512,7 @@ export default function LiveEnergyDashboard() {
   const exportCsv = () => {
     if (displayRows.length === 0) return;
     const safeLang = language === "en" || language === "ru" ? language : "tr";
+    const exportLocale = getIntlLocale(safeLang);
     const labelFor = (label: { tr: string; en: string; ru: string } | string) =>
       typeof label === "string" ? label : label[safeLang] || label.tr;
     const getColumnMap = () => {
@@ -523,7 +548,7 @@ export default function LiveEnergyDashboard() {
     const recordCountLabel = safeLang === "en" ? "Records" : safeLang === "ru" ? "Записей" : "Kayıt Sayısı";
 
     const now = new Date();
-    const generatedAt = now.toLocaleString(safeLang === "en" ? "en-GB" : safeLang === "ru" ? "ru-RU" : "tr-TR", {
+    const generatedAt = now.toLocaleString(exportLocale, {
       day: "2-digit", month: "2-digit", year: "numeric", hour: "2-digit", minute: "2-digit",
     });
 
@@ -539,7 +564,7 @@ export default function LiveEnergyDashboard() {
       pad("═══════════════════════════════════════════"),
       pad("STR ENERGY — www.str.energy"),
       pad(`${reportTitleLabel}: ${reportLabel}`),
-      pad(`${dateRangeLabel}: ${displayDate(startDate)} — ${displayDate(endDate)}`),
+      pad(`${dateRangeLabel}: ${displayDate(startDate, exportLocale)} — ${displayDate(endDate, exportLocale)}`),
       pad(`${sourceLabel}: EPİAŞ / EXIST`),
       pad(`${generatedLabel}: ${generatedAt}`),
       pad(`${recordCountLabel}: ${displayRows.length}`),
@@ -710,7 +735,7 @@ export default function LiveEnergyDashboard() {
                     className={`inline-flex items-center gap-2 rounded-lg border px-3 py-2 text-sm transition focus:ring-2 focus:ring-orange-500/30 ${inputBg}`}
                   >
                     <Calendar className="h-3.5 w-3.5 opacity-50" />
-                    <span>{displayDate(startDate)}</span>
+                    <span>{displayDate(startDate, uiLocale)}</span>
                   </button>
                   <AnimatePresence>
                     {startOpen && (
@@ -724,7 +749,7 @@ export default function LiveEnergyDashboard() {
                           <button type="button" onClick={() => setStartView(new Date(startView.getFullYear(), startView.getMonth() - 1, 1))} className={`h-7 w-7 rounded-full flex items-center justify-center ${isDark ? "hover:bg-zinc-800 text-zinc-300" : "hover:bg-zinc-100 text-zinc-600"}`}>
                             <ChevronLeft className="h-4 w-4" />
                           </button>
-                          <span className={`text-sm font-semibold ${headingColor}`}>{monthLabel(startView)}</span>
+                          <span className={`text-sm font-semibold ${headingColor}`}>{monthLabel(startView, uiLocale)}</span>
                           <button type="button" onClick={() => setStartView(new Date(startView.getFullYear(), startView.getMonth() + 1, 1))} className={`h-7 w-7 rounded-full flex items-center justify-center ${isDark ? "hover:bg-zinc-800 text-zinc-300" : "hover:bg-zinc-100 text-zinc-600"}`}>
                             <ChevronRight className="h-4 w-4" />
                           </button>
@@ -760,7 +785,7 @@ export default function LiveEnergyDashboard() {
                     className={`inline-flex items-center gap-2 rounded-lg border px-3 py-2 text-sm transition focus:ring-2 focus:ring-orange-500/30 ${inputBg}`}
                   >
                     <Calendar className="h-3.5 w-3.5 opacity-50" />
-                    <span>{displayDate(endDate)}</span>
+                    <span>{displayDate(endDate, uiLocale)}</span>
                   </button>
                   <AnimatePresence>
                     {endOpen && (
@@ -774,7 +799,7 @@ export default function LiveEnergyDashboard() {
                           <button type="button" onClick={() => setEndView(new Date(endView.getFullYear(), endView.getMonth() - 1, 1))} className={`h-7 w-7 rounded-full flex items-center justify-center ${isDark ? "hover:bg-zinc-800 text-zinc-300" : "hover:bg-zinc-100 text-zinc-600"}`}>
                             <ChevronLeft className="h-4 w-4" />
                           </button>
-                          <span className={`text-sm font-semibold ${headingColor}`}>{monthLabel(endView)}</span>
+                          <span className={`text-sm font-semibold ${headingColor}`}>{monthLabel(endView, uiLocale)}</span>
                           <button type="button" onClick={() => setEndView(new Date(endView.getFullYear(), endView.getMonth() + 1, 1))} className={`h-7 w-7 rounded-full flex items-center justify-center ${isDark ? "hover:bg-zinc-800 text-zinc-300" : "hover:bg-zinc-100 text-zinc-600"}`}>
                             <ChevronRight className="h-4 w-4" />
                           </button>
@@ -840,7 +865,7 @@ export default function LiveEnergyDashboard() {
             {[
               { icon: Database, label: copy.records, value: String(displayRows.length) },
               { icon: BarChart3, label: copy.columns, value: String(displayColumns.length) },
-              { icon: Clock, label: copy.range, value: `${displayDate(startDate)} – ${displayDate(endDate)}` },
+              { icon: Clock, label: copy.range, value: `${displayDate(startDate, uiLocale)} – ${displayDate(endDate, uiLocale)}` },
               { icon: TrendingUp, label: copy.dataset, value: datasetLabel },
             ].map((kpi) => (
               <div key={kpi.label} className={`flex items-center gap-3 px-5 py-3.5 ${isDark ? "bg-zinc-900/80" : "bg-white"}`}>
@@ -1043,3 +1068,5 @@ export default function LiveEnergyDashboard() {
     </section>
   );
 }
+
+
