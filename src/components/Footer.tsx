@@ -29,6 +29,7 @@ const products = [
 const company = [
   { key: "nav.about", href: "/about" },
   { key: "nav.news", href: "/news" },
+  { key: "nav.testimonials", href: "/testimonials" },
   { key: "nav.privacy", href: "/privacy" },
 ];
 

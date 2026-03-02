@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, ChevronDown, Sun, Moon, Phone, Zap, BarChart3, TrendingUp, Shield, Gauge, Cloud, Users, Lock, HelpCircle, Mail, Sparkles } from "lucide-react";
+import { Menu, X, ChevronDown, Sun, Moon, Phone, Zap, BarChart3, TrendingUp, Shield, Gauge, Cloud, Users, Lock, HelpCircle, Mail, Sparkles, Star } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
 import { useTheme } from "@/context/ThemeContext";
 import { getLocaleFromPathname, prefixHrefWithLocale, replaceLocaleInPath, supportedLocales, type SupportedLocale } from "@/lib/locale";
@@ -22,6 +22,7 @@ const products = [
 const companyLinks = [
   { key: "nav.about", icon: Users, href: "/about" },
   { key: "nav.news", icon: Sparkles, href: "/news" },
+  { key: "nav.testimonials", icon: Star, href: "/testimonials" },
   { key: "nav.privacy", icon: Lock, href: "/privacy" },
   { key: "nav.help", icon: HelpCircle, href: "/help" },
   { key: "nav.contacts", icon: Mail, href: "/contacts" },
