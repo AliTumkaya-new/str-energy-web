@@ -70,7 +70,7 @@ export default function TestimonialsSection() {
           animation-play-state: paused;
         }
       `}</style>
-      <div className="container relative z-10 w-full mb-20 md:mb-24">
+      <div className="container relative z-[15] w-full mb-32 md:mb-48">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -78,10 +78,10 @@ export default function TestimonialsSection() {
           viewport={{ once: true }}
           className="text-center"
         >
-          <h2 className={`text-3xl md:text-4xl font-bold mb-6 ${isDark ? "text-white" : "text-zinc-900"}`}>
+          <h2 className={`text-3xl md:text-5xl font-bold mb-6 ${isDark ? "text-white" : "text-zinc-900"}`}>
             {t("testimonials.title")}
           </h2>
-          <p className={`${isDark ? "text-gray-500" : "text-zinc-600"} max-w-2xl mx-auto`}>
+          <p className={`text-lg md:text-xl ${isDark ? "text-gray-400" : "text-zinc-500"} max-w-2xl mx-auto`}>
             {t("testimonials.subtitle")}
           </p>
         </motion.div>
