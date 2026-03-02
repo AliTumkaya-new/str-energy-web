@@ -57,7 +57,7 @@ export default function TestimonialsSection() {
   const loopedTestimonials = [...testimonials, ...testimonials];
 
   return (
-    <section id="testimonials" className={`py-20 mt-12 md:mt-24 overflow-hidden ${isDark ? "bg-zinc-950" : "bg-zinc-50"}`}>
+    <section id="testimonials" className={`py-12 mt-12 md:mt-24 overflow-hidden ${isDark ? "bg-zinc-950" : "bg-zinc-50"}`}>
       <style>{`
         @keyframes marquee {
           0% { transform: translateX(0%); }
@@ -70,7 +70,7 @@ export default function TestimonialsSection() {
           animation-play-state: paused;
         }
       `}</style>
-      <div className="container relative z-10 w-full mb-12">
+      <div className="container relative z-10 w-full mb-20 md:mb-24">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -78,7 +78,7 @@ export default function TestimonialsSection() {
           viewport={{ once: true }}
           className="text-center"
         >
-          <h2 className={`text-3xl md:text-4xl font-bold mb-4 ${isDark ? "text-white" : "text-zinc-900"}`}>
+          <h2 className={`text-3xl md:text-4xl font-bold mb-6 ${isDark ? "text-white" : "text-zinc-900"}`}>
             {t("testimonials.title")}
           </h2>
           <p className={`${isDark ? "text-gray-500" : "text-zinc-600"} max-w-2xl mx-auto`}>
@@ -87,7 +87,7 @@ export default function TestimonialsSection() {
         </motion.div>
       </div>
 
-      <div className="relative flex w-full overflow-hidden">
+      <div className="relative flex w-full overflow-hidden pb-12">
         {/* Fading Edges */}
         <div className={`absolute left-0 top-0 bottom-0 w-16 md:w-32 z-10 pointer-events-none bg-gradient-to-r ${isDark ? "from-zinc-950 to-transparent" : "from-zinc-50 to-transparent"}`} />
         <div className={`absolute right-0 top-0 bottom-0 w-16 md:w-32 z-10 pointer-events-none bg-gradient-to-l ${isDark ? "from-zinc-950 to-transparent" : "from-zinc-50 to-transparent"}`} />
