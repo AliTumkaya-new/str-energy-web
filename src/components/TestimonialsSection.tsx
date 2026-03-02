@@ -57,7 +57,7 @@ export default function TestimonialsSection() {
   const loopedTestimonials = [...testimonials, ...testimonials];
 
   return (
-    <section id="testimonials" className={`py-20 overflow-hidden ${isDark ? "bg-zinc-950" : "bg-zinc-50"}`}>
+    <section id="testimonials" className={`py-20 mt-12 md:mt-24 overflow-hidden ${isDark ? "bg-zinc-950" : "bg-zinc-50"}`}>
       <style>{`
         @keyframes marquee {
           0% { transform: translateX(0%); }

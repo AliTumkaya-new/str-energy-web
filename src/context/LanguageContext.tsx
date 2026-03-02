@@ -171,7 +171,7 @@ const translations: Translations = {
 
   // Testimonials
   "testimonials.title": { tr: "Müşterilerimiz ne diyor", en: "What our clients say", ru: "Что говорят наши клиенты" },
-  "testimonials.subtitle": { tr: "Binlerce şirket STR Enerji'ye güveniyor", en: "Thousands of companies trust STR Energy with their business", ru: "Тысячи компаний доверяют STR Energy" },
+  "testimonials.subtitle": { tr: "Şirketler STR Enerji'ye güveniyor", en: "Companies trust STR Energy with their business", ru: "Компании доверяют STR Energy" },
 
   // Company pages
   "about.page.title": { tr: "STR Enerji Hakkında", en: "About STR Energy", ru: "О STR Energy" },
