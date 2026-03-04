@@ -42,7 +42,14 @@ export async function POST(request: NextRequest) {
     });
 
     if (!response.ok) {
-      console.error("[api/energy/ptf] EPIAS upstream failed", { status: response.status });
+      const errorBody = await response.text().catch(() => "");
+      console.error("[api/energy/ptf] EPIAS upstream failed", {
+        status: response.status,
+        statusText: response.statusText,
+        errorBody: errorBody.slice(0, 500),
+        endpoint,
+        payloadSent: JSON.stringify(payload),
+      });
       return NextResponse.json({ error: "Upstream service error" }, { status: 502 });
     }
 
