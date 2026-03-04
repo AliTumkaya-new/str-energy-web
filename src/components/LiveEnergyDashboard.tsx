@@ -55,6 +55,13 @@ const copyByLang = {
     page: "Sayfa",
     recordsFound: "adet kayıt bulundu",
     of: "/",
+    country: "Ülke",
+    euDayAhead: "Gün Öncesi Fiyatları",
+    euGeneration: "Üretim (Kaynak Bazlı)",
+    euLoad: "Tüketim / Yük",
+    euCrossBorder: "Sınır Ötesi Akışlar",
+    fromCountry: "Kaynak Ülke",
+    toCountry: "Hedef Ülke",
   },
   en: {
     headline: "Live Energy Data",
@@ -90,6 +97,13 @@ const copyByLang = {
     page: "Page",
     recordsFound: "records found",
     of: "of",
+    country: "Country",
+    euDayAhead: "Day-Ahead Prices",
+    euGeneration: "Generation by Source",
+    euLoad: "Consumption / Load",
+    euCrossBorder: "Cross-Border Flows",
+    fromCountry: "From",
+    toCountry: "To",
   },
   ru: {
     headline: "Данные в реальном времени",
@@ -125,6 +139,13 @@ const copyByLang = {
     page: "Страница",
     recordsFound: "записей найдено",
     of: "из",
+    country: "Страна",
+    euDayAhead: "Цены на сутки вперёд",
+    euGeneration: "Генерация по типам",
+    euLoad: "Потребление / Нагрузка",
+    euCrossBorder: "Трансграничные потоки",
+    fromCountry: "Откуда",
+    toCountry: "Куда",
   },
 } as const;
 
@@ -181,7 +202,122 @@ const yekdemOrder = Object.keys(yekdemMap);
 
 const generationOrder = Object.keys(generationMap);
 
+/* ─────────────── EU column maps ─────────────── */
+const euDayAheadMap: Record<string, { label: { tr: string; en: string; ru: string }; aliases: string[] }> = {
+  date: { label: { tr: "Tarih", en: "Date", ru: "Дата" }, aliases: ["date"] },
+  hour: { label: { tr: "Saat", en: "Hour", ru: "Час" }, aliases: ["hour"] },
+  price: { label: { tr: "Fiyat (EUR/MWh)", en: "Price (EUR/MWh)", ru: "Цена (EUR/MWh)" }, aliases: ["price"] },
+  currency: { label: { tr: "Para Birimi", en: "Currency", ru: "Валюта" }, aliases: ["currency"] },
+};
+
+const euLoadMap: Record<string, { label: { tr: string; en: string; ru: string }; aliases: string[] }> = {
+  date: { label: { tr: "Tarih", en: "Date", ru: "Дата" }, aliases: ["date"] },
+  hour: { label: { tr: "Saat", en: "Hour", ru: "Час" }, aliases: ["hour"] },
+  load: { label: { tr: "Yük (MW)", en: "Load (MW)", ru: "Нагрузка (MW)" }, aliases: ["load"] },
+};
+
+const euCrossBorderMap: Record<string, { label: { tr: string; en: string; ru: string }; aliases: string[] }> = {
+  date: { label: { tr: "Tarih", en: "Date", ru: "Дата" }, aliases: ["date"] },
+  hour: { label: { tr: "Saat", en: "Hour", ru: "Час" }, aliases: ["hour"] },
+  flow: { label: { tr: "Akış (MW)", en: "Flow (MW)", ru: "Поток (MW)" }, aliases: ["flow"] },
+  from: { label: { tr: "Kaynak", en: "From", ru: "Откуда" }, aliases: ["from"] },
+  to: { label: { tr: "Hedef", en: "To", ru: "Куда" }, aliases: ["to"] },
+};
+
+/* ─── EU generation type labels (ENTSO-E B-codes) ─── */
+const euGenTypeLabels: Record<string, { tr: string; en: string; ru: string }> = {
+  B01: { tr: "Biyokütle", en: "Biomass", ru: "Биомасса" },
+  B02: { tr: "Linyit", en: "Brown Coal", ru: "Бурый уголь" },
+  B03: { tr: "Kömür Gazı", en: "Coal Gas", ru: "Угольный газ" },
+  B04: { tr: "Doğal Gaz", en: "Natural Gas", ru: "Природный газ" },
+  B05: { tr: "Taş Kömür", en: "Hard Coal", ru: "Каменный уголь" },
+  B06: { tr: "Fuel Oil", en: "Fossil Oil", ru: "Мазут" },
+  B09: { tr: "Jeotermal", en: "Geothermal", ru: "Геотермальная" },
+  B10: { tr: "Pompalı Hidro", en: "Pumped Storage", ru: "ГАЭС" },
+  B11: { tr: "Akarsu", en: "Run-of-River", ru: "Русловая ГЭС" },
+  B12: { tr: "Barajlı Hidro", en: "Hydro Reservoir", ru: "Плотинная ГЭС" },
+  B14: { tr: "Nükleer", en: "Nuclear", ru: "Атомная" },
+  B15: { tr: "Diğer Yenilenebilir", en: "Other Renewable", ru: "Другие ВИЭ" },
+  B16: { tr: "Güneş", en: "Solar", ru: "Солнечная" },
+  B17: { tr: "Atık", en: "Waste", ru: "Отходы" },
+  B18: { tr: "Rüzgar (Kara)", en: "Wind Onshore", ru: "Ветер (суша)" },
+  B19: { tr: "Rüzgar (Deniz)", en: "Wind Offshore", ru: "Ветер (море)" },
+  B20: { tr: "Diğer", en: "Other", ru: "Другое" },
+};
+
+/* ─── EU countries list ─── */
+const EU_COUNTRIES = [
+  { code: "DE", flag: "/flags/de.svg" },
+  { code: "FR", flag: "/flags/fr.svg" },
+  { code: "ES", flag: "/flags/es.svg" },
+  { code: "IT", flag: "/flags/it.svg" },
+  { code: "NL", flag: "/flags/nl.svg" },
+  { code: "BE", flag: "/flags/be.svg" },
+  { code: "AT", flag: "/flags/at.svg" },
+  { code: "PL", flag: "/flags/pl.svg" },
+  { code: "PT", flag: "/flags/pt.svg" },
+  { code: "CH", flag: "/flags/ch.svg" },
+  { code: "CZ", flag: "/flags/cz.svg" },
+  { code: "DK", flag: "/flags/dk.svg" },
+  { code: "SE", flag: "/flags/se.svg" },
+  { code: "NO", flag: "/flags/no.svg" },
+  { code: "FI", flag: "/flags/fi.svg" },
+  { code: "GR", flag: "/flags/gr.svg" },
+  { code: "RO", flag: "/flags/ro.svg" },
+  { code: "BG", flag: "/flags/bg.svg" },
+  { code: "HU", flag: "/flags/hu.svg" },
+  { code: "HR", flag: "/flags/hr.svg" },
+  { code: "SK", flag: "/flags/sk.svg" },
+  { code: "SI", flag: "/flags/si.svg" },
+  { code: "IE", flag: "/flags/ie.svg" },
+  { code: "LT", flag: "/flags/lt.svg" },
+  { code: "LV", flag: "/flags/lv.svg" },
+  { code: "EE", flag: "/flags/ee.svg" },
+  { code: "RS", flag: "/flags/rs.svg" },
+  { code: "BA", flag: "/flags/ba.svg" },
+  { code: "MK", flag: "/flags/mk.svg" },
+  { code: "ME", flag: "/flags/me.svg" },
+  { code: "AL", flag: "/flags/al.svg" },
+  { code: "LU", flag: "/flags/lu.svg" },
+] as const;
+
+const EU_COUNTRY_LABELS: Record<string, { tr: string; en: string; ru: string }> = {
+  DE: { tr: "Almanya", en: "Germany", ru: "Германия" },
+  FR: { tr: "Fransa", en: "France", ru: "Франция" },
+  ES: { tr: "İspanya", en: "Spain", ru: "Испания" },
+  IT: { tr: "İtalya", en: "Italy", ru: "Италия" },
+  NL: { tr: "Hollanda", en: "Netherlands", ru: "Нидерланды" },
+  BE: { tr: "Belçika", en: "Belgium", ru: "Бельгия" },
+  AT: { tr: "Avusturya", en: "Austria", ru: "Австрия" },
+  PL: { tr: "Polonya", en: "Poland", ru: "Польша" },
+  PT: { tr: "Portekiz", en: "Portugal", ru: "Португалия" },
+  CH: { tr: "İsviçre", en: "Switzerland", ru: "Швейцария" },
+  CZ: { tr: "Çekya", en: "Czech Republic", ru: "Чехия" },
+  DK: { tr: "Danimarka", en: "Denmark", ru: "Дания" },
+  SE: { tr: "İsveç", en: "Sweden", ru: "Швеция" },
+  NO: { tr: "Norveç", en: "Norway", ru: "Норвегия" },
+  FI: { tr: "Finlandiya", en: "Finland", ru: "Финляндия" },
+  GR: { tr: "Yunanistan", en: "Greece", ru: "Греция" },
+  RO: { tr: "Romanya", en: "Romania", ru: "Румыния" },
+  BG: { tr: "Bulgaristan", en: "Bulgaria", ru: "Болгария" },
+  HU: { tr: "Macaristan", en: "Hungary", ru: "Венгрия" },
+  HR: { tr: "Hırvatistan", en: "Croatia", ru: "Хорватия" },
+  SK: { tr: "Slovakya", en: "Slovakia", ru: "Словакия" },
+  SI: { tr: "Slovenya", en: "Slovenia", ru: "Словения" },
+  IE: { tr: "İrlanda", en: "Ireland", ru: "Ирландия" },
+  LT: { tr: "Litvanya", en: "Lithuania", ru: "Литва" },
+  LV: { tr: "Letonya", en: "Latvia", ru: "Латвия" },
+  EE: { tr: "Estonya", en: "Estonia", ru: "Эстония" },
+  RS: { tr: "Sırbistan", en: "Serbia", ru: "Сербия" },
+  BA: { tr: "Bosna-Hersek", en: "Bosnia-Herzegovina", ru: "Босния" },
+  MK: { tr: "Kuzey Makedonya", en: "N. Macedonia", ru: "С. Македония" },
+  ME: { tr: "Karadağ", en: "Montenegro", ru: "Черногория" },
+  AL: { tr: "Arnavutluk", en: "Albania", ru: "Албания" },
+  LU: { tr: "Lüksemburg", en: "Luxembourg", ru: "Люксембург" },
+};
+
 type DatasetKey = "generation" | "yekdem-unit-cost" | "ptf" | "load-plan" | "weighted-avg";
+type EuDatasetKey = "eu-day-ahead" | "eu-generation" | "eu-load" | "eu-cross-border";
 type RegionKey = "tr" | "eu" | "global";
 
 const localeByLanguage = {
@@ -314,8 +450,14 @@ export default function LiveEnergyDashboard() {
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(24);
 
+  /* EU-specific state */
+  const [euDataset, setEuDataset] = useState<EuDatasetKey>("eu-day-ahead");
+  const [euCountry, setEuCountry] = useState("DE");
+  const [euFromCountry, setEuFromCountry] = useState("DE");
+  const [euToCountry, setEuToCountry] = useState("FR");
 
-  useEffect(() => { setRows([]); setError(""); setCurrentPage(1); }, [dataset]);
+
+  useEffect(() => { setRows([]); setError(""); setCurrentPage(1); }, [dataset, euDataset, region]);
 
   /* close calendars on outside click */
   useEffect(() => {
@@ -330,30 +472,61 @@ export default function LiveEnergyDashboard() {
 
   /* data fetch */
   const fetchData = useCallback(async () => {
-    if (region !== "tr") return;
+    if (region === "global") return;
     setIsLoading(true);
     setError("");
     try {
-      const start = `${startDate}T00:00:00+03:00`;
-      const end = `${endDate}T23:59:59+03:00`;
-      const endpointMap: Record<DatasetKey, string> = {
-        generation: "/api/energy/realtime-generation",
-        "yekdem-unit-cost": "/api/energy/yekdem-unit-cost",
-        ptf: "/api/energy/ptf",
-        "load-plan": "/api/energy/load-estimation-plan",
-        "weighted-avg": "/api/energy/weighted-average-price",
-      };
-      const response = await fetch(endpointMap[dataset], {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ startDate: start, endDate: end }),
-        cache: "no-store",
-      });
-      if (!response.ok) throw new Error("request failed");
-      const data = await response.json();
-      setRows(Array.isArray(data?.items) ? data.items : []);
-      if (data?.notice && (!data.items || data.items.length === 0)) {
-        setError(data.notice);
+      if (region === "tr") {
+        const start = `${startDate}T00:00:00+03:00`;
+        const end = `${endDate}T23:59:59+03:00`;
+        const endpointMap: Record<DatasetKey, string> = {
+          generation: "/api/energy/realtime-generation",
+          "yekdem-unit-cost": "/api/energy/yekdem-unit-cost",
+          ptf: "/api/energy/ptf",
+          "load-plan": "/api/energy/load-estimation-plan",
+          "weighted-avg": "/api/energy/weighted-average-price",
+        };
+        const response = await fetch(endpointMap[dataset], {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ startDate: start, endDate: end }),
+          cache: "no-store",
+        });
+        if (!response.ok) throw new Error("request failed");
+        const data = await response.json();
+        setRows(Array.isArray(data?.items) ? data.items : []);
+        if (data?.notice && (!data.items || data.items.length === 0)) {
+          setError(data.notice);
+        }
+      } else if (region === "eu") {
+        const euEndpointMap: Record<EuDatasetKey, string> = {
+          "eu-day-ahead": "/api/entsoe/day-ahead-prices",
+          "eu-generation": "/api/entsoe/generation",
+          "eu-load": "/api/entsoe/load",
+          "eu-cross-border": "/api/entsoe/cross-border",
+        };
+        const payload: Record<string, string> = {
+          startDate,
+          endDate,
+        };
+        if (euDataset === "eu-cross-border") {
+          payload.from = euFromCountry;
+          payload.to = euToCountry;
+        } else {
+          payload.country = euCountry;
+        }
+        const response = await fetch(euEndpointMap[euDataset], {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+          cache: "no-store",
+        });
+        if (!response.ok) throw new Error("request failed");
+        const data = await response.json();
+        setRows(Array.isArray(data?.items) ? data.items : []);
+        if (data?.notice && (!data.items || data.items.length === 0)) {
+          setError(data.notice);
+        }
       }
       setLastFetchTime(new Date().toLocaleTimeString(uiLocale, { hour: "2-digit", minute: "2-digit" }));
     } catch {
@@ -362,7 +535,11 @@ export default function LiveEnergyDashboard() {
     } finally {
       setIsLoading(false);
     }
-  }, [region, dataset, startDate, endDate, copy.errorMsg, uiLocale]);
+  }, [region, dataset, euDataset, euCountry, euFromCountry, euToCountry, startDate, endDate, copy.errorMsg, uiLocale]);
+
+  const safeLang = language === "en" || language === "ru" ? language : "tr";
+  const labelFor = (label: { tr: string; en: string; ru: string } | string) =>
+    typeof label === "string" ? label : label[safeLang] || label.tr;
 
   /* computed columns + rows */
   const columns = useMemo(() => {
@@ -382,15 +559,81 @@ export default function LiveEnergyDashboard() {
   useEffect(() => { setCurrentPage(1); }, [search]);
 
   const displayColumns = useMemo(() => {
+    if (region === "eu") {
+      if (euDataset === "eu-day-ahead") return ["date", "hour", "price", "currency"];
+      if (euDataset === "eu-load") return ["date", "hour", "load"];
+      if (euDataset === "eu-cross-border") return ["date", "hour", "flow", "from", "to"];
+      if (euDataset === "eu-generation") {
+        // Dynamic columns based on actual data (B-codes)
+        if (rows.length === 0) return ["date", "hour", "total"];
+        const sample = rows[0] as Record<string, unknown>;
+        const bCodes = Object.keys(sample).filter((k) => k.startsWith("B")).sort();
+        return ["date", "hour", "total", ...bCodes];
+      }
+    }
     if (dataset === "generation") return generationOrder;
     if (dataset === "ptf") return ["date", "hour", "price"];
     if (dataset === "load-plan") return ["date", "hour", "lep"];
     if (dataset === "weighted-avg") return ["date", "hour", "price"];
     if (dataset === "yekdem-unit-cost") return yekdemOrder;
     return columns;
-  }, [dataset, columns]);
+  }, [region, dataset, euDataset, columns, rows]);
 
   const displayRows: Record<string, unknown>[] = useMemo(() => {
+    /* ── EU datasets ── */
+    if (region === "eu") {
+      if (euDataset === "eu-day-ahead") {
+        return filteredRows.map((row) => {
+          const s = row as Record<string, unknown>;
+          return {
+            date: formatDateLabel(String(s.date || "")),
+            hour: String(s.hour || ""),
+            price: formatNumber(s.price ?? 0, uiLocale),
+            currency: String(s.currency || "EUR"),
+          };
+        });
+      }
+      if (euDataset === "eu-load") {
+        return filteredRows.map((row) => {
+          const s = row as Record<string, unknown>;
+          return {
+            date: formatDateLabel(String(s.date || "")),
+            hour: String(s.hour || ""),
+            load: formatNumber(s.load ?? 0, uiLocale),
+          };
+        });
+      }
+      if (euDataset === "eu-cross-border") {
+        return filteredRows.map((row) => {
+          const s = row as Record<string, unknown>;
+          const fl = safeLang as "tr" | "en" | "ru";
+          return {
+            date: formatDateLabel(String(s.date || "")),
+            hour: String(s.hour || ""),
+            flow: formatNumber(s.flow ?? 0, uiLocale),
+            from: EU_COUNTRY_LABELS[String(s.from)]?.[fl] || String(s.from || ""),
+            to: EU_COUNTRY_LABELS[String(s.to)]?.[fl] || String(s.to || ""),
+          };
+        });
+      }
+      if (euDataset === "eu-generation") {
+        return filteredRows.map((row) => {
+          const s = row as Record<string, unknown>;
+          const mapped: Record<string, unknown> = {
+            date: formatDateLabel(String(s.date || "")),
+            hour: String(s.hour || ""),
+            total: formatNumber(s.total ?? 0, uiLocale),
+          };
+          Object.keys(s).filter((k) => k.startsWith("B")).forEach((bCode) => {
+            mapped[bCode] = formatNumber(s[bCode] ?? 0, uiLocale);
+          });
+          return mapped;
+        });
+      }
+      return filteredRows;
+    }
+
+    /* ── TR datasets ── */
     if (dataset === "generation") {
       return filteredRows.map((row) => {
         const source = row as Record<string, unknown>;
@@ -466,11 +709,29 @@ export default function LiveEnergyDashboard() {
       });
     }
     return filteredRows;
-  }, [dataset, filteredRows, uiLocale]);
+  }, [region, dataset, euDataset, filteredRows, uiLocale, safeLang]);
 
 
   const columnIsNumeric = useMemo(() => {
     const result: Record<string, boolean> = {};
+    if (region === "eu") {
+      if (euDataset === "eu-day-ahead") {
+        displayColumns.forEach((col) => { result[col] = col === "price"; });
+        return result;
+      }
+      if (euDataset === "eu-load") {
+        displayColumns.forEach((col) => { result[col] = col === "load"; });
+        return result;
+      }
+      if (euDataset === "eu-cross-border") {
+        displayColumns.forEach((col) => { result[col] = col === "flow"; });
+        return result;
+      }
+      if (euDataset === "eu-generation") {
+        displayColumns.forEach((col) => { result[col] = col !== "date" && col !== "hour"; });
+        return result;
+      }
+    }
     if (dataset === "generation") {
       displayColumns.forEach((col) => { result[col] = col !== "date" && col !== "hour"; });
       return result;
@@ -499,7 +760,7 @@ export default function LiveEnergyDashboard() {
       result[col] = false;
     });
     return result;
-  }, [dataset, displayRows, displayColumns]);
+  }, [region, dataset, euDataset, displayRows, displayColumns]);
 
   const totalRow = useMemo(() => {
     if (displayRows.length === 0) return null;
@@ -535,13 +796,20 @@ export default function LiveEnergyDashboard() {
   /* Reset page on new data */
   useEffect(() => { setCurrentPage(1); }, [displayRows.length]);
 
-  const datasetLabel = {
-    generation: copy.optGeneration,
-    "yekdem-unit-cost": copy.optYekdem,
-    ptf: copy.optPtf,
-    "load-plan": copy.optLoadPlan,
-    "weighted-avg": copy.optWeightedAvg,
-  }[dataset];
+  const datasetLabel = region === "eu"
+    ? {
+        "eu-day-ahead": copy.euDayAhead,
+        "eu-generation": copy.euGeneration,
+        "eu-load": copy.euLoad,
+        "eu-cross-border": copy.euCrossBorder,
+      }[euDataset]
+    : {
+        generation: copy.optGeneration,
+        "yekdem-unit-cost": copy.optYekdem,
+        ptf: copy.optPtf,
+        "load-plan": copy.optLoadPlan,
+        "weighted-avg": copy.optWeightedAvg,
+      }[dataset];
 
   /* CSV export — professional, Excel-compatible */
   const exportCsv = () => {
@@ -551,6 +819,7 @@ export default function LiveEnergyDashboard() {
     const labelFor = (label: { tr: string; en: string; ru: string } | string) =>
       typeof label === "string" ? label : label[safeLang] || label.tr;
     const getColumnMap = () => {
+      if (region === "eu") return getMapForDataset();
       if (dataset === "generation") return generationMap;
       if (dataset === "ptf") return ptfMap;
       if (dataset === "load-plan") return loadPlanMap;
@@ -573,9 +842,14 @@ export default function LiveEnergyDashboard() {
       "yekdem-unit-cost": { tr: "YEKDEM Birim Maliyet", en: "YEKDEM Unit Cost", ru: "YEKDEM стоимость" },
       "load-plan": { tr: "Yük Tahmin Planı", en: "Load Estimation Plan", ru: "План нагрузки" },
       "weighted-avg": { tr: "GİP Ağırlıklı Ortalama", en: "Weighted Average Price", ru: "Средневзвешенная цена" },
+      "eu-day-ahead": { tr: "Gün Öncesi Fiyatları", en: "Day-Ahead Prices", ru: "Цены на сутки вперёд" },
+      "eu-generation": { tr: "Üretim (Kaynak Bazlı)", en: "Generation by Source", ru: "Генерация по типам" },
+      "eu-load": { tr: "Tüketim / Yük", en: "Consumption / Load", ru: "Потребление / Нагрузка" },
+      "eu-cross-border": { tr: "Sınır Ötesi Akışlar", en: "Cross-Border Flows", ru: "Трансграничные потоки" },
     };
 
-    const reportLabel = datasetLabels[dataset]?.[safeLang] || dataset;
+    const activeKey = region === "eu" ? euDataset : dataset;
+    const reportLabel = datasetLabels[activeKey]?.[safeLang] || activeKey;
     const dateRangeLabel = safeLang === "en" ? "Date Range" : safeLang === "ru" ? "Период" : "Tarih Aralığı";
     const reportTitleLabel = safeLang === "en" ? "Report" : safeLang === "ru" ? "Отчёт" : "Rapor";
     const sourceLabel = safeLang === "en" ? "Source" : safeLang === "ru" ? "Источник" : "Kaynak";
@@ -600,7 +874,7 @@ export default function LiveEnergyDashboard() {
       pad("STR ENERGY — www.str.energy"),
       pad(`${reportTitleLabel}: ${reportLabel}`),
       pad(`${dateRangeLabel}: ${displayDate(startDate, exportLocale)} — ${displayDate(endDate, exportLocale)}`),
-      pad(`${sourceLabel}: EPİAŞ / EXIST`),
+      pad(`${sourceLabel}: ${region === "eu" ? "ENTSO-E Transparency Platform" : "EPİAŞ / EXIST"}`),
       pad(`${generatedLabel}: ${generatedAt}`),
       pad(`${recordCountLabel}: ${displayRows.length}`),
       pad("═══════════════════════════════════════════"),
@@ -618,8 +892,12 @@ export default function LiveEnergyDashboard() {
     const datasetNames: Record<string, string> = {
       generation: "uretim", ptf: "ptf", "yekdem-unit-cost": "yekdem",
       "load-plan": "yuk-tahmin", "weighted-avg": "gip-aof",
+      "eu-day-ahead": "eu-day-ahead", "eu-generation": "eu-generation",
+      "eu-load": "eu-load", "eu-cross-border": "eu-cross-border",
     };
-    const fileName = `STR-Energy_${datasetNames[dataset] || dataset}_${startDate}_${endDate}.csv`;
+    const fileKey = region === "eu" ? euDataset : dataset;
+    const countryTag = region === "eu" ? `_${euDataset === "eu-cross-border" ? `${euFromCountry}-${euToCountry}` : euCountry}` : "";
+    const fileName = `STR-Energy_${datasetNames[fileKey] || fileKey}${countryTag}_${startDate}_${endDate}.csv`;
 
     /* Use data URI for reliable download with correct filename */
     const encodedCsv = encodeURIComponent(csvContent);
@@ -633,10 +911,26 @@ export default function LiveEnergyDashboard() {
     document.body.removeChild(link);
   };
 
-  const safeLang = language === "en" || language === "ru" ? language : "tr";
-  const labelFor = (label: { tr: string; en: string; ru: string } | string) =>
-    typeof label === "string" ? label : label[safeLang] || label.tr;
   const getMapForDataset = () => {
+    if (region === "eu") {
+      if (euDataset === "eu-day-ahead") return euDayAheadMap;
+      if (euDataset === "eu-load") return euLoadMap;
+      if (euDataset === "eu-cross-border") return euCrossBorderMap;
+      if (euDataset === "eu-generation") {
+        // Build dynamic map from B-codes
+        const dynMap: Record<string, { label: { tr: string; en: string; ru: string }; aliases: string[] }> = {
+          date: { label: { tr: "Tarih", en: "Date", ru: "Дата" }, aliases: ["date"] },
+          hour: { label: { tr: "Saat", en: "Hour", ru: "Час" }, aliases: ["hour"] },
+          total: { label: { tr: "Toplam (MW)", en: "Total (MW)", ru: "Итого (MW)" }, aliases: ["total"] },
+        };
+        displayColumns.filter((c) => c.startsWith("B")).forEach((bCode) => {
+          const lbl = euGenTypeLabels[bCode] || { tr: bCode, en: bCode, ru: bCode };
+          dynMap[bCode] = { label: lbl, aliases: [bCode] };
+        });
+        return dynMap;
+      }
+      return {} as Record<string, { label: { tr: string; en: string; ru: string }; aliases: string[] }>;
+    }
     if (dataset === "generation") return generationMap;
     if (dataset === "ptf") return ptfMap;
     if (dataset === "load-plan") return loadPlanMap;
@@ -658,7 +952,7 @@ export default function LiveEnergyDashboard() {
   /* region tabs */
   const regions: { key: RegionKey; label: string; flag: string; active: boolean }[] = [
     { key: "tr", label: copy.regionTR, flag: "/flags/tr.svg", active: true },
-    { key: "eu", label: copy.regionEU, flag: "/flags/eu.svg", active: false },
+    { key: "eu", label: copy.regionEU, flag: "/flags/eu.svg", active: true },
     { key: "global", label: copy.regionGlobal, flag: "/flags/global.svg", active: false },
   ];
 
@@ -748,16 +1042,91 @@ export default function LiveEnergyDashboard() {
                   <label className={`text-[11px] font-semibold uppercase tracking-wider ${subtextColor}`}>
                     {copy.dataset}
                   </label>
-                  <select
-                    value={dataset}
-                    onChange={(e) => setDataset(e.target.value as DatasetKey)}
-                    className={`rounded-lg border px-3 py-2 text-sm outline-none transition focus:ring-2 focus:ring-orange-500/30 ${inputBg}`}
-                  >
-                    {datasetOptions.map((opt) => (
-                      <option key={opt.value} value={opt.value}>{opt.label}</option>
-                    ))}
-                  </select>
+                  {region === "tr" ? (
+                    <select
+                      value={dataset}
+                      onChange={(e) => setDataset(e.target.value as DatasetKey)}
+                      className={`rounded-lg border px-3 py-2 text-sm outline-none transition focus:ring-2 focus:ring-orange-500/30 ${inputBg}`}
+                    >
+                      {datasetOptions.map((opt) => (
+                        <option key={opt.value} value={opt.value}>{opt.label}</option>
+                      ))}
+                    </select>
+                  ) : region === "eu" ? (
+                    <select
+                      value={euDataset}
+                      onChange={(e) => setEuDataset(e.target.value as EuDatasetKey)}
+                      className={`rounded-lg border px-3 py-2 text-sm outline-none transition focus:ring-2 focus:ring-orange-500/30 ${inputBg}`}
+                    >
+                      <option value="eu-day-ahead">{copy.euDayAhead}</option>
+                      <option value="eu-generation">{copy.euGeneration}</option>
+                      <option value="eu-load">{copy.euLoad}</option>
+                      <option value="eu-cross-border">{copy.euCrossBorder}</option>
+                    </select>
+                  ) : (
+                    <select disabled className={`rounded-lg border px-3 py-2 text-sm opacity-50 ${inputBg}`}>
+                      <option>{copy.comingSoon}</option>
+                    </select>
+                  )}
                 </div>
+
+                {/* EU Country selector */}
+                {region === "eu" && euDataset !== "eu-cross-border" && (
+                  <div className="flex flex-col gap-1.5">
+                    <label className={`text-[11px] font-semibold uppercase tracking-wider ${subtextColor}`}>
+                      {copy.country}
+                    </label>
+                    <select
+                      value={euCountry}
+                      onChange={(e) => setEuCountry(e.target.value)}
+                      className={`rounded-lg border px-3 py-2 text-sm outline-none transition focus:ring-2 focus:ring-orange-500/30 ${inputBg}`}
+                    >
+                      {EU_COUNTRIES.map((c) => (
+                        <option key={c.code} value={c.code}>
+                          {EU_COUNTRY_LABELS[c.code]?.[safeLang as "tr" | "en" | "ru"] || c.code}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                )}
+
+                {/* EU Cross-border: from/to country selectors */}
+                {region === "eu" && euDataset === "eu-cross-border" && (
+                  <>
+                    <div className="flex flex-col gap-1.5">
+                      <label className={`text-[11px] font-semibold uppercase tracking-wider ${subtextColor}`}>
+                        {copy.fromCountry}
+                      </label>
+                      <select
+                        value={euFromCountry}
+                        onChange={(e) => setEuFromCountry(e.target.value)}
+                        className={`rounded-lg border px-3 py-2 text-sm outline-none transition focus:ring-2 focus:ring-orange-500/30 ${inputBg}`}
+                      >
+                        {EU_COUNTRIES.map((c) => (
+                          <option key={c.code} value={c.code}>
+                            {EU_COUNTRY_LABELS[c.code]?.[safeLang as "tr" | "en" | "ru"] || c.code}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                    <div className="flex flex-col gap-1.5">
+                      <label className={`text-[11px] font-semibold uppercase tracking-wider ${subtextColor}`}>
+                        {copy.toCountry}
+                      </label>
+                      <select
+                        value={euToCountry}
+                        onChange={(e) => setEuToCountry(e.target.value)}
+                        className={`rounded-lg border px-3 py-2 text-sm outline-none transition focus:ring-2 focus:ring-orange-500/30 ${inputBg}`}
+                      >
+                        {EU_COUNTRIES.map((c) => (
+                          <option key={c.code} value={c.code}>
+                            {EU_COUNTRY_LABELS[c.code]?.[safeLang as "tr" | "en" | "ru"] || c.code}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                  </>
+                )}
 
                 {/* Start date */}
                 <div ref={startRef} className="relative flex flex-col gap-1.5">
@@ -881,7 +1250,7 @@ export default function LiveEnergyDashboard() {
               <button
                 type="button"
                 onClick={fetchData}
-                disabled={isLoading || region !== "tr"}
+                disabled={isLoading || region === "global"}
                 className={`inline-flex items-center justify-center rounded-xl px-10 py-3 text-sm font-bold tracking-wide uppercase transition-all duration-200 ${
                   isLoading
                     ? "opacity-60 cursor-wait"
@@ -1165,7 +1534,7 @@ export default function LiveEnergyDashboard() {
             <div className={`flex flex-wrap items-center gap-3 text-[11px] ${subtextColor}`}>
               <span className="inline-flex items-center gap-1.5">
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
-                {copy.source}: <span className={`font-semibold ${headingColor}`}>EPİAŞ</span>
+                {copy.source}: <span className={`font-semibold ${headingColor}`}>{region === "eu" ? "ENTSO-E" : "EPİAŞ"}</span>
               </span>
               {lastFetchTime && (
                 <span className="inline-flex items-center gap-1.5">
