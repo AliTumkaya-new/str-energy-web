@@ -100,7 +100,9 @@ function normalizeDateTimeInput(value: string, boundary: "start" | "end"): strin
       : `${trimmed}T23:59:59+03:00`;
   }
 
-  let candidate = trimmed.replace(/([+\-]\d{2})(\d{2})$/, "$1:$2");
+  let candidate = trimmed
+    .replace(" ", "T")
+    .replace(/([+\-]\d{2})(\d{2})$/, "$1:$2");
 
   if (/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}$/.test(candidate)) {
     candidate = `${candidate}:00+03:00`;
@@ -112,7 +114,21 @@ function normalizeDateTimeInput(value: string, boundary: "start" | "end"): strin
   }
 
   if (!/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|[+\-]\d{2}:\d{2})$/.test(candidate)) {
-    return null;
+    const parsed = new Date(trimmed);
+    if (Number.isNaN(parsed.getTime())) {
+      return null;
+    }
+
+    const targetOffsetMinutes = 180;
+    const shiftedMs = parsed.getTime() + targetOffsetMinutes * 60 * 1000;
+    const shifted = new Date(shiftedMs);
+    const year = shifted.getUTCFullYear();
+    const month = String(shifted.getUTCMonth() + 1).padStart(2, "0");
+    const day = String(shifted.getUTCDate()).padStart(2, "0");
+    const hour = String(shifted.getUTCHours()).padStart(2, "0");
+    const minute = String(shifted.getUTCMinutes()).padStart(2, "0");
+    const second = String(shifted.getUTCSeconds()).padStart(2, "0");
+    return `${year}-${month}-${day}T${hour}:${minute}:${second}+03:00`;
   }
 
   return candidate;
