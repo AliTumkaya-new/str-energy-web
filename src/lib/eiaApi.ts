@@ -6,6 +6,21 @@
  */
 
 const BASE = "https://api.eia.gov/v2";
+const RETRYABLE_STATUSES = new Set([429, 500, 502, 503, 504]);
+const MAX_ATTEMPTS = 3;
+const REQUEST_TIMEOUT_MS = 12_000;
+const RETRY_BASE_DELAY_MS = 700;
+
+function sleep(ms: number): Promise<void> {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+function getErrorNotice(status: number): string {
+  if (status === 401 || status === 403) return "EIA API key gecersiz veya eksik.";
+  if (status === 429) return "EIA API hiz limiti asildi. Lutfen biraz sonra tekrar deneyin.";
+  if (status >= 500) return "EIA servisi gecici olarak yanit vermiyor. Lutfen tekrar deneyin.";
+  return `EIA API hatasi (${status})`;
+}
 
 /* ─── Country codes (ISO 3166-1 alpha-3) used by EIA international dataset ─── */
 export const EIA_COUNTRIES: { code: string; label: { tr: string; en: string; ru: string } }[] = [
@@ -80,26 +95,53 @@ async function eiaFetch(route: string, params: Record<string, string | string[]>
     }
   }
 
-  const res = await fetch(url.toString(), {
-    headers: { Accept: "application/json" },
-    next: { revalidate: 0 },
-  });
+  for (let attempt = 1; attempt <= MAX_ATTEMPTS; attempt += 1) {
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS);
+    try {
+      const res = await fetch(url.toString(), {
+        headers: { Accept: "application/json" },
+        cache: "no-store",
+        signal: controller.signal,
+      });
 
-  if (!res.ok) {
-    const body = await res.text().catch(() => "");
-    console.error(`[eia] ${res.status}`, body.slice(0, 500));
-    if (res.status === 401 || res.status === 403) {
-      return { items: [], notice: "EIA API key geçersiz veya eksik." };
+      if (!res.ok) {
+        const body = await res.text().catch(() => "");
+        console.error(`[eia] status=${res.status} attempt=${attempt}`, body.slice(0, 500));
+        if (RETRYABLE_STATUSES.has(res.status) && attempt < MAX_ATTEMPTS) {
+          const backoff = RETRY_BASE_DELAY_MS * Math.pow(2, attempt - 1);
+          await sleep(backoff);
+          continue;
+        }
+        return { items: [], notice: getErrorNotice(res.status) };
+      }
+
+      const json = await res.json();
+      const data = json?.response?.data;
+      if (!Array.isArray(data) || data.length === 0) {
+        return { items: [], notice: "Secilen parametreler icin EIA verisi bulunamadi." };
+      }
+      return { items: data };
+    } catch (error) {
+      const isTimeout = error instanceof Error && error.name === "AbortError";
+      console.error(`[eia] network-error attempt=${attempt}${isTimeout ? " timeout" : ""}`, error);
+      if (attempt < MAX_ATTEMPTS) {
+        const backoff = RETRY_BASE_DELAY_MS * Math.pow(2, attempt - 1);
+        await sleep(backoff);
+        continue;
+      }
+      return {
+        items: [],
+        notice: isTimeout
+          ? "EIA istegi zaman asimina ugradi. Lutfen tekrar deneyin."
+          : "EIA API baglantisinda gecici bir sorun olustu.",
+      };
+    } finally {
+      clearTimeout(timer);
     }
-    return { items: [], notice: `EIA API hatası (${res.status})` };
   }
 
-  const json = await res.json();
-  const data = json?.response?.data;
-  if (!Array.isArray(data) || data.length === 0) {
-    return { items: [], notice: "Seçilen parametreler için EIA verisi bulunamadı." };
-  }
-  return { items: data };
+  return { items: [], notice: "EIA API hatasi." };
 }
 
 /* ════════════════════════════════════════════════════════════
@@ -130,7 +172,7 @@ export async function fetchElectricityGeneration(
     end: endYear,
     "sort[0][column]": "period",
     "sort[0][direction]": "desc",
-    length: "5000",
+    length: "500",
   });
 
   if (result.items.length === 0) return result;
@@ -166,7 +208,7 @@ export async function fetchElectricityConsumption(
     end: endYear,
     "sort[0][column]": "period",
     "sort[0][direction]": "desc",
-    length: "5000",
+    length: "500",
   });
 
   if (result.items.length === 0) return result;
@@ -201,7 +243,7 @@ export async function fetchInstalledCapacity(
     end: endYear,
     "sort[0][column]": "period",
     "sort[0][direction]": "desc",
-    length: "5000",
+    length: "500",
   });
 
   if (result.items.length === 0) return result;
@@ -241,7 +283,7 @@ export async function fetchElectricityPrices(
     end: endMonth,
     "sort[0][column]": "period",
     "sort[0][direction]": "desc",
-    length: "5000",
+    length: "500",
   });
 
   if (result.items.length === 0) return result;
@@ -281,7 +323,7 @@ export async function fetchCarbonIntensity(
     end: endYear,
     "sort[0][column]": "period",
     "sort[0][direction]": "desc",
-    length: "5000",
+    length: "500",
   });
 
   if (result.items.length === 0) return result;
