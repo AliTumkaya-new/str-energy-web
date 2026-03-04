@@ -1,22 +1,9 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { fetchElectricityConsumption } from "@/lib/eiaApi";
 import { checkRateLimit, isAllowedOrigin } from "@/lib/apiSecurity";
+import { parseCountryYearParams } from "@/lib/eiaValidation";
 
 export const runtime = "nodejs";
-
-function extractParams(body: unknown): { country: string; startYear: string; endYear: string } | null {
-  if (!body || typeof body !== "object") return null;
-  const rec = body as Record<string, unknown>;
-  const country = typeof rec.country === "string" ? rec.country.toUpperCase() : null;
-  const rawStart = typeof rec.startYear === "string" ? rec.startYear : null;
-  const rawEnd = typeof rec.endYear === "string" ? rec.endYear : null;
-  if (!country || !rawStart || !rawEnd) return null;
-  const yearRe = /(\d{4})/;
-  const s = rawStart.match(yearRe);
-  const e = rawEnd.match(yearRe);
-  if (!s || !e) return null;
-  return { country, startYear: s[1], endYear: e[1] };
-}
 
 export async function POST(request: NextRequest) {
   try {
@@ -29,9 +16,12 @@ export async function POST(request: NextRequest) {
     }
 
     const rawBody = await request.json();
-    const params = extractParams(rawBody);
+    const params = parseCountryYearParams(rawBody);
     if (!params) {
-      return NextResponse.json({ error: "Invalid payload. Required: country, startYear, endYear" }, { status: 400 });
+      return NextResponse.json(
+        { error: "Invalid payload. Required: country (ISO-3), startYear (YYYY), endYear (YYYY)" },
+        { status: 400 }
+      );
     }
 
     const result = await fetchElectricityConsumption(params.country, params.startYear, params.endYear);

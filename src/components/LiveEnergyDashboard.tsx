@@ -510,6 +510,20 @@ const displayDate = (value: string, locale: string) => {
   }).format(date);
 };
 
+const displayYearMonth = (value: string, locale: string) => {
+  if (!value) return "";
+  const match = value.match(/^(\d{4})-(\d{2})$/);
+  if (!match) return value;
+  const year = Number(match[1]);
+  const month = Number(match[2]);
+  if (!year || !month) return value;
+  const date = new Date(year, month - 1, 1);
+  return new Intl.DateTimeFormat(locale, {
+    month: "short",
+    year: "numeric",
+  }).format(date);
+};
+
 const monthLabel = (date: Date, locale: string) =>
   date.toLocaleString(locale, { month: "long", year: "numeric" });
 
@@ -565,9 +579,28 @@ export default function LiveEnergyDashboard() {
   /* Global-specific state */
   const [glDataset, setGlDataset] = useState<GlobalDatasetKey>("gl-generation");
   const [glCountry, setGlCountry] = useState("USA");
+  const [glStartMonth, setGlStartMonth] = useState("01");
   const [glStartYear, setGlStartYear] = useState("2015");
+  const [glEndMonth, setGlEndMonth] = useState("12");
   const [glEndYear, setGlEndYear] = useState("2024");
   const [glSector, setGlSector] = useState("ALL");
+
+  const glYearOptions = useMemo(() => {
+    const currentYear = new Date().getFullYear();
+    const years: string[] = [];
+    for (let y = currentYear; y >= 1990; y -= 1) years.push(String(y));
+    return years;
+  }, []);
+
+  const glMonthOptions = useMemo(
+    () =>
+      Array.from({ length: 12 }, (_, index) => {
+        const value = String(index + 1).padStart(2, "0");
+        const label = new Intl.DateTimeFormat(uiLocale, { month: "short" }).format(new Date(2024, index, 1));
+        return { value, label };
+      }),
+    [uiLocale]
+  );
 
 
   useEffect(() => { setRows([]); setError(""); setCurrentPage(1); }, [dataset, euDataset, glDataset, region]);
@@ -640,6 +673,14 @@ export default function LiveEnergyDashboard() {
           setError(data.notice);
         }
       } else if (region === "global") {
+        const startPeriod = `${glStartYear}-${glStartMonth}`;
+        const endPeriod = `${glEndYear}-${glEndMonth}`;
+        if (startPeriod > endPeriod) {
+          setRows([]);
+          setError(copy.errorMsg);
+          return;
+        }
+
         const glEndpointMap: Record<GlobalDatasetKey, string> = {
           "gl-generation": "/api/eia/generation",
           "gl-consumption": "/api/eia/consumption",
@@ -650,8 +691,8 @@ export default function LiveEnergyDashboard() {
         let payload: Record<string, string>;
         if (glDataset === "gl-prices") {
           payload = {
-            startMonth: `${glStartYear}-01`,
-            endMonth: `${glEndYear}-12`,
+            startMonth: startPeriod,
+            endMonth: endPeriod,
             sector: glSector,
           };
         } else {
@@ -681,7 +722,7 @@ export default function LiveEnergyDashboard() {
     } finally {
       setIsLoading(false);
     }
-  }, [region, dataset, euDataset, euCountry, euFromCountry, euToCountry, startDate, endDate, glDataset, glCountry, glStartYear, glEndYear, glSector, copy.errorMsg, uiLocale]);
+  }, [region, dataset, euDataset, euCountry, euFromCountry, euToCountry, startDate, endDate, glDataset, glCountry, glStartMonth, glStartYear, glEndMonth, glEndYear, glSector, copy.errorMsg, uiLocale]);
 
   const safeLang = language === "en" || language === "ru" ? language : "tr";
   const labelFor = (label: { tr: string; en: string; ru: string } | string) =>
@@ -1003,6 +1044,13 @@ export default function LiveEnergyDashboard() {
         "weighted-avg": copy.optWeightedAvg,
       }[dataset];
 
+  const globalStartPeriod = `${glStartYear}-${glStartMonth}`;
+  const globalEndPeriod = `${glEndYear}-${glEndMonth}`;
+  const activeRangeLabel =
+    region === "global"
+      ? `${displayYearMonth(globalStartPeriod, uiLocale)} – ${displayYearMonth(globalEndPeriod, uiLocale)}`
+      : `${displayDate(startDate, uiLocale)} – ${displayDate(endDate, uiLocale)}`;
+
   /* CSV export — professional, Excel-compatible */
   const exportCsv = () => {
     if (displayRows.length === 0) return;
@@ -1022,11 +1070,12 @@ export default function LiveEnergyDashboard() {
     };
     const colMap = getColumnMap();
     const escapeCell = (val: string) => {
-      const s = String(val);
-      if (s.includes('"') || s.includes(';') || s.includes('\n') || s.includes('\r')) {
-        return `"${s.replace(/"/g, '""')}"`;
+      const raw = String(val);
+      const protectedVal = /^[=+\-@]/.test(raw) ? `'${raw}` : raw;
+      if (protectedVal.includes('"') || protectedVal.includes(';') || protectedVal.includes('\n') || protectedVal.includes('\r')) {
+        return `"${protectedVal.replace(/"/g, '""')}"`;
       }
-      return `"${s}"`;
+      return `"${protectedVal}"`;
     };
 
     const datasetLabels: Record<string, { tr: string; en: string; ru: string }> = {
@@ -1058,6 +1107,10 @@ export default function LiveEnergyDashboard() {
     const generatedAt = now.toLocaleString(exportLocale, {
       day: "2-digit", month: "2-digit", year: "numeric", hour: "2-digit", minute: "2-digit",
     });
+    const exportRangeLabel =
+      region === "global"
+        ? `${displayYearMonth(globalStartPeriod, exportLocale)} - ${displayYearMonth(globalEndPeriod, exportLocale)}`
+        : `${displayDate(startDate, exportLocale)} - ${displayDate(endDate, exportLocale)}`;
 
     /* Header block — STR Energy branding */
     const colCount = displayColumns.length;
@@ -1071,7 +1124,7 @@ export default function LiveEnergyDashboard() {
       pad("═══════════════════════════════════════════"),
       pad("STR ENERGY — www.str.energy"),
       pad(`${reportTitleLabel}: ${reportLabel}`),
-      pad(`${dateRangeLabel}: ${displayDate(startDate, exportLocale)} — ${displayDate(endDate, exportLocale)}`),
+      pad(`${dateRangeLabel}: ${exportRangeLabel}`),
       pad(`${sourceLabel}: ${region === "global" ? "U.S. Energy Information Administration (EIA)" : region === "eu" ? "ENTSO-E Transparency Platform" : "EPİAŞ / EXIST"}`),
       pad(`${generatedLabel}: ${generatedAt}`),
       pad(`${recordCountLabel}: ${displayRows.length}`),
@@ -1099,7 +1152,7 @@ export default function LiveEnergyDashboard() {
     const countryTag = region === "global"
       ? (glDataset === "gl-prices" ? "_US" : `_${glCountry}`)
       : region === "eu" ? `_${euDataset === "eu-cross-border" ? `${euFromCountry}-${euToCountry}` : euCountry}` : "";
-    const dateTag = region === "global" ? `${glStartYear}_${glEndYear}` : `${startDate}_${endDate}`;
+    const dateTag = region === "global" ? `${glStartYear}-${glStartMonth}_${glEndYear}-${glEndMonth}` : `${startDate}_${endDate}`;
     const fileName = `STR-Energy_${datasetNames[fileKey] || fileKey}${countryTag}_${dateTag}.csv`;
 
     /* Use data URI for reliable download with correct filename */
@@ -1390,34 +1443,66 @@ export default function LiveEnergyDashboard() {
                   </div>
                 )}
 
-                {/* Global year range inputs */}
+                {/* Global month + year range inputs */}
                 {region === "global" && (
                   <>
                     <div className="flex flex-col gap-1.5">
                       <label className={`text-[11px] font-semibold uppercase tracking-wider ${subtextColor}`}>
-                        {copy.startYear}
+                        {copy.start}
                       </label>
-                      <input
-                        type="number"
-                        min="1980"
-                        max="2030"
-                        value={glStartYear}
-                        onChange={(e) => setGlStartYear(e.target.value)}
-                        className={`rounded-lg border px-3 py-2 text-sm outline-none transition focus:ring-2 focus:ring-orange-500/30 w-24 ${inputBg}`}
-                      />
+                      <div className="flex items-center gap-2">
+                        <select
+                          value={glStartMonth}
+                          onChange={(e) => setGlStartMonth(e.target.value)}
+                          className={`rounded-lg border px-3 py-2 text-sm outline-none transition focus:ring-2 focus:ring-orange-500/30 w-28 ${inputBg}`}
+                        >
+                          {glMonthOptions.map((m) => (
+                            <option key={`gsm-${m.value}`} value={m.value}>
+                              {m.label}
+                            </option>
+                          ))}
+                        </select>
+                        <select
+                          value={glStartYear}
+                          onChange={(e) => setGlStartYear(e.target.value)}
+                          className={`rounded-lg border px-3 py-2 text-sm outline-none transition focus:ring-2 focus:ring-orange-500/30 w-24 ${inputBg}`}
+                        >
+                          {glYearOptions.map((y) => (
+                            <option key={`gsy-${y}`} value={y}>
+                              {y}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
                     </div>
                     <div className="flex flex-col gap-1.5">
                       <label className={`text-[11px] font-semibold uppercase tracking-wider ${subtextColor}`}>
-                        {copy.endYear}
+                        {copy.end}
                       </label>
-                      <input
-                        type="number"
-                        min="1980"
-                        max="2030"
-                        value={glEndYear}
-                        onChange={(e) => setGlEndYear(e.target.value)}
-                        className={`rounded-lg border px-3 py-2 text-sm outline-none transition focus:ring-2 focus:ring-orange-500/30 w-24 ${inputBg}`}
-                      />
+                      <div className="flex items-center gap-2">
+                        <select
+                          value={glEndMonth}
+                          onChange={(e) => setGlEndMonth(e.target.value)}
+                          className={`rounded-lg border px-3 py-2 text-sm outline-none transition focus:ring-2 focus:ring-orange-500/30 w-28 ${inputBg}`}
+                        >
+                          {glMonthOptions.map((m) => (
+                            <option key={`gem-${m.value}`} value={m.value}>
+                              {m.label}
+                            </option>
+                          ))}
+                        </select>
+                        <select
+                          value={glEndYear}
+                          onChange={(e) => setGlEndYear(e.target.value)}
+                          className={`rounded-lg border px-3 py-2 text-sm outline-none transition focus:ring-2 focus:ring-orange-500/30 w-24 ${inputBg}`}
+                        >
+                          {glYearOptions.map((y) => (
+                            <option key={`gey-${y}`} value={y}>
+                              {y}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
                     </div>
                   </>
                 )}
@@ -1567,7 +1652,7 @@ export default function LiveEnergyDashboard() {
             {[
               { icon: Database, label: copy.records, value: String(displayRows.length) },
               { icon: BarChart3, label: copy.columns, value: String(displayColumns.length) },
-              { icon: Clock, label: copy.range, value: `${displayDate(startDate, uiLocale)} – ${displayDate(endDate, uiLocale)}` },
+              { icon: Clock, label: copy.range, value: activeRangeLabel },
               { icon: TrendingUp, label: copy.dataset, value: datasetLabel },
             ].map((kpi) => (
               <div key={kpi.label} className={`flex items-center gap-3 px-5 py-3.5 ${isDark ? "bg-zinc-900/80" : "bg-white"}`}>

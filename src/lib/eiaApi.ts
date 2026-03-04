@@ -8,8 +8,18 @@
 const BASE = "https://api.eia.gov/v2";
 const RETRYABLE_STATUSES = new Set([429, 500, 502, 503, 504]);
 const MAX_ATTEMPTS = 1;
-const REQUEST_TIMEOUT_MS = 8_000;
+const REQUEST_TIMEOUT_MS = 9_000;
 const RETRY_BASE_DELAY_MS = 250;
+const CACHE_TTL_MS = 6 * 60 * 60 * 1000;
+const STALE_FALLBACK_MAX_AGE_MS = 2 * 24 * 60 * 60 * 1000;
+
+type CacheEntry = {
+  items: Array<Record<string, unknown>>;
+  cachedAt: number;
+  expiresAt: number;
+};
+
+const eiaCache = new Map<string, CacheEntry>();
 
 function sleep(ms: number): Promise<void> {
   return new Promise((resolve) => setTimeout(resolve, ms));
@@ -20,6 +30,29 @@ function getErrorNotice(status: number): string {
   if (status === 429) return "EIA API hiz limiti asildi. Lutfen biraz sonra tekrar deneyin.";
   if (status >= 500) return "EIA servisi gecici olarak yanit vermiyor. Lutfen tekrar deneyin.";
   return `EIA API hatasi (${status})`;
+}
+
+function readFreshCache(cacheKey: string): Array<Record<string, unknown>> | null {
+  const cached = eiaCache.get(cacheKey);
+  if (!cached) return null;
+  if (cached.expiresAt <= Date.now()) return null;
+  return cached.items;
+}
+
+function readStaleCache(cacheKey: string): Array<Record<string, unknown>> | null {
+  const cached = eiaCache.get(cacheKey);
+  if (!cached) return null;
+  if (Date.now() - cached.cachedAt > STALE_FALLBACK_MAX_AGE_MS) return null;
+  return cached.items;
+}
+
+function writeCache(cacheKey: string, items: Array<Record<string, unknown>>): void {
+  const now = Date.now();
+  eiaCache.set(cacheKey, {
+    items,
+    cachedAt: now,
+    expiresAt: now + CACHE_TTL_MS,
+  });
 }
 
 /* ─── Country codes (ISO 3166-1 alpha-3) used by EIA international dataset ─── */
@@ -101,6 +134,11 @@ async function eiaFetch(route: string, params: Record<string, string | string[]>
       url.searchParams.set(key, val);
     }
   }
+  const cacheKey = url.toString();
+  const freshCache = readFreshCache(cacheKey);
+  if (freshCache) {
+    return { items: freshCache };
+  }
 
   for (let attempt = 1; attempt <= MAX_ATTEMPTS; attempt += 1) {
     const controller = new AbortController();
@@ -108,7 +146,7 @@ async function eiaFetch(route: string, params: Record<string, string | string[]>
     try {
       const res = await fetch(url.toString(), {
         headers: { Accept: "application/json" },
-        cache: "no-store",
+        next: { revalidate: 60 * 60 * 6 },
         signal: controller.signal,
       });
 
@@ -120,6 +158,13 @@ async function eiaFetch(route: string, params: Record<string, string | string[]>
           await sleep(backoff);
           continue;
         }
+        const stale = readStaleCache(cacheKey);
+        if (stale && (res.status >= 500 || res.status === 429)) {
+          return {
+            items: stale,
+            notice: "EIA servisi gecici olarak yavas. Son basarili veri gosteriliyor.",
+          };
+        }
         return { items: [], notice: getErrorNotice(res.status) };
       }
 
@@ -128,6 +173,7 @@ async function eiaFetch(route: string, params: Record<string, string | string[]>
       if (!Array.isArray(data) || data.length === 0) {
         return { items: [], notice: "Secilen parametreler icin EIA verisi bulunamadi." };
       }
+      writeCache(cacheKey, data);
       return { items: data };
     } catch (error) {
       const isTimeout = error instanceof Error && error.name === "AbortError";
@@ -136,6 +182,13 @@ async function eiaFetch(route: string, params: Record<string, string | string[]>
         const backoff = RETRY_BASE_DELAY_MS * Math.pow(2, attempt - 1);
         await sleep(backoff);
         continue;
+      }
+      const stale = readStaleCache(cacheKey);
+      if (stale) {
+        return {
+          items: stale,
+          notice: "EIA servisi gecici olarak yavas. Son basarili veri gosteriliyor.",
+        };
       }
       return {
         items: [],
