@@ -8,7 +8,7 @@
 const BASE = "https://api.eia.gov/v2";
 const RETRYABLE_STATUSES = new Set([429, 500, 502, 503, 504]);
 const MAX_ATTEMPTS = 1;
-const REQUEST_TIMEOUT_MS = 3_500;
+const REQUEST_TIMEOUT_MS = 8_000;
 const RETRY_BASE_DELAY_MS = 250;
 
 function sleep(ms: number): Promise<void> {
