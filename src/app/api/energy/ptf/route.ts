@@ -25,7 +25,16 @@ export async function POST(request: NextRequest) {
     const payload = parseDateRangePayload(rawBody);
     if (!payload) {
       console.error("[api/energy/ptf] parseDateRangePayload returned null for body:", JSON.stringify(rawBody));
-      return NextResponse.json({ error: "Invalid date range payload" }, { status: 400 });
+      return NextResponse.json(
+        {
+          error: "Invalid date range payload",
+          _debug_v: "2026-03-04-v4",
+          _receivedBody: rawBody,
+          _receivedType: typeof rawBody,
+          _keys: rawBody && typeof rawBody === "object" ? Object.keys(rawBody) : null,
+        },
+        { status: 400 }
+      );
     }
 
     const tgt = await getTgt();
