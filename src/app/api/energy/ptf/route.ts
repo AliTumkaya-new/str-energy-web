@@ -59,7 +59,18 @@ export async function POST(request: NextRequest) {
         endpoint,
         payloadSent: JSON.stringify(payload),
       });
-      return NextResponse.json({ error: "Upstream service error" }, { status: 502 });
+      return NextResponse.json(
+        {
+          error: "Upstream service error",
+          _debug_v: "2026-03-04-v4",
+          _upstreamStatus: response.status,
+          _upstreamStatusText: response.statusText,
+          _upstreamBody: errorBody.slice(0, 1000),
+          _endpoint: endpoint,
+          _payloadSent: payload,
+        },
+        { status: 502 }
+      );
     }
 
     const data = await response.json();
