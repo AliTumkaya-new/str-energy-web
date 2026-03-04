@@ -1,45 +1,34 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { getTgt } from "@/lib/epiasAuth";
-import { checkRateLimit, isAllowedOrigin, parseDateRangePayload } from "@/lib/apiSecurity";
+import { checkRateLimit, isAllowedOrigin } from "@/lib/apiSecurity";
 
 export const runtime = "nodejs";
 
 const DEFAULT_ENDPOINT =
   "https://seffaflik.epias.com.tr/electricity-service/v1/markets/dam/data/mcp";
 
-/* ------------------------------------------------------------------ */
-/*  Helpers                                                            */
-/* ------------------------------------------------------------------ */
-
 /**
- * EPİAŞ DAM/PTF servisi tarihleri T00:00:00+03:00 formatında bekler.
- * Frontend T23:59:59 gönderebilir — bunu normalize ediyoruz.
+ * Gelen body'den startDate/endDate çıkarır ve EPİAŞ'ın beklediği
+ * T00:00:00+03:00 formatına dönüştürür. Doğrulama basit ve toleranslıdır.
  */
-function toEpiasDayStart(isoDate: string): string {
-  const datePart = isoDate.slice(0, 10); // "YYYY-MM-DD"
-  return `${datePart}T00:00:00+03:00`;
-}
+function extractDates(body: unknown): { startDate: string; endDate: string } | null {
+  if (!body || typeof body !== "object") return null;
+  const rec = body as Record<string, unknown>;
 
-/** Fire a single MCP request and return the raw Response. */
-async function fetchMcp(
-  endpoint: string,
-  tgt: string,
-  payload: { startDate: string; endDate: string },
-): Promise<Response> {
-  return fetch(endpoint, {
-    method: "POST",
-    headers: {
-      TGT: tgt,
-      "Content-Type": "application/json",
-      Accept: "application/json",
-    },
-    body: JSON.stringify(payload),
-  });
-}
+  const rawStart = typeof rec.startDate === "string" ? rec.startDate : typeof rec.start === "string" ? rec.start : null;
+  const rawEnd = typeof rec.endDate === "string" ? rec.endDate : typeof rec.end === "string" ? rec.end : null;
+  if (!rawStart || !rawEnd) return null;
 
-/* ------------------------------------------------------------------ */
-/*  Route handler                                                      */
-/* ------------------------------------------------------------------ */
+  const dateRe = /^(\d{4}-\d{2}-\d{2})/;
+  const startMatch = rawStart.match(dateRe);
+  const endMatch = rawEnd.match(dateRe);
+  if (!startMatch || !endMatch) return null;
+
+  return {
+    startDate: `${startMatch[1]}T00:00:00+03:00`,
+    endDate: `${endMatch[1]}T00:00:00+03:00`,
+  };
+}
 
 export async function POST(request: NextRequest) {
   try {
@@ -56,21 +45,26 @@ export async function POST(request: NextRequest) {
     }
 
     const rawBody = await request.json();
-    const parsed = parseDateRangePayload(rawBody);
-    if (!parsed) {
-      return NextResponse.json({ error: "Invalid date range payload" }, { status: 400 });
+    const payload = extractDates(rawBody);
+    if (!payload) {
+      return NextResponse.json(
+        { error: "Invalid date range payload", _received: rawBody },
+        { status: 400 },
+      );
     }
-
-    /* EPİAŞ PTF servisi her iki tarihi de gün başı olarak bekler */
-    const payload = {
-      startDate: toEpiasDayStart(parsed.startDate),
-      endDate: toEpiasDayStart(parsed.endDate),
-    };
 
     const tgt = await getTgt();
     const endpoint = process.env.EPIAS_PTF_URL || DEFAULT_ENDPOINT;
 
-    const response = await fetchMcp(endpoint, tgt, payload);
+    const response = await fetch(endpoint, {
+      method: "POST",
+      headers: {
+        TGT: tgt,
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify(payload),
+    });
 
     if (response.ok) {
       const data = await response.json();
@@ -83,12 +77,10 @@ export async function POST(request: NextRequest) {
       body: errorBody.slice(0, 500),
     });
 
-    /* EPİAŞ "veri henüz mevcut değil" — boş items + açıklama dön */
     if (response.status === 400 && /mevcut değil|not available|SEF1124/i.test(errorBody)) {
       return NextResponse.json({
         items: [],
-        notice:
-          "PTF verileri henüz yayınlanmadı. Gün öncesi piyasa verileri saat 14:00'te açıklanır.",
+        notice: "PTF verileri henüz yayınlanmadı. Gün öncesi piyasa verileri saat 14:00'te açıklanır.",
       });
     }
 
