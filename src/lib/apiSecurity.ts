@@ -16,6 +16,8 @@ const rateBuckets = new Map<string, RateBucket>();
 const DEFAULT_ALLOWED_ORIGINS = [
   "https://str.energy",
   "https://www.str.energy",
+  "https://str-energy.com",
+  "https://www.str-energy.com",
   "http://localhost:3000",
   "http://127.0.0.1:3000",
 ];
@@ -96,19 +98,37 @@ export function parseDateRangePayload(
   payload: unknown,
   maxDays = 31
 ): { startDate: string; endDate: string } | null {
-  if (!isRecord(payload)) return null;
+  if (!isRecord(payload)) {
+    console.error("[parseDateRangePayload] Not a record:", typeof payload);
+    return null;
+  }
   const startDate = payload.startDate;
   const endDate = payload.endDate;
-  if (typeof startDate !== "string" || typeof endDate !== "string") return null;
-  if (!isIsoDateTime(startDate) || !isIsoDateTime(endDate)) return null;
+  if (typeof startDate !== "string" || typeof endDate !== "string") {
+    console.error("[parseDateRangePayload] Fields not strings:", { startDate: typeof startDate, endDate: typeof endDate });
+    return null;
+  }
+  if (!isIsoDateTime(startDate) || !isIsoDateTime(endDate)) {
+    console.error("[parseDateRangePayload] ISO check failed:", { startDate, endDate, startOk: isIsoDateTime(startDate), endOk: isIsoDateTime(endDate) });
+    return null;
+  }
 
   const start = new Date(startDate);
   const end = new Date(endDate);
-  if (Number.isNaN(start.getTime()) || Number.isNaN(end.getTime())) return null;
-  if (end < start) return null;
+  if (Number.isNaN(start.getTime()) || Number.isNaN(end.getTime())) {
+    console.error("[parseDateRangePayload] Invalid Date objects");
+    return null;
+  }
+  if (end < start) {
+    console.error("[parseDateRangePayload] end < start");
+    return null;
+  }
 
   const diffDays = (end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24);
-  if (diffDays > maxDays) return null;
+  if (diffDays > maxDays) {
+    console.error("[parseDateRangePayload] diffDays exceeds maxDays:", { diffDays, maxDays });
+    return null;
+  }
 
   return { startDate, endDate };
 }

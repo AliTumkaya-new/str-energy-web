@@ -20,8 +20,11 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const payload = parseDateRangePayload(await request.json());
+    const rawBody = await request.json();
+    console.log("[api/energy/ptf] Received body:", JSON.stringify(rawBody));
+    const payload = parseDateRangePayload(rawBody);
     if (!payload) {
+      console.error("[api/energy/ptf] parseDateRangePayload returned null for body:", JSON.stringify(rawBody));
       return NextResponse.json({ error: "Invalid date range payload" }, { status: 400 });
     }
 
