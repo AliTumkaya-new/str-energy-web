@@ -7,9 +7,9 @@
 
 const BASE = "https://api.eia.gov/v2";
 const RETRYABLE_STATUSES = new Set([429, 500, 502, 503, 504]);
-const MAX_ATTEMPTS = 3;
-const REQUEST_TIMEOUT_MS = 12_000;
-const RETRY_BASE_DELAY_MS = 700;
+const MAX_ATTEMPTS = 1;
+const REQUEST_TIMEOUT_MS = 3_500;
+const RETRY_BASE_DELAY_MS = 250;
 
 function sleep(ms: number): Promise<void> {
   return new Promise((resolve) => setTimeout(resolve, ms));
@@ -83,8 +83,15 @@ async function eiaFetch(route: string, params: Record<string, string | string[]>
   items: Array<Record<string, unknown>>;
   notice?: string;
 }> {
+  let apiKey: string;
+  try {
+    apiKey = getApiKey();
+  } catch {
+    return { items: [], notice: "EIA API key sunucuda tanimli degil." };
+  }
+
   const url = new URL(`${BASE}${route}`);
-  url.searchParams.set("api_key", getApiKey());
+  url.searchParams.set("api_key", apiKey);
 
   // Handle array params like data[0]=value
   for (const [key, val] of Object.entries(params)) {
