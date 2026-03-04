@@ -90,6 +90,52 @@ function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === "object" && value !== null;
 }
 
+function pickString(value: unknown): string | null {
+  if (typeof value === "string") return value;
+  if (typeof value === "number" && Number.isFinite(value)) {
+    return new Date(value).toISOString();
+  }
+  return null;
+}
+
+function extractDateRangeFields(payload: Record<string, unknown>): { rawStartDate: string; rawEndDate: string } | null {
+  const directStart =
+    pickString(payload.startDate) ??
+    pickString(payload.start) ??
+    pickString(payload.from) ??
+    pickString(payload.beginDate) ??
+    pickString(payload.start_time);
+  const directEnd =
+    pickString(payload.endDate) ??
+    pickString(payload.end) ??
+    pickString(payload.to) ??
+    pickString(payload.finishDate) ??
+    pickString(payload.end_time);
+
+  if (directStart && directEnd) {
+    return { rawStartDate: directStart, rawEndDate: directEnd };
+  }
+
+  const nested = payload.range ?? payload.dateRange ?? payload.filters;
+  if (isRecord(nested)) {
+    const nestedStart =
+      pickString(nested.startDate) ??
+      pickString(nested.start) ??
+      pickString(nested.from) ??
+      pickString(nested.beginDate);
+    const nestedEnd =
+      pickString(nested.endDate) ??
+      pickString(nested.end) ??
+      pickString(nested.to) ??
+      pickString(nested.finishDate);
+    if (nestedStart && nestedEnd) {
+      return { rawStartDate: nestedStart, rawEndDate: nestedEnd };
+    }
+  }
+
+  return null;
+}
+
 function normalizeDateTimeInput(value: string, boundary: "start" | "end"): string | null {
   const trimmed = value.trim();
   if (!trimmed) return null;
@@ -142,12 +188,12 @@ export function parseDateRangePayload(
     console.error("[parseDateRangePayload] Not a record:", typeof payload);
     return null;
   }
-  const rawStartDate = payload.startDate;
-  const rawEndDate = payload.endDate;
-  if (typeof rawStartDate !== "string" || typeof rawEndDate !== "string") {
-    console.error("[parseDateRangePayload] Fields not strings:", { startDate: typeof rawStartDate, endDate: typeof rawEndDate });
+  const fields = extractDateRangeFields(payload);
+  if (!fields) {
+    console.error("[parseDateRangePayload] Date fields missing or unsupported");
     return null;
   }
+  const { rawStartDate, rawEndDate } = fields;
 
   const startDate = normalizeDateTimeInput(rawStartDate, "start");
   const endDate = normalizeDateTimeInput(rawEndDate, "end");
