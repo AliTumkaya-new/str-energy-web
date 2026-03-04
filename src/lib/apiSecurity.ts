@@ -90,8 +90,32 @@ function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === "object" && value !== null;
 }
 
-function isIsoDateTime(value: string): boolean {
-  return /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|[+\-]\d{2}:\d{2})$/.test(value);
+function normalizeDateTimeInput(value: string, boundary: "start" | "end"): string | null {
+  const trimmed = value.trim();
+  if (!trimmed) return null;
+
+  if (/^\d{4}-\d{2}-\d{2}$/.test(trimmed)) {
+    return boundary === "start"
+      ? `${trimmed}T00:00:00+03:00`
+      : `${trimmed}T23:59:59+03:00`;
+  }
+
+  let candidate = trimmed.replace(/([+\-]\d{2})(\d{2})$/, "$1:$2");
+
+  if (/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}$/.test(candidate)) {
+    candidate = `${candidate}:00+03:00`;
+  } else if (/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?$/.test(candidate)) {
+    candidate = `${candidate}+03:00`;
+  } else if (/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}(?:Z|[+\-]\d{2}:\d{2})$/.test(candidate)) {
+    const timezone = candidate.slice(-1) === "Z" ? "Z" : candidate.slice(-6);
+    candidate = `${candidate.slice(0, -timezone.length)}:00${timezone}`;
+  }
+
+  if (!/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|[+\-]\d{2}:\d{2})$/.test(candidate)) {
+    return null;
+  }
+
+  return candidate;
 }
 
 export function parseDateRangePayload(
@@ -102,14 +126,20 @@ export function parseDateRangePayload(
     console.error("[parseDateRangePayload] Not a record:", typeof payload);
     return null;
   }
-  const startDate = payload.startDate;
-  const endDate = payload.endDate;
-  if (typeof startDate !== "string" || typeof endDate !== "string") {
-    console.error("[parseDateRangePayload] Fields not strings:", { startDate: typeof startDate, endDate: typeof endDate });
+  const rawStartDate = payload.startDate;
+  const rawEndDate = payload.endDate;
+  if (typeof rawStartDate !== "string" || typeof rawEndDate !== "string") {
+    console.error("[parseDateRangePayload] Fields not strings:", { startDate: typeof rawStartDate, endDate: typeof rawEndDate });
     return null;
   }
-  if (!isIsoDateTime(startDate) || !isIsoDateTime(endDate)) {
-    console.error("[parseDateRangePayload] ISO check failed:", { startDate, endDate, startOk: isIsoDateTime(startDate), endOk: isIsoDateTime(endDate) });
+
+  const startDate = normalizeDateTimeInput(rawStartDate, "start");
+  const endDate = normalizeDateTimeInput(rawEndDate, "end");
+  if (!startDate || !endDate) {
+    console.error("[parseDateRangePayload] Date normalization failed:", {
+      startDate: rawStartDate,
+      endDate: rawEndDate,
+    });
     return null;
   }
 
