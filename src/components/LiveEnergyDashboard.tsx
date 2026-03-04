@@ -330,6 +330,7 @@ export default function LiveEnergyDashboard() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ startDate: start, endDate: end }),
+        cache: "no-store",
       });
       if (!response.ok) throw new Error("request failed");
       const data = await response.json();
