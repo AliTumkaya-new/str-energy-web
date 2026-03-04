@@ -20,10 +20,16 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const payload = parseDateRangePayload(await request.json());
-    if (!payload) {
+    const parsed = parseDateRangePayload(await request.json());
+    if (!parsed) {
       return NextResponse.json({ error: "Invalid date range payload" }, { status: 400 });
     }
+
+    /* EPİAŞ tarihleri T00:00:00+03:00 formatında bekler */
+    const payload = {
+      startDate: parsed.startDate.slice(0, 10) + "T00:00:00+03:00",
+      endDate: parsed.endDate.slice(0, 10) + "T00:00:00+03:00",
+    };
 
     const tgt = await getTgt();
     const endpoint = process.env.EPIAS_REALTIME_GENERATION_URL || DEFAULT_ENDPOINT;
