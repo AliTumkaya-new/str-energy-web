@@ -49,7 +49,12 @@ const copyByLang = {
     exportCsv: "CSV İndir",
     total: "Toplam",
     dayNames: ["Pzt", "Sal", "Çar", "Per", "Cum", "Cmt", "Paz"],
-
+    prev: "Önceki",
+    next: "Sonraki",
+    rowsPerPage: "Satır",
+    page: "Sayfa",
+    recordsFound: "adet kayıt bulundu",
+    of: "/",
   },
   en: {
     headline: "Live Energy Data",
@@ -79,7 +84,12 @@ const copyByLang = {
     exportCsv: "Export CSV",
     total: "Total",
     dayNames: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
-
+    prev: "Previous",
+    next: "Next",
+    rowsPerPage: "Rows",
+    page: "Page",
+    recordsFound: "records found",
+    of: "of",
   },
   ru: {
     headline: "Данные в реальном времени",
@@ -109,7 +119,12 @@ const copyByLang = {
     exportCsv: "Экспорт CSV",
     total: "Итого",
     dayNames: ["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"],
-
+    prev: "Назад",
+    next: "Вперёд",
+    rowsPerPage: "Строк",
+    page: "Страница",
+    recordsFound: "записей найдено",
+    of: "из",
   },
 } as const;
 
@@ -296,9 +311,11 @@ export default function LiveEnergyDashboard() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
   const [lastFetchTime, setLastFetchTime] = useState<string | null>(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pageSize, setPageSize] = useState(24);
 
 
-  useEffect(() => { setRows([]); setError(""); }, [dataset]);
+  useEffect(() => { setRows([]); setError(""); setCurrentPage(1); }, [dataset]);
 
   /* close calendars on outside click */
   useEffect(() => {
@@ -360,6 +377,9 @@ export default function LiveEnergyDashboard() {
     const lower = search.toLowerCase();
     return rows.filter((row) => JSON.stringify(row).toLowerCase().includes(lower));
   }, [rows, search]);
+
+  /* Reset page when search changes */
+  useEffect(() => { setCurrentPage(1); }, [search]);
 
   const displayColumns = useMemo(() => {
     if (dataset === "generation") return generationOrder;
@@ -503,6 +523,17 @@ export default function LiveEnergyDashboard() {
     });
     return totals;
   }, [dataset, displayRows.length, displayColumns, filteredRows, columnIsNumeric, copy.total, uiLocale]);
+
+  /* ── Pagination ── */
+  const totalPages = Math.max(1, Math.ceil(displayRows.length / pageSize));
+  const safePage = Math.min(currentPage, totalPages);
+  const paginatedRows = useMemo(() => {
+    const start = (safePage - 1) * pageSize;
+    return displayRows.slice(start, start + pageSize);
+  }, [displayRows, safePage, pageSize]);
+
+  /* Reset page on new data */
+  useEffect(() => { setCurrentPage(1); }, [displayRows.length]);
 
   const datasetLabel = {
     generation: copy.optGeneration,
@@ -972,6 +1003,24 @@ export default function LiveEnergyDashboard() {
             {/* Data Table */}
             {displayRows.length > 0 && (
               <div className="overflow-x-auto">
+                {/* Records found banner */}
+                <div className={`flex items-center justify-between px-4 py-2 ${isDark ? "bg-zinc-900/60" : "bg-zinc-50/80"} border-b ${tableBorderColor}`}>
+                  <span className={`text-xs font-medium ${subtextColor}`}>
+                    {displayRows.length} {copy.recordsFound}
+                  </span>
+                  <div className="flex items-center gap-2">
+                    <span className={`text-[11px] ${subtextColor}`}>{copy.rowsPerPage}:</span>
+                    <select
+                      value={pageSize}
+                      onChange={(e) => { setPageSize(Number(e.target.value)); setCurrentPage(1); }}
+                      className={`rounded border px-1.5 py-0.5 text-xs outline-none ${inputBg}`}
+                    >
+                      {[10, 24, 50, 100].map((n) => (
+                        <option key={n} value={n}>{n}</option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
                 <table className="w-full text-xs">
                   <thead>
                     <tr className={`${tableHeaderBg} border-b ${tableBorderColor}`}>
@@ -988,7 +1037,7 @@ export default function LiveEnergyDashboard() {
                     </tr>
                   </thead>
                   <tbody>
-                    {displayRows.map((row, index) => (
+                    {paginatedRows.map((row, index) => (
                       <tr
                         key={index}
                         className={`border-b ${tableBorderColor} transition-colors ${
@@ -1029,6 +1078,84 @@ export default function LiveEnergyDashboard() {
                     </tfoot>
                   )}
                 </table>
+
+                {/* Pagination Controls */}
+                {totalPages > 1 && (
+                  <div className={`flex items-center justify-center gap-1 px-4 py-3 border-t ${tableBorderColor}`}>
+                    <button
+                      type="button"
+                      onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+                      disabled={safePage <= 1}
+                      className={`inline-flex items-center gap-1 px-3 py-1.5 rounded-lg text-xs font-medium transition ${
+                        safePage <= 1
+                          ? "opacity-30 cursor-not-allowed"
+                          : isDark
+                            ? "text-zinc-300 hover:bg-zinc-800"
+                            : "text-zinc-600 hover:bg-zinc-100"
+                      }`}
+                    >
+                      <ChevronLeft className="h-3.5 w-3.5" />
+                      {copy.prev}
+                    </button>
+
+                    {/* Page numbers */}
+                    {Array.from({ length: totalPages }, (_, i) => i + 1)
+                      .filter((p) => {
+                        if (totalPages <= 7) return true;
+                        if (p === 1 || p === totalPages) return true;
+                        if (Math.abs(p - safePage) <= 1) return true;
+                        return false;
+                      })
+                      .reduce<(number | "ellipsis")[]>((acc, p, idx, arr) => {
+                        if (idx > 0) {
+                          const prevP = arr[idx - 1];
+                          if (p - prevP > 1) acc.push("ellipsis");
+                        }
+                        acc.push(p);
+                        return acc;
+                      }, [])
+                      .map((item, idx) =>
+                        item === "ellipsis" ? (
+                          <span key={`ell-${idx}`} className={`px-1.5 text-xs ${subtextColor}`}>…</span>
+                        ) : (
+                          <button
+                            key={item}
+                            type="button"
+                            onClick={() => setCurrentPage(item)}
+                            className={`min-w-[28px] h-7 rounded-lg text-xs font-semibold transition ${
+                              item === safePage
+                                ? "bg-orange-500 text-white shadow-md"
+                                : isDark
+                                  ? "text-zinc-300 hover:bg-zinc-800"
+                                  : "text-zinc-600 hover:bg-zinc-100"
+                            }`}
+                          >
+                            {item}
+                          </button>
+                        )
+                      )}
+
+                    <button
+                      type="button"
+                      onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
+                      disabled={safePage >= totalPages}
+                      className={`inline-flex items-center gap-1 px-3 py-1.5 rounded-lg text-xs font-medium transition ${
+                        safePage >= totalPages
+                          ? "opacity-30 cursor-not-allowed"
+                          : isDark
+                            ? "text-zinc-300 hover:bg-zinc-800"
+                            : "text-zinc-600 hover:bg-zinc-100"
+                      }`}
+                    >
+                      {copy.next}
+                      <ChevronRight className="h-3.5 w-3.5" />
+                    </button>
+
+                    <span className={`ml-2 text-[11px] ${subtextColor}`}>
+                      {copy.page} {safePage} {copy.of} {totalPages}
+                    </span>
+                  </div>
+                )}
               </div>
             )}
           </div>
