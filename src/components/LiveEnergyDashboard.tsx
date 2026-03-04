@@ -334,6 +334,9 @@ export default function LiveEnergyDashboard() {
       if (!response.ok) throw new Error("request failed");
       const data = await response.json();
       setRows(Array.isArray(data?.items) ? data.items : []);
+      if (data?.notice && (!data.items || data.items.length === 0)) {
+        setError(data.notice);
+      }
       setLastFetchTime(new Date().toLocaleTimeString(uiLocale, { hour: "2-digit", minute: "2-digit" }));
     } catch {
       setRows([]);

@@ -21,20 +21,9 @@ export async function POST(request: NextRequest) {
     }
 
     const rawBody = await request.json();
-    console.log("[api/energy/ptf] Received body:", JSON.stringify(rawBody));
     const payload = parseDateRangePayload(rawBody);
     if (!payload) {
-      console.error("[api/energy/ptf] parseDateRangePayload returned null for body:", JSON.stringify(rawBody));
-      return NextResponse.json(
-        {
-          error: "Invalid date range payload",
-          _debug_v: "2026-03-04-v4",
-          _receivedBody: rawBody,
-          _receivedType: typeof rawBody,
-          _keys: rawBody && typeof rawBody === "object" ? Object.keys(rawBody) : null,
-        },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: "Invalid date range payload" }, { status: 400 });
     }
 
     const tgt = await getTgt();
@@ -54,23 +43,22 @@ export async function POST(request: NextRequest) {
       const errorBody = await response.text().catch(() => "");
       console.error("[api/energy/ptf] EPIAS upstream failed", {
         status: response.status,
-        statusText: response.statusText,
-        errorBody: errorBody.slice(0, 500),
-        endpoint,
-        payloadSent: JSON.stringify(payload),
+        body: errorBody.slice(0, 500),
       });
-      return NextResponse.json(
-        {
-          error: "Upstream service error",
-          _debug_v: "2026-03-04-v4",
-          _upstreamStatus: response.status,
-          _upstreamStatusText: response.statusText,
-          _upstreamBody: errorBody.slice(0, 1000),
-          _endpoint: endpoint,
-          _payloadSent: payload,
-        },
-        { status: 502 }
-      );
+
+      /* EPİAŞ "veri henüz mevcut değil" hatası — saat 14:00 öncesi PTF verisi yok */
+      const isDataNotYetAvailable =
+        response.status === 400 &&
+        /mevcut değil|not available|SEF1124/i.test(errorBody);
+
+      if (isDataNotYetAvailable) {
+        return NextResponse.json({
+          items: [],
+          notice: "PTF verileri henüz yayınlanmadı. Gün öncesi piyasa verileri saat 14:00'te açıklanır.",
+        });
+      }
+
+      return NextResponse.json({ error: "Upstream service error" }, { status: 502 });
     }
 
     const data = await response.json();

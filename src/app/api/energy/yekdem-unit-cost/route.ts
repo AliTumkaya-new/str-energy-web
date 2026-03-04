@@ -39,7 +39,13 @@ export async function POST(request: NextRequest) {
     });
 
     if (!response.ok) {
-      console.error("[api/energy/yekdem-unit-cost] EPIAS upstream failed", { status: response.status });
+      const errorBody = await response.text().catch(() => "");
+      console.error("[api/energy/yekdem-unit-cost] EPIAS upstream failed", { status: response.status, body: errorBody.slice(0, 500) });
+
+      if (response.status === 400 && /mevcut değil|not available|SEF1124/i.test(errorBody)) {
+        return NextResponse.json({ items: [], notice: "YEKDEM birim maliyet verileri henüz yayınlanmadı." });
+      }
+
       return NextResponse.json({ error: "Upstream service error" }, { status: 502 });
     }
 
