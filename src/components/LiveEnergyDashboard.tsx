@@ -62,6 +62,18 @@ const copyByLang = {
     euCrossBorder: "Sınır Ötesi Akışlar",
     fromCountry: "Kaynak Ülke",
     toCountry: "Hedef Ülke",
+    glGeneration: "Elektrik Üretimi",
+    glConsumption: "Elektrik Tüketimi",
+    glCapacity: "Kurulu Güç Kapasitesi",
+    glPrices: "Elektrik Fiyatları (ABD)",
+    glCarbon: "Karbon Emisyonu (CO₂)",
+    startYear: "Başlangıç Yılı",
+    endYear: "Bitiş Yılı",
+    sector: "Sektör",
+    sectorAll: "Tümü",
+    sectorRes: "Konut",
+    sectorCom: "Ticari",
+    sectorInd: "Sanayi",
   },
   en: {
     headline: "Live Energy Data",
@@ -104,6 +116,18 @@ const copyByLang = {
     euCrossBorder: "Cross-Border Flows",
     fromCountry: "From",
     toCountry: "To",
+    glGeneration: "Electricity Generation",
+    glConsumption: "Electricity Consumption",
+    glCapacity: "Installed Capacity",
+    glPrices: "Electricity Prices (US)",
+    glCarbon: "Carbon Emissions (CO₂)",
+    startYear: "Start Year",
+    endYear: "End Year",
+    sector: "Sector",
+    sectorAll: "All",
+    sectorRes: "Residential",
+    sectorCom: "Commercial",
+    sectorInd: "Industrial",
   },
   ru: {
     headline: "Данные в реальном времени",
@@ -146,6 +170,18 @@ const copyByLang = {
     euCrossBorder: "Трансграничные потоки",
     fromCountry: "Откуда",
     toCountry: "Куда",
+    glGeneration: "Генерация электроэнергии",
+    glConsumption: "Потребление электроэнергии",
+    glCapacity: "Установленная мощность",
+    glPrices: "Цены на электроэнергию (США)",
+    glCarbon: "Выбросы CO₂",
+    startYear: "Начальный год",
+    endYear: "Конечный год",
+    sector: "Сектор",
+    sectorAll: "Все",
+    sectorRes: "Жилой",
+    sectorCom: "Коммерческий",
+    sectorInd: "Промышленный",
   },
 } as const;
 
@@ -246,6 +282,75 @@ const euGenTypeLabels: Record<string, { tr: string; en: string; ru: string }> = 
 };
 
 /* ─── EU countries list ─── */
+
+/* ─── Global column maps (EIA) ─── */
+const glGenerationMap: Record<string, { label: { tr: string; en: string; ru: string }; aliases: string[] }> = {
+  period: { label: { tr: "Dönem", en: "Period", ru: "Период" }, aliases: ["period"] },
+  product: { label: { tr: "Ürün / Kaynak", en: "Product / Source", ru: "Продукт" }, aliases: ["product"] },
+  value: { label: { tr: "Değer (Milyar kWh)", en: "Value (Billion kWh)", ru: "Значение (Млрд кВт·ч)" }, aliases: ["value"] },
+  unit: { label: { tr: "Birim", en: "Unit", ru: "Единица" }, aliases: ["unit"] },
+  country: { label: { tr: "Ülke", en: "Country", ru: "Страна" }, aliases: ["country"] },
+};
+
+const glConsumptionMap = { ...glGenerationMap };
+
+const glCapacityMap: Record<string, { label: { tr: string; en: string; ru: string }; aliases: string[] }> = {
+  period: { label: { tr: "Dönem", en: "Period", ru: "Период" }, aliases: ["period"] },
+  product: { label: { tr: "Ürün / Kaynak", en: "Product / Source", ru: "Продукт" }, aliases: ["product"] },
+  value: { label: { tr: "Değer (Milyon kW)", en: "Value (Million kW)", ru: "Значение (Млн кВт)" }, aliases: ["value"] },
+  unit: { label: { tr: "Birim", en: "Unit", ru: "Единица" }, aliases: ["unit"] },
+  country: { label: { tr: "Ülke", en: "Country", ru: "Страна" }, aliases: ["country"] },
+};
+
+const glPricesMap: Record<string, { label: { tr: string; en: string; ru: string }; aliases: string[] }> = {
+  period: { label: { tr: "Dönem", en: "Period", ru: "Период" }, aliases: ["period"] },
+  sector: { label: { tr: "Sektör", en: "Sector", ru: "Сектор" }, aliases: ["sector"] },
+  price: { label: { tr: "Fiyat (cents/kWh)", en: "Price (cents/kWh)", ru: "Цена (cents/kWh)" }, aliases: ["price"] },
+  unit: { label: { tr: "Birim", en: "Unit", ru: "Единица" }, aliases: ["unit"] },
+  state: { label: { tr: "Eyalet", en: "State", ru: "Штат" }, aliases: ["state"] },
+};
+
+const glCarbonMap: Record<string, { label: { tr: string; en: string; ru: string }; aliases: string[] }> = {
+  period: { label: { tr: "Dönem", en: "Period", ru: "Период" }, aliases: ["period"] },
+  product: { label: { tr: "Ürün", en: "Product", ru: "Продукт" }, aliases: ["product"] },
+  value: { label: { tr: "Değer (Milyon Ton CO₂)", en: "Value (MMT CO₂)", ru: "Значение (Млн т CO₂)" }, aliases: ["value"] },
+  unit: { label: { tr: "Birim", en: "Unit", ru: "Единица" }, aliases: ["unit"] },
+  country: { label: { tr: "Ülke", en: "Country", ru: "Страна" }, aliases: ["country"] },
+};
+
+/* ─── Global countries (EIA ISO-3 codes) ─── */
+const GLOBAL_COUNTRIES = [
+  { code: "USA", label: { tr: "ABD", en: "United States", ru: "США" } },
+  { code: "CHN", label: { tr: "Çin", en: "China", ru: "Китай" } },
+  { code: "IND", label: { tr: "Hindistan", en: "India", ru: "Индия" } },
+  { code: "JPN", label: { tr: "Japonya", en: "Japan", ru: "Япония" } },
+  { code: "RUS", label: { tr: "Rusya", en: "Russia", ru: "Россия" } },
+  { code: "DEU", label: { tr: "Almanya", en: "Germany", ru: "Германия" } },
+  { code: "BRA", label: { tr: "Brezilya", en: "Brazil", ru: "Бразилия" } },
+  { code: "CAN", label: { tr: "Kanada", en: "Canada", ru: "Канада" } },
+  { code: "KOR", label: { tr: "Güney Kore", en: "South Korea", ru: "Южная Корея" } },
+  { code: "FRA", label: { tr: "Fransa", en: "France", ru: "Франция" } },
+  { code: "GBR", label: { tr: "Birleşik Krallık", en: "United Kingdom", ru: "Великобритания" } },
+  { code: "AUS", label: { tr: "Avustralya", en: "Australia", ru: "Австралия" } },
+  { code: "MEX", label: { tr: "Meksika", en: "Mexico", ru: "Мексика" } },
+  { code: "IDN", label: { tr: "Endonezya", en: "Indonesia", ru: "Индонезия" } },
+  { code: "SAU", label: { tr: "Suudi Arabistan", en: "Saudi Arabia", ru: "Саудовская Аравия" } },
+  { code: "TUR", label: { tr: "Türkiye", en: "Turkey", ru: "Турция" } },
+  { code: "ZAF", label: { tr: "Güney Afrika", en: "South Africa", ru: "ЮАР" } },
+  { code: "IRN", label: { tr: "İran", en: "Iran", ru: "Иран" } },
+  { code: "ITA", label: { tr: "İtalya", en: "Italy", ru: "Италия" } },
+  { code: "ESP", label: { tr: "İspanya", en: "Spain", ru: "Испания" } },
+  { code: "THA", label: { tr: "Tayland", en: "Thailand", ru: "Таиланд" } },
+  { code: "EGY", label: { tr: "Mısır", en: "Egypt", ru: "Египет" } },
+  { code: "POL", label: { tr: "Polonya", en: "Poland", ru: "Польша" } },
+  { code: "ARG", label: { tr: "Arjantin", en: "Argentina", ru: "Аргентина" } },
+  { code: "NOR", label: { tr: "Norveç", en: "Norway", ru: "Норвегия" } },
+  { code: "NGA", label: { tr: "Nijerya", en: "Nigeria", ru: "Нигерия" } },
+  { code: "SWE", label: { tr: "İsveç", en: "Sweden", ru: "Швеция" } },
+  { code: "ARE", label: { tr: "BAE", en: "UAE", ru: "ОАЭ" } },
+  { code: "VNM", label: { tr: "Vietnam", en: "Vietnam", ru: "Вьетнам" } },
+  { code: "NLD", label: { tr: "Hollanda", en: "Netherlands", ru: "Нидерланды" } },
+] as const;
 const EU_COUNTRIES = [
   { code: "DE", flag: "/flags/de.svg" },
   { code: "FR", flag: "/flags/fr.svg" },
@@ -318,6 +423,7 @@ const EU_COUNTRY_LABELS: Record<string, { tr: string; en: string; ru: string }> 
 
 type DatasetKey = "generation" | "yekdem-unit-cost" | "ptf" | "load-plan" | "weighted-avg";
 type EuDatasetKey = "eu-day-ahead" | "eu-generation" | "eu-load" | "eu-cross-border";
+type GlobalDatasetKey = "gl-generation" | "gl-consumption" | "gl-capacity" | "gl-prices" | "gl-carbon";
 type RegionKey = "tr" | "eu" | "global";
 
 const localeByLanguage = {
@@ -456,8 +562,15 @@ export default function LiveEnergyDashboard() {
   const [euFromCountry, setEuFromCountry] = useState("DE");
   const [euToCountry, setEuToCountry] = useState("FR");
 
+  /* Global-specific state */
+  const [glDataset, setGlDataset] = useState<GlobalDatasetKey>("gl-generation");
+  const [glCountry, setGlCountry] = useState("USA");
+  const [glStartYear, setGlStartYear] = useState("2015");
+  const [glEndYear, setGlEndYear] = useState("2024");
+  const [glSector, setGlSector] = useState("ALL");
 
-  useEffect(() => { setRows([]); setError(""); setCurrentPage(1); }, [dataset, euDataset, region]);
+
+  useEffect(() => { setRows([]); setError(""); setCurrentPage(1); }, [dataset, euDataset, glDataset, region]);
 
   /* close calendars on outside click */
   useEffect(() => {
@@ -472,7 +585,6 @@ export default function LiveEnergyDashboard() {
 
   /* data fetch */
   const fetchData = useCallback(async () => {
-    if (region === "global") return;
     setIsLoading(true);
     setError("");
     try {
@@ -527,6 +639,40 @@ export default function LiveEnergyDashboard() {
         if (data?.notice && (!data.items || data.items.length === 0)) {
           setError(data.notice);
         }
+      } else if (region === "global") {
+        const glEndpointMap: Record<GlobalDatasetKey, string> = {
+          "gl-generation": "/api/eia/generation",
+          "gl-consumption": "/api/eia/consumption",
+          "gl-capacity": "/api/eia/capacity",
+          "gl-prices": "/api/eia/prices",
+          "gl-carbon": "/api/eia/carbon",
+        };
+        let payload: Record<string, string>;
+        if (glDataset === "gl-prices") {
+          payload = {
+            startMonth: `${glStartYear}-01`,
+            endMonth: `${glEndYear}-12`,
+            sector: glSector,
+          };
+        } else {
+          payload = {
+            country: glCountry,
+            startYear: glStartYear,
+            endYear: glEndYear,
+          };
+        }
+        const response = await fetch(glEndpointMap[glDataset], {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+          cache: "no-store",
+        });
+        if (!response.ok) throw new Error("request failed");
+        const data = await response.json();
+        setRows(Array.isArray(data?.items) ? data.items : []);
+        if (data?.notice && (!data.items || data.items.length === 0)) {
+          setError(data.notice);
+        }
       }
       setLastFetchTime(new Date().toLocaleTimeString(uiLocale, { hour: "2-digit", minute: "2-digit" }));
     } catch {
@@ -535,7 +681,7 @@ export default function LiveEnergyDashboard() {
     } finally {
       setIsLoading(false);
     }
-  }, [region, dataset, euDataset, euCountry, euFromCountry, euToCountry, startDate, endDate, copy.errorMsg, uiLocale]);
+  }, [region, dataset, euDataset, euCountry, euFromCountry, euToCountry, startDate, endDate, glDataset, glCountry, glStartYear, glEndYear, glSector, copy.errorMsg, uiLocale]);
 
   const safeLang = language === "en" || language === "ru" ? language : "tr";
   const labelFor = (label: { tr: string; en: string; ru: string } | string) =>
@@ -559,6 +705,10 @@ export default function LiveEnergyDashboard() {
   useEffect(() => { setCurrentPage(1); }, [search]);
 
   const displayColumns = useMemo(() => {
+    if (region === "global") {
+      if (glDataset === "gl-prices") return ["period", "sector", "price", "unit", "state"];
+      return ["period", "product", "value", "unit", "country"];
+    }
     if (region === "eu") {
       if (euDataset === "eu-day-ahead") return ["date", "hour", "price", "currency"];
       if (euDataset === "eu-load") return ["date", "hour", "load"];
@@ -577,9 +727,35 @@ export default function LiveEnergyDashboard() {
     if (dataset === "weighted-avg") return ["date", "hour", "price"];
     if (dataset === "yekdem-unit-cost") return yekdemOrder;
     return columns;
-  }, [region, dataset, euDataset, columns, rows]);
+  }, [region, dataset, euDataset, glDataset, columns, rows]);
 
   const displayRows: Record<string, unknown>[] = useMemo(() => {
+    /* ── Global datasets ── */
+    if (region === "global") {
+      if (glDataset === "gl-prices") {
+        return filteredRows.map((row) => {
+          const s = row as Record<string, unknown>;
+          return {
+            period: String(s.period || ""),
+            sector: String(s.sector || ""),
+            price: formatNumber(s.price ?? 0, uiLocale),
+            unit: String(s.unit || "cents/kWh"),
+            state: String(s.state || ""),
+          };
+        });
+      }
+      return filteredRows.map((row) => {
+        const s = row as Record<string, unknown>;
+        return {
+          period: String(s.period || ""),
+          product: String(s.product || ""),
+          value: formatNumber(s.value ?? 0, uiLocale),
+          unit: String(s.unit || ""),
+          country: String(s.country || ""),
+        };
+      });
+    }
+
     /* ── EU datasets ── */
     if (region === "eu") {
       if (euDataset === "eu-day-ahead") {
@@ -709,11 +885,19 @@ export default function LiveEnergyDashboard() {
       });
     }
     return filteredRows;
-  }, [region, dataset, euDataset, filteredRows, uiLocale, safeLang]);
+  }, [region, dataset, euDataset, glDataset, filteredRows, uiLocale, safeLang]);
 
 
   const columnIsNumeric = useMemo(() => {
     const result: Record<string, boolean> = {};
+    if (region === "global") {
+      if (glDataset === "gl-prices") {
+        displayColumns.forEach((col) => { result[col] = col === "price"; });
+        return result;
+      }
+      displayColumns.forEach((col) => { result[col] = col === "value"; });
+      return result;
+    }
     if (region === "eu") {
       if (euDataset === "eu-day-ahead") {
         displayColumns.forEach((col) => { result[col] = col === "price"; });
@@ -760,7 +944,7 @@ export default function LiveEnergyDashboard() {
       result[col] = false;
     });
     return result;
-  }, [region, dataset, euDataset, displayRows, displayColumns]);
+  }, [region, dataset, euDataset, glDataset, displayRows, displayColumns]);
 
   const totalRow = useMemo(() => {
     if (displayRows.length === 0) return null;
@@ -796,7 +980,15 @@ export default function LiveEnergyDashboard() {
   /* Reset page on new data */
   useEffect(() => { setCurrentPage(1); }, [displayRows.length]);
 
-  const datasetLabel = region === "eu"
+  const datasetLabel = region === "global"
+    ? {
+        "gl-generation": copy.glGeneration,
+        "gl-consumption": copy.glConsumption,
+        "gl-capacity": copy.glCapacity,
+        "gl-prices": copy.glPrices,
+        "gl-carbon": copy.glCarbon,
+      }[glDataset]
+    : region === "eu"
     ? {
         "eu-day-ahead": copy.euDayAhead,
         "eu-generation": copy.euGeneration,
@@ -819,6 +1011,7 @@ export default function LiveEnergyDashboard() {
     const labelFor = (label: { tr: string; en: string; ru: string } | string) =>
       typeof label === "string" ? label : label[safeLang] || label.tr;
     const getColumnMap = () => {
+      if (region === "global") return getMapForDataset();
       if (region === "eu") return getMapForDataset();
       if (dataset === "generation") return generationMap;
       if (dataset === "ptf") return ptfMap;
@@ -846,9 +1039,14 @@ export default function LiveEnergyDashboard() {
       "eu-generation": { tr: "Üretim (Kaynak Bazlı)", en: "Generation by Source", ru: "Генерация по типам" },
       "eu-load": { tr: "Tüketim / Yük", en: "Consumption / Load", ru: "Потребление / Нагрузка" },
       "eu-cross-border": { tr: "Sınır Ötesi Akışlar", en: "Cross-Border Flows", ru: "Трансграничные потоки" },
+      "gl-generation": { tr: "Elektrik Üretimi", en: "Electricity Generation", ru: "Генерация электроэнергии" },
+      "gl-consumption": { tr: "Elektrik Tüketimi", en: "Electricity Consumption", ru: "Потребление электроэнергии" },
+      "gl-capacity": { tr: "Kurulu Güç Kapasitesi", en: "Installed Capacity", ru: "Установленная мощность" },
+      "gl-prices": { tr: "Elektrik Fiyatları (ABD)", en: "Electricity Prices (US)", ru: "Цены на электроэнергию (США)" },
+      "gl-carbon": { tr: "Karbon Emisyonu (CO₂)", en: "Carbon Emissions (CO₂)", ru: "Выбросы CO₂" },
     };
 
-    const activeKey = region === "eu" ? euDataset : dataset;
+    const activeKey = region === "global" ? glDataset : region === "eu" ? euDataset : dataset;
     const reportLabel = datasetLabels[activeKey]?.[safeLang] || activeKey;
     const dateRangeLabel = safeLang === "en" ? "Date Range" : safeLang === "ru" ? "Период" : "Tarih Aralığı";
     const reportTitleLabel = safeLang === "en" ? "Report" : safeLang === "ru" ? "Отчёт" : "Rapor";
@@ -874,7 +1072,7 @@ export default function LiveEnergyDashboard() {
       pad("STR ENERGY — www.str.energy"),
       pad(`${reportTitleLabel}: ${reportLabel}`),
       pad(`${dateRangeLabel}: ${displayDate(startDate, exportLocale)} — ${displayDate(endDate, exportLocale)}`),
-      pad(`${sourceLabel}: ${region === "eu" ? "ENTSO-E Transparency Platform" : "EPİAŞ / EXIST"}`),
+      pad(`${sourceLabel}: ${region === "global" ? "U.S. Energy Information Administration (EIA)" : region === "eu" ? "ENTSO-E Transparency Platform" : "EPİAŞ / EXIST"}`),
       pad(`${generatedLabel}: ${generatedAt}`),
       pad(`${recordCountLabel}: ${displayRows.length}`),
       pad("═══════════════════════════════════════════"),
@@ -894,10 +1092,15 @@ export default function LiveEnergyDashboard() {
       "load-plan": "yuk-tahmin", "weighted-avg": "gip-aof",
       "eu-day-ahead": "eu-day-ahead", "eu-generation": "eu-generation",
       "eu-load": "eu-load", "eu-cross-border": "eu-cross-border",
+      "gl-generation": "gl-generation", "gl-consumption": "gl-consumption",
+      "gl-capacity": "gl-capacity", "gl-prices": "gl-prices", "gl-carbon": "gl-carbon",
     };
-    const fileKey = region === "eu" ? euDataset : dataset;
-    const countryTag = region === "eu" ? `_${euDataset === "eu-cross-border" ? `${euFromCountry}-${euToCountry}` : euCountry}` : "";
-    const fileName = `STR-Energy_${datasetNames[fileKey] || fileKey}${countryTag}_${startDate}_${endDate}.csv`;
+    const fileKey = region === "global" ? glDataset : region === "eu" ? euDataset : dataset;
+    const countryTag = region === "global"
+      ? (glDataset === "gl-prices" ? "_US" : `_${glCountry}`)
+      : region === "eu" ? `_${euDataset === "eu-cross-border" ? `${euFromCountry}-${euToCountry}` : euCountry}` : "";
+    const dateTag = region === "global" ? `${glStartYear}_${glEndYear}` : `${startDate}_${endDate}`;
+    const fileName = `STR-Energy_${datasetNames[fileKey] || fileKey}${countryTag}_${dateTag}.csv`;
 
     /* Use data URI for reliable download with correct filename */
     const encodedCsv = encodeURIComponent(csvContent);
@@ -912,6 +1115,14 @@ export default function LiveEnergyDashboard() {
   };
 
   const getMapForDataset = () => {
+    if (region === "global") {
+      if (glDataset === "gl-generation") return glGenerationMap;
+      if (glDataset === "gl-consumption") return glConsumptionMap;
+      if (glDataset === "gl-capacity") return glCapacityMap;
+      if (glDataset === "gl-prices") return glPricesMap;
+      if (glDataset === "gl-carbon") return glCarbonMap;
+      return {} as Record<string, { label: { tr: string; en: string; ru: string }; aliases: string[] }>;
+    }
     if (region === "eu") {
       if (euDataset === "eu-day-ahead") return euDayAheadMap;
       if (euDataset === "eu-load") return euLoadMap;
@@ -953,7 +1164,7 @@ export default function LiveEnergyDashboard() {
   const regions: { key: RegionKey; label: string; flag: string; active: boolean }[] = [
     { key: "tr", label: copy.regionTR, flag: "/flags/tr.svg", active: true },
     { key: "eu", label: copy.regionEU, flag: "/flags/eu.svg", active: true },
-    { key: "global", label: copy.regionGlobal, flag: "/flags/global.svg", active: false },
+    { key: "global", label: copy.regionGlobal, flag: "/flags/global.svg", active: true },
   ];
 
   /* dataset options */
@@ -1063,6 +1274,18 @@ export default function LiveEnergyDashboard() {
                       <option value="eu-load">{copy.euLoad}</option>
                       <option value="eu-cross-border">{copy.euCrossBorder}</option>
                     </select>
+                  ) : region === "global" ? (
+                    <select
+                      value={glDataset}
+                      onChange={(e) => setGlDataset(e.target.value as GlobalDatasetKey)}
+                      className={`rounded-lg border px-3 py-2 text-sm outline-none transition focus:ring-2 focus:ring-orange-500/30 ${inputBg}`}
+                    >
+                      <option value="gl-generation">{copy.glGeneration}</option>
+                      <option value="gl-consumption">{copy.glConsumption}</option>
+                      <option value="gl-capacity">{copy.glCapacity}</option>
+                      <option value="gl-prices">{copy.glPrices}</option>
+                      <option value="gl-carbon">{copy.glCarbon}</option>
+                    </select>
                   ) : (
                     <select disabled className={`rounded-lg border px-3 py-2 text-sm opacity-50 ${inputBg}`}>
                       <option>{copy.comingSoon}</option>
@@ -1128,7 +1351,79 @@ export default function LiveEnergyDashboard() {
                   </>
                 )}
 
-                {/* Start date */}
+                {/* Global Country selector (not for prices) */}
+                {region === "global" && glDataset !== "gl-prices" && (
+                  <div className="flex flex-col gap-1.5">
+                    <label className={`text-[11px] font-semibold uppercase tracking-wider ${subtextColor}`}>
+                      {copy.country}
+                    </label>
+                    <select
+                      value={glCountry}
+                      onChange={(e) => setGlCountry(e.target.value)}
+                      className={`rounded-lg border px-3 py-2 text-sm outline-none transition focus:ring-2 focus:ring-orange-500/30 ${inputBg}`}
+                    >
+                      {GLOBAL_COUNTRIES.map((c) => (
+                        <option key={c.code} value={c.code}>
+                          {c.label[safeLang as "tr" | "en" | "ru"] || c.code}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                )}
+
+                {/* Global Sector selector (prices only) */}
+                {region === "global" && glDataset === "gl-prices" && (
+                  <div className="flex flex-col gap-1.5">
+                    <label className={`text-[11px] font-semibold uppercase tracking-wider ${subtextColor}`}>
+                      {copy.sector}
+                    </label>
+                    <select
+                      value={glSector}
+                      onChange={(e) => setGlSector(e.target.value)}
+                      className={`rounded-lg border px-3 py-2 text-sm outline-none transition focus:ring-2 focus:ring-orange-500/30 ${inputBg}`}
+                    >
+                      <option value="ALL">{copy.sectorAll}</option>
+                      <option value="RES">{copy.sectorRes}</option>
+                      <option value="COM">{copy.sectorCom}</option>
+                      <option value="IND">{copy.sectorInd}</option>
+                    </select>
+                  </div>
+                )}
+
+                {/* Global year range inputs */}
+                {region === "global" && (
+                  <>
+                    <div className="flex flex-col gap-1.5">
+                      <label className={`text-[11px] font-semibold uppercase tracking-wider ${subtextColor}`}>
+                        {copy.startYear}
+                      </label>
+                      <input
+                        type="number"
+                        min="1980"
+                        max="2030"
+                        value={glStartYear}
+                        onChange={(e) => setGlStartYear(e.target.value)}
+                        className={`rounded-lg border px-3 py-2 text-sm outline-none transition focus:ring-2 focus:ring-orange-500/30 w-24 ${inputBg}`}
+                      />
+                    </div>
+                    <div className="flex flex-col gap-1.5">
+                      <label className={`text-[11px] font-semibold uppercase tracking-wider ${subtextColor}`}>
+                        {copy.endYear}
+                      </label>
+                      <input
+                        type="number"
+                        min="1980"
+                        max="2030"
+                        value={glEndYear}
+                        onChange={(e) => setGlEndYear(e.target.value)}
+                        className={`rounded-lg border px-3 py-2 text-sm outline-none transition focus:ring-2 focus:ring-orange-500/30 w-24 ${inputBg}`}
+                      />
+                    </div>
+                  </>
+                )}
+
+                {/* Start date (TR / EU only) */}
+                {region !== "global" && (
                 <div ref={startRef} className="relative flex flex-col gap-1.5">
                   <label className={`text-[11px] font-semibold uppercase tracking-wider ${subtextColor}`}>
                     {copy.start}
@@ -1177,8 +1472,10 @@ export default function LiveEnergyDashboard() {
                     )}
                   </AnimatePresence>
                 </div>
+                )}
 
-                {/* End date */}
+                {/* End date (TR / EU only) */}
+                {region !== "global" && (
                 <div ref={endRef} className="relative flex flex-col gap-1.5">
                   <label className={`text-[11px] font-semibold uppercase tracking-wider ${subtextColor}`}>
                     {copy.end}
@@ -1227,6 +1524,7 @@ export default function LiveEnergyDashboard() {
                     )}
                   </AnimatePresence>
                 </div>
+                )}
 
                 {/* Search */}
                 <div className="flex flex-col gap-1.5">
@@ -1250,7 +1548,7 @@ export default function LiveEnergyDashboard() {
               <button
                 type="button"
                 onClick={fetchData}
-                disabled={isLoading || region === "global"}
+                disabled={isLoading}
                 className={`inline-flex items-center justify-center rounded-xl px-10 py-3 text-sm font-bold tracking-wide uppercase transition-all duration-200 ${
                   isLoading
                     ? "opacity-60 cursor-wait"
@@ -1534,7 +1832,7 @@ export default function LiveEnergyDashboard() {
             <div className={`flex flex-wrap items-center gap-3 text-[11px] ${subtextColor}`}>
               <span className="inline-flex items-center gap-1.5">
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
-                {copy.source}: <span className={`font-semibold ${headingColor}`}>{region === "eu" ? "ENTSO-E" : "EPİAŞ"}</span>
+                {copy.source}: <span className={`font-semibold ${headingColor}`}>{region === "global" ? "EIA" : region === "eu" ? "ENTSO-E" : "EPİAŞ"}</span>
               </span>
               {lastFetchTime && (
                 <span className="inline-flex items-center gap-1.5">
