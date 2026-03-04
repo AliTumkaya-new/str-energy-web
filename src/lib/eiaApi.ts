@@ -93,16 +93,15 @@ export const EIA_COUNTRIES: { code: string; label: { tr: string; en: string; ru:
  * EIA International product IDs
  *
  * Common productId values for the /v2/international route:
- * - 2   = Total electricity net generation (billion kWh)
- * - 79  = Electricity installed capacity (million kW)
+ * - 2    = Electricity
+ * - 4008 = CO2 emissions
  * - 12  = Total primary energy consumption (quad Btu — we filter for electricity)
  *
  * activityId:
- * - 1   = Production
  * - 2   = Consumption
- * - 7   = Imports
- * - 8   = Exports
- * - 12  = Installed capacity
+ * - 7   = Capacity
+ * - 8   = Emissions
+ * - 12  = Generation
  */
 
 function getApiKey(): string {
@@ -215,8 +214,8 @@ export async function fetchElectricityGeneration(
   /*
    * EIA international route:
    * /v2/international/data/?frequency=annual&data[0]=value
-   *   &facets[activityId][]=1  (production)
-   *   &facets[productId][]=79  (electricity-generation)
+   *   &facets[activityId][]=12 (generation)
+   *   &facets[productId][]=2   (electricity)
    *   &facets[countryRegionId][]=USA
    *   &facets[unit][]=BKWH
    *   &start=2015&end=2023
@@ -224,7 +223,7 @@ export async function fetchElectricityGeneration(
   const result = await eiaFetch("/international/data/", {
     frequency: "annual",
     data: ["value"],
-    "facets[activityId]": ["1"],
+    "facets[activityId]": ["12"],
     "facets[productId]": ["2"],
     "facets[countryRegionId]": [countryCode],
     "facets[unit]": ["BKWH"],
@@ -295,8 +294,8 @@ export async function fetchInstalledCapacity(
   const result = await eiaFetch("/international/data/", {
     frequency: "annual",
     data: ["value"],
-    "facets[activityId]": ["12"],
-    "facets[productId]": ["79"],
+    "facets[activityId]": ["7"],
+    "facets[productId]": ["2"],
     "facets[countryRegionId]": [countryCode],
     "facets[unit]": ["MK"],
     start: startYear,
@@ -369,13 +368,13 @@ export async function fetchCarbonIntensity(
 ): Promise<{ items: Array<Record<string, unknown>>; notice?: string }> {
   /*
    * CO₂ emissions from electricity and heat production
-   * productId=4008 (CO2 emissions) activityId=1 (production)
+   * productId=4008 (CO2 emissions) activityId=8 (emissions)
    * unit= MMTCD (million metric tons of carbon dioxide)
    */
   const result = await eiaFetch("/international/data/", {
     frequency: "annual",
     data: ["value"],
-    "facets[activityId]": ["1"],
+    "facets[activityId]": ["8"],
     "facets[productId]": ["4008"],
     "facets[countryRegionId]": [countryCode],
     "facets[unit]": ["MMTCD"],
