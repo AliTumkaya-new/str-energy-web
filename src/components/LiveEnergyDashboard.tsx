@@ -494,6 +494,9 @@ const toDateString = (d: Date) => {
   return `${y}-${m}-${day}`;
 };
 
+const ensureDateRangeOrder = (start: string, end: string): { start: string; end: string } =>
+  start <= end ? { start, end } : { start: end, end: start };
+
 const displayDate = (value: string, locale: string) => {
   if (!value) return "";
   const parts = value.split("-");
@@ -595,9 +598,13 @@ export default function LiveEnergyDashboard() {
     setIsLoading(true);
     setError("");
     try {
+      const { start: orderedStartDate, end: orderedEndDate } = ensureDateRangeOrder(startDate, endDate);
+      if (orderedStartDate !== startDate) setStartDate(orderedStartDate);
+      if (orderedEndDate !== endDate) setEndDate(orderedEndDate);
+
       if (region === "tr") {
-        const start = `${startDate}T00:00:00+03:00`;
-        const end = `${endDate}T23:59:59+03:00`;
+        const start = `${orderedStartDate}T00:00:00+03:00`;
+        const end = `${orderedEndDate}T23:59:59+03:00`;
         const endpointMap: Record<DatasetKey, string> = {
           generation: "/api/energy/realtime-generation",
           "yekdem-unit-cost": "/api/energy/yekdem-unit-cost",
@@ -625,8 +632,8 @@ export default function LiveEnergyDashboard() {
           "eu-cross-border": "/api/entsoe/cross-border",
         };
         const payload: Record<string, string> = {
-          startDate,
-          endDate,
+          startDate: orderedStartDate,
+          endDate: orderedEndDate,
         };
         if (euDataset === "eu-cross-border") {
           payload.from = euFromCountry;
@@ -1500,7 +1507,15 @@ export default function LiveEnergyDashboard() {
                             const val = toDateString(cell.date);
                             const isSel = val === startDate;
                             return (
-                              <button key={val} type="button" data-testid={`live-start-date-option-${val}`} onClick={() => { setStartDate(val); setStartOpen(false); }}
+                              <button
+                                key={val}
+                                type="button"
+                                data-testid={`live-start-date-option-${val}`}
+                                onClick={() => {
+                                  setStartDate(val);
+                                  if (val > endDate) setEndDate(val);
+                                  setStartOpen(false);
+                                }}
                                 className={`h-8 rounded-lg text-sm transition ${isSel ? "bg-orange-500 text-white font-semibold" : isDark ? "text-zinc-200 hover:bg-zinc-800" : "text-zinc-700 hover:bg-zinc-100"}`}
                               >{cell.label}</button>
                             );
@@ -1553,7 +1568,15 @@ export default function LiveEnergyDashboard() {
                             const val = toDateString(cell.date);
                             const isSel = val === endDate;
                             return (
-                              <button key={val} type="button" data-testid={`live-end-date-option-${val}`} onClick={() => { setEndDate(val); setEndOpen(false); }}
+                              <button
+                                key={val}
+                                type="button"
+                                data-testid={`live-end-date-option-${val}`}
+                                onClick={() => {
+                                  setEndDate(val);
+                                  if (val < startDate) setStartDate(val);
+                                  setEndOpen(false);
+                                }}
                                 className={`h-8 rounded-lg text-sm transition ${isSel ? "bg-orange-500 text-white font-semibold" : isDark ? "text-zinc-200 hover:bg-zinc-800" : "text-zinc-700 hover:bg-zinc-100"}`}
                               >{cell.label}</button>
                             );
