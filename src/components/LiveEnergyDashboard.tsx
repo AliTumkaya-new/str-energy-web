@@ -23,7 +23,7 @@ import {
 const copyByLang = {
   tr: {
     headline: "Canlı Enerji Verisi",
-    subhead: "PTF, YEKDEM ve üretim verilerini tek panelde izleyin.",
+    subhead: "Türkiye, Avrupa ve global enerji verilerini tek panelde izleyin.",
     badge: "CANLI",
     regionTR: "Türkiye",
     regionEU: "Avrupa",
@@ -77,7 +77,7 @@ const copyByLang = {
   },
   en: {
     headline: "Live Energy Data",
-    subhead: "Monitor PTF, YEKDEM, and generation data in one panel.",
+    subhead: "Monitor Turkey, Europe, and global energy data in one panel.",
     badge: "LIVE",
     regionTR: "Turkey",
     regionEU: "Europe",
@@ -131,7 +131,7 @@ const copyByLang = {
   },
   ru: {
     headline: "Данные в реальном времени",
-    subhead: "PTF, YEKDEM и генерация в одном окне.",
+    subhead: "Отслеживайте данные Турции, Европы и мира в одной панели.",
     badge: "LIVE",
     regionTR: "Турция",
     regionEU: "Европа",
@@ -1237,6 +1237,7 @@ export default function LiveEnergyDashboard() {
                 key={r.key}
                 type="button"
                 onClick={() => r.active && setRegion(r.key)}
+                data-testid={`live-region-${r.key}`}
                 className={`relative flex items-center gap-2.5 px-4 py-2.5 rounded-xl text-sm font-medium transition-all ${
                   region === r.key
                     ? isDark
@@ -1280,6 +1281,7 @@ export default function LiveEnergyDashboard() {
                     <select
                       value={dataset}
                       onChange={(e) => setDataset(e.target.value as DatasetKey)}
+                      data-testid="live-dataset-tr"
                       className={`rounded-lg border px-3 py-2 text-sm outline-none transition focus:ring-2 focus:ring-orange-500/30 ${inputBg}`}
                     >
                       {datasetOptions.map((opt) => (
@@ -1290,6 +1292,7 @@ export default function LiveEnergyDashboard() {
                     <select
                       value={euDataset}
                       onChange={(e) => setEuDataset(e.target.value as EuDatasetKey)}
+                      data-testid="live-dataset-eu"
                       className={`rounded-lg border px-3 py-2 text-sm outline-none transition focus:ring-2 focus:ring-orange-500/30 ${inputBg}`}
                     >
                       <option value="eu-day-ahead">{copy.euDayAhead}</option>
@@ -1301,6 +1304,7 @@ export default function LiveEnergyDashboard() {
                     <select
                       value={glDataset}
                       onChange={(e) => setGlDataset(e.target.value as GlobalDatasetKey)}
+                      data-testid="live-dataset-global"
                       className={`rounded-lg border px-3 py-2 text-sm outline-none transition focus:ring-2 focus:ring-orange-500/30 ${inputBg}`}
                     >
                       <option value="gl-generation">{copy.glGeneration}</option>
@@ -1383,6 +1387,7 @@ export default function LiveEnergyDashboard() {
                     <select
                       value={glCountry}
                       onChange={(e) => setGlCountry(e.target.value)}
+                      data-testid="live-global-country"
                       className={`rounded-lg border px-3 py-2 text-sm outline-none transition focus:ring-2 focus:ring-orange-500/30 ${inputBg}`}
                     >
                       {GLOBAL_COUNTRIES.map((c) => (
@@ -1403,6 +1408,7 @@ export default function LiveEnergyDashboard() {
                     <select
                       value={glSector}
                       onChange={(e) => setGlSector(e.target.value)}
+                      data-testid="live-global-sector"
                       className={`rounded-lg border px-3 py-2 text-sm outline-none transition focus:ring-2 focus:ring-orange-500/30 ${inputBg}`}
                     >
                       <option value="ALL">{copy.sectorAll}</option>
@@ -1423,6 +1429,7 @@ export default function LiveEnergyDashboard() {
                       <select
                         value={glStartYear}
                         onChange={(e) => setGlStartYear(e.target.value)}
+                        data-testid="live-global-start-year"
                         className={`rounded-lg border px-3 py-2 text-sm outline-none transition focus:ring-2 focus:ring-orange-500/30 w-24 ${inputBg}`}
                       >
                         {glYearOptions.map((y) => (
@@ -1439,6 +1446,7 @@ export default function LiveEnergyDashboard() {
                       <select
                         value={glEndYear}
                         onChange={(e) => setGlEndYear(e.target.value)}
+                        data-testid="live-global-end-year"
                         className={`rounded-lg border px-3 py-2 text-sm outline-none transition focus:ring-2 focus:ring-orange-500/30 w-24 ${inputBg}`}
                       >
                         {glYearOptions.map((y) => (
@@ -1460,6 +1468,7 @@ export default function LiveEnergyDashboard() {
                   <button
                     type="button"
                     onClick={() => setStartOpen((p) => !p)}
+                    data-testid="live-start-date-toggle"
                     className={`inline-flex items-center gap-2 rounded-lg border px-3 py-2 text-sm transition focus:ring-2 focus:ring-orange-500/30 ${inputBg}`}
                   >
                     <Calendar className="h-3.5 w-3.5 opacity-50" />
@@ -1474,11 +1483,11 @@ export default function LiveEnergyDashboard() {
                         className={`absolute left-0 top-full z-30 mt-2 w-64 rounded-xl border p-3 shadow-2xl ${isDark ? "bg-zinc-900 border-zinc-700" : "bg-white border-zinc-200"}`}
                       >
                         <div className="flex items-center justify-between pb-2">
-                          <button type="button" onClick={() => setStartView(new Date(startView.getFullYear(), startView.getMonth() - 1, 1))} className={`h-7 w-7 rounded-full flex items-center justify-center ${isDark ? "hover:bg-zinc-800 text-zinc-300" : "hover:bg-zinc-100 text-zinc-600"}`}>
+                          <button type="button" data-testid="live-start-month-prev" onClick={() => setStartView(new Date(startView.getFullYear(), startView.getMonth() - 1, 1))} className={`h-7 w-7 rounded-full flex items-center justify-center ${isDark ? "hover:bg-zinc-800 text-zinc-300" : "hover:bg-zinc-100 text-zinc-600"}`}>
                             <ChevronLeft className="h-4 w-4" />
                           </button>
                           <span className={`text-sm font-semibold ${headingColor}`}>{monthLabel(startView, uiLocale)}</span>
-                          <button type="button" onClick={() => setStartView(new Date(startView.getFullYear(), startView.getMonth() + 1, 1))} className={`h-7 w-7 rounded-full flex items-center justify-center ${isDark ? "hover:bg-zinc-800 text-zinc-300" : "hover:bg-zinc-100 text-zinc-600"}`}>
+                          <button type="button" data-testid="live-start-month-next" onClick={() => setStartView(new Date(startView.getFullYear(), startView.getMonth() + 1, 1))} className={`h-7 w-7 rounded-full flex items-center justify-center ${isDark ? "hover:bg-zinc-800 text-zinc-300" : "hover:bg-zinc-100 text-zinc-600"}`}>
                             <ChevronRight className="h-4 w-4" />
                           </button>
                         </div>
@@ -1491,7 +1500,7 @@ export default function LiveEnergyDashboard() {
                             const val = toDateString(cell.date);
                             const isSel = val === startDate;
                             return (
-                              <button key={val} type="button" onClick={() => { setStartDate(val); setStartOpen(false); }}
+                              <button key={val} type="button" data-testid={`live-start-date-option-${val}`} onClick={() => { setStartDate(val); setStartOpen(false); }}
                                 className={`h-8 rounded-lg text-sm transition ${isSel ? "bg-orange-500 text-white font-semibold" : isDark ? "text-zinc-200 hover:bg-zinc-800" : "text-zinc-700 hover:bg-zinc-100"}`}
                               >{cell.label}</button>
                             );
@@ -1512,6 +1521,7 @@ export default function LiveEnergyDashboard() {
                   <button
                     type="button"
                     onClick={() => setEndOpen((p) => !p)}
+                    data-testid="live-end-date-toggle"
                     className={`inline-flex items-center gap-2 rounded-lg border px-3 py-2 text-sm transition focus:ring-2 focus:ring-orange-500/30 ${inputBg}`}
                   >
                     <Calendar className="h-3.5 w-3.5 opacity-50" />
@@ -1526,11 +1536,11 @@ export default function LiveEnergyDashboard() {
                         className={`absolute left-0 top-full z-30 mt-2 w-64 rounded-xl border p-3 shadow-2xl ${isDark ? "bg-zinc-900 border-zinc-700" : "bg-white border-zinc-200"}`}
                       >
                         <div className="flex items-center justify-between pb-2">
-                          <button type="button" onClick={() => setEndView(new Date(endView.getFullYear(), endView.getMonth() - 1, 1))} className={`h-7 w-7 rounded-full flex items-center justify-center ${isDark ? "hover:bg-zinc-800 text-zinc-300" : "hover:bg-zinc-100 text-zinc-600"}`}>
+                          <button type="button" data-testid="live-end-month-prev" onClick={() => setEndView(new Date(endView.getFullYear(), endView.getMonth() - 1, 1))} className={`h-7 w-7 rounded-full flex items-center justify-center ${isDark ? "hover:bg-zinc-800 text-zinc-300" : "hover:bg-zinc-100 text-zinc-600"}`}>
                             <ChevronLeft className="h-4 w-4" />
                           </button>
                           <span className={`text-sm font-semibold ${headingColor}`}>{monthLabel(endView, uiLocale)}</span>
-                          <button type="button" onClick={() => setEndView(new Date(endView.getFullYear(), endView.getMonth() + 1, 1))} className={`h-7 w-7 rounded-full flex items-center justify-center ${isDark ? "hover:bg-zinc-800 text-zinc-300" : "hover:bg-zinc-100 text-zinc-600"}`}>
+                          <button type="button" data-testid="live-end-month-next" onClick={() => setEndView(new Date(endView.getFullYear(), endView.getMonth() + 1, 1))} className={`h-7 w-7 rounded-full flex items-center justify-center ${isDark ? "hover:bg-zinc-800 text-zinc-300" : "hover:bg-zinc-100 text-zinc-600"}`}>
                             <ChevronRight className="h-4 w-4" />
                           </button>
                         </div>
@@ -1543,7 +1553,7 @@ export default function LiveEnergyDashboard() {
                             const val = toDateString(cell.date);
                             const isSel = val === endDate;
                             return (
-                              <button key={val} type="button" onClick={() => { setEndDate(val); setEndOpen(false); }}
+                              <button key={val} type="button" data-testid={`live-end-date-option-${val}`} onClick={() => { setEndDate(val); setEndOpen(false); }}
                                 className={`h-8 rounded-lg text-sm transition ${isSel ? "bg-orange-500 text-white font-semibold" : isDark ? "text-zinc-200 hover:bg-zinc-800" : "text-zinc-700 hover:bg-zinc-100"}`}
                               >{cell.label}</button>
                             );
@@ -1578,6 +1588,7 @@ export default function LiveEnergyDashboard() {
                 type="button"
                 onClick={fetchData}
                 disabled={isLoading}
+                data-testid="live-query-button"
                 className={`inline-flex items-center justify-center rounded-xl px-10 py-3 text-sm font-bold tracking-wide uppercase transition-all duration-200 ${
                   isLoading
                     ? "opacity-60 cursor-wait"
@@ -1678,7 +1689,7 @@ export default function LiveEnergyDashboard() {
 
             {/* Error */}
             {error && (
-              <div className={`mx-5 my-4 rounded-lg border px-4 py-3 text-sm ${isDark ? "border-red-500/30 bg-red-500/10 text-red-300" : "border-red-200 bg-red-50 text-red-600"}`}>
+              <div data-testid="live-query-error" className={`mx-5 my-4 rounded-lg border px-4 py-3 text-sm ${isDark ? "border-red-500/30 bg-red-500/10 text-red-300" : "border-red-200 bg-red-50 text-red-600"}`}>
                 {error}
               </div>
             )}

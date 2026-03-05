@@ -1,4 +1,5 @@
 import type { NextRequest } from "next/server";
+import { parseDateRangePayload } from "@/lib/dateRange";
 
 type RateBucket = {
   count: number;
@@ -21,6 +22,12 @@ const DEFAULT_ALLOWED_ORIGINS = [
   "http://localhost:3000",
   "http://127.0.0.1:3000",
 ];
+const TRUST_PROXY_HEADERS =
+  process.env.TRUST_PROXY_HEADERS === "true" ||
+  (process.env.TRUST_PROXY_HEADERS !== "false" &&
+    (process.env.VERCEL === "1" || process.env.NODE_ENV === "production"));
+const RATE_LIMIT_CLEANUP_INTERVAL = 200;
+let rateLimitCallCount = 0;
 
 function getAllowedOrigins(): Set<string> {
   const raw = process.env.ALLOWED_ORIGINS;
@@ -34,22 +41,44 @@ function getAllowedOrigins(): Set<string> {
   return new Set([...DEFAULT_ALLOWED_ORIGINS, ...fromEnv]);
 }
 
+function normalizeIp(raw: string | null): string | null {
+  if (!raw) return null;
+  const first = raw.split(",")[0]?.trim();
+  if (!first) return null;
+  return first.toLowerCase();
+}
+
 function getClientIp(request: NextRequest): string {
-  const forwarded = request.headers.get("x-forwarded-for");
-  if (forwarded) {
-    const first = forwarded.split(",")[0]?.trim();
-    if (first) return first;
+  if (TRUST_PROXY_HEADERS) {
+    const vercelIp = normalizeIp(request.headers.get("x-vercel-forwarded-for"));
+    if (vercelIp) return vercelIp;
+
+    const cfIp = normalizeIp(request.headers.get("cf-connecting-ip"));
+    if (cfIp) return cfIp;
+
+    const realIp = normalizeIp(request.headers.get("x-real-ip"));
+    if (realIp) return realIp;
+
+    const forwarded = normalizeIp(request.headers.get("x-forwarded-for"));
+    if (forwarded) return forwarded;
   }
 
-  const realIp = request.headers.get("x-real-ip");
-  if (realIp) return realIp;
+  return "direct-client";
+}
 
-  return "unknown";
+function cleanupExpiredRateBuckets(now: number): void {
+  for (const [key, bucket] of rateBuckets.entries()) {
+    if (bucket.resetAt <= now) rateBuckets.delete(key);
+  }
 }
 
 export function isAllowedOrigin(request: NextRequest): boolean {
   const originHeader = request.headers.get("origin");
-  if (!originHeader) return true;
+  if (!originHeader) {
+    const secFetchSite = request.headers.get("sec-fetch-site");
+    if (!secFetchSite) return true;
+    return secFetchSite === "same-origin" || secFetchSite === "none";
+  }
 
   try {
     const origin = new URL(originHeader).origin;
@@ -68,7 +97,13 @@ export function checkRateLimit(
   windowMs = 60_000
 ): { limited: boolean; retryAfter: number } {
   const now = Date.now();
-  const key = `${scope}:${getClientIp(request)}`;
+  rateLimitCallCount += 1;
+  if (rateLimitCallCount % RATE_LIMIT_CLEANUP_INTERVAL === 0) {
+    cleanupExpiredRateBuckets(now);
+  }
+
+  const clientIp = getClientIp(request);
+  const key = `${scope}:${clientIp}`;
   const existing = rateBuckets.get(key);
 
   if (!existing || existing.resetAt <= now) {
@@ -88,141 +123,6 @@ export function checkRateLimit(
 
 function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === "object" && value !== null;
-}
-
-function pickString(value: unknown): string | null {
-  if (typeof value === "string") return value;
-  if (typeof value === "number" && Number.isFinite(value)) {
-    return new Date(value).toISOString();
-  }
-  return null;
-}
-
-function extractDateRangeFields(payload: Record<string, unknown>): { rawStartDate: string; rawEndDate: string } | null {
-  const directStart =
-    pickString(payload.startDate) ??
-    pickString(payload.start) ??
-    pickString(payload.from) ??
-    pickString(payload.beginDate) ??
-    pickString(payload.start_time);
-  const directEnd =
-    pickString(payload.endDate) ??
-    pickString(payload.end) ??
-    pickString(payload.to) ??
-    pickString(payload.finishDate) ??
-    pickString(payload.end_time);
-
-  if (directStart && directEnd) {
-    return { rawStartDate: directStart, rawEndDate: directEnd };
-  }
-
-  const nested = payload.range ?? payload.dateRange ?? payload.filters;
-  if (isRecord(nested)) {
-    const nestedStart =
-      pickString(nested.startDate) ??
-      pickString(nested.start) ??
-      pickString(nested.from) ??
-      pickString(nested.beginDate);
-    const nestedEnd =
-      pickString(nested.endDate) ??
-      pickString(nested.end) ??
-      pickString(nested.to) ??
-      pickString(nested.finishDate);
-    if (nestedStart && nestedEnd) {
-      return { rawStartDate: nestedStart, rawEndDate: nestedEnd };
-    }
-  }
-
-  return null;
-}
-
-function normalizeDateTimeInput(value: string, boundary: "start" | "end"): string | null {
-  const trimmed = value.trim();
-  if (!trimmed) return null;
-
-  if (/^\d{4}-\d{2}-\d{2}$/.test(trimmed)) {
-    return boundary === "start"
-      ? `${trimmed}T00:00:00+03:00`
-      : `${trimmed}T23:59:59+03:00`;
-  }
-
-  let candidate = trimmed
-    .replace(" ", "T")
-    .replace(/([+\-]\d{2})(\d{2})$/, "$1:$2");
-
-  if (/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}$/.test(candidate)) {
-    candidate = `${candidate}:00+03:00`;
-  } else if (/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?$/.test(candidate)) {
-    candidate = `${candidate}+03:00`;
-  } else if (/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}(?:Z|[+\-]\d{2}:\d{2})$/.test(candidate)) {
-    const timezone = candidate.slice(-1) === "Z" ? "Z" : candidate.slice(-6);
-    candidate = `${candidate.slice(0, -timezone.length)}:00${timezone}`;
-  }
-
-  if (!/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|[+\-]\d{2}:\d{2})$/.test(candidate)) {
-    const parsed = new Date(trimmed);
-    if (Number.isNaN(parsed.getTime())) {
-      return null;
-    }
-
-    const targetOffsetMinutes = 180;
-    const shiftedMs = parsed.getTime() + targetOffsetMinutes * 60 * 1000;
-    const shifted = new Date(shiftedMs);
-    const year = shifted.getUTCFullYear();
-    const month = String(shifted.getUTCMonth() + 1).padStart(2, "0");
-    const day = String(shifted.getUTCDate()).padStart(2, "0");
-    const hour = String(shifted.getUTCHours()).padStart(2, "0");
-    const minute = String(shifted.getUTCMinutes()).padStart(2, "0");
-    const second = String(shifted.getUTCSeconds()).padStart(2, "0");
-    return `${year}-${month}-${day}T${hour}:${minute}:${second}+03:00`;
-  }
-
-  return candidate;
-}
-
-export function parseDateRangePayload(
-  payload: unknown,
-  maxDays = 31
-): { startDate: string; endDate: string } | null {
-  if (!isRecord(payload)) {
-    console.error("[parseDateRangePayload] Not a record:", typeof payload);
-    return null;
-  }
-  const fields = extractDateRangeFields(payload);
-  if (!fields) {
-    console.error("[parseDateRangePayload] Date fields missing or unsupported");
-    return null;
-  }
-  const { rawStartDate, rawEndDate } = fields;
-
-  const startDate = normalizeDateTimeInput(rawStartDate, "start");
-  const endDate = normalizeDateTimeInput(rawEndDate, "end");
-  if (!startDate || !endDate) {
-    console.error("[parseDateRangePayload] Date normalization failed:", {
-      startDate: rawStartDate,
-      endDate: rawEndDate,
-    });
-    return null;
-  }
-
-  const start = new Date(startDate);
-  const end = new Date(endDate);
-  if (Number.isNaN(start.getTime()) || Number.isNaN(end.getTime())) {
-    console.error("[parseDateRangePayload] Invalid Date objects");
-    return null;
-  }
-  if (end < start) {
-    console.error("[parseDateRangePayload] end < start");
-    return null;
-  }
-
-  const diffDays = (end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24);
-  if (diffDays > maxDays) {
-    console.error("[parseDateRangePayload] diffDays exceeds maxDays:", { diffDays, maxDays });
-    return null;
-  }
-
-  return { startDate, endDate };
 }
 
 function isChatRole(value: unknown): value is ChatRole {
@@ -250,3 +150,5 @@ export function parseChatPayload(payload: unknown): SanitizedChatPayload | null 
 
   return { messages: sanitizedMessages, locale: safeLocale };
 }
+
+export { parseDateRangePayload };

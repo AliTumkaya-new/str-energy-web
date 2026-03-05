@@ -6,6 +6,8 @@
  * Set env var: ENTSOE_API_KEY
  */
 
+import { fetchWithRetry } from "@/lib/fetchWithRetry";
+
 const BASE_URL = "https://web-api.tp.entsoe.eu/api";
 
 /* ─── Area EIC codes for EU countries ─── */
@@ -185,7 +187,11 @@ export async function fetchDayAheadPrices(
 
   const url = `${BASE_URL}?securityToken=${getApiKey()}&documentType=A44&in_Domain=${encodeURIComponent(eic)}&out_Domain=${encodeURIComponent(eic)}&periodStart=${toEntsoeTs(startDate)}&periodEnd=${toEntsoeTs(endDate, true)}`;
 
-  const res = await fetch(url, { headers: { Accept: "application/xml" } });
+  const res = await fetchWithRetry(
+    url,
+    { headers: { Accept: "application/xml" } },
+    { timeoutMs: 12_000, attempts: 2, retryDelayMs: 350 }
+  );
   if (!res.ok) {
     const body = await res.text().catch(() => "");
     console.error("[entsoe/day-ahead]", res.status, body.slice(0, 300));
@@ -227,7 +233,11 @@ export async function fetchActualGeneration(
 
   const url = `${BASE_URL}?securityToken=${getApiKey()}&documentType=A75&processType=A16&in_Domain=${encodeURIComponent(eic)}&periodStart=${toEntsoeTs(startDate)}&periodEnd=${toEntsoeTs(endDate, true)}`;
 
-  const res = await fetch(url, { headers: { Accept: "application/xml" } });
+  const res = await fetchWithRetry(
+    url,
+    { headers: { Accept: "application/xml" } },
+    { timeoutMs: 12_000, attempts: 2, retryDelayMs: 350 }
+  );
   if (!res.ok) {
     const body = await res.text().catch(() => "");
     console.error("[entsoe/generation]", res.status, body.slice(0, 300));
@@ -282,7 +292,11 @@ export async function fetchActualLoad(
 
   const url = `${BASE_URL}?securityToken=${getApiKey()}&documentType=A65&processType=A16&outBiddingZone_Domain=${encodeURIComponent(eic)}&periodStart=${toEntsoeTs(startDate)}&periodEnd=${toEntsoeTs(endDate, true)}`;
 
-  const res = await fetch(url, { headers: { Accept: "application/xml" } });
+  const res = await fetchWithRetry(
+    url,
+    { headers: { Accept: "application/xml" } },
+    { timeoutMs: 12_000, attempts: 2, retryDelayMs: 350 }
+  );
   if (!res.ok) {
     const body = await res.text().catch(() => "");
     console.error("[entsoe/load]", res.status, body.slice(0, 300));
@@ -323,7 +337,11 @@ export async function fetchCrossBorderFlows(
 
   const url = `${BASE_URL}?securityToken=${getApiKey()}&documentType=A11&in_Domain=${encodeURIComponent(toEic)}&out_Domain=${encodeURIComponent(fromEic)}&periodStart=${toEntsoeTs(startDate)}&periodEnd=${toEntsoeTs(endDate, true)}`;
 
-  const res = await fetch(url, { headers: { Accept: "application/xml" } });
+  const res = await fetchWithRetry(
+    url,
+    { headers: { Accept: "application/xml" } },
+    { timeoutMs: 12_000, attempts: 2, retryDelayMs: 350 }
+  );
   if (!res.ok) {
     const body = await res.text().catch(() => "");
     console.error("[entsoe/flows]", res.status, body.slice(0, 300));

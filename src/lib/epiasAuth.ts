@@ -1,3 +1,5 @@
+import { fetchWithRetry } from "@/lib/fetchWithRetry";
+
 let cachedTgt: { value: string; expiresAt: number } | null = null;
 
 const DEFAULT_CAS_URL = "https://giris.epias.com.tr/cas/v1/tickets";
@@ -15,14 +17,18 @@ async function requestTgt(): Promise<string> {
   payload.append("username", username);
   payload.append("password", password);
 
-  const response = await fetch(casUrl, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/x-www-form-urlencoded",
-      Accept: "text/plain",
+  const response = await fetchWithRetry(
+    casUrl,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+        Accept: "text/plain",
+      },
+      body: payload.toString(),
     },
-    body: payload.toString(),
-  });
+    { timeoutMs: 8_000, attempts: 2, retryDelayMs: 300 }
+  );
 
   if (!response.ok) {
     const errorText = await response.text();
