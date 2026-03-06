@@ -200,12 +200,12 @@ const generationMap: Record<string, { label: { tr: string; en: string; ru: strin
   fuelOil: { label: { tr: "Fuel Oil", en: "Fuel Oil", ru: "Мазут" }, aliases: ["fuelOil", "fuel_oil", "fueloil"] },
   geothermal: { label: { tr: "Jeotermal", en: "Geothermal", ru: "Геотермальная" }, aliases: ["geothermal", "geoThermal"] },
   asphaltiteCoal: { label: { tr: "Asfaltit Kömür", en: "Asphaltite Coal", ru: "Асфальтит" }, aliases: ["asphaltiteCoal", "asphaltite", "asphaltite_coal"] },
-  hardCoal: { label: { tr: "Taş Kömür", en: "Hard Coal", ru: "Каменный уголь" }, aliases: ["hardCoal", "hard_coal", "stoneCoal", "coal"] },
+  hardCoal: { label: { tr: "Taş Kömür", en: "Hard Coal", ru: "Каменный уголь" }, aliases: ["hardCoal", "hard_coal", "stoneCoal", "blackCoal", "black_coal", "coal"] },
   biomass: { label: { tr: "Biyokütle", en: "Biomass", ru: "Биомасса" }, aliases: ["biomass", "bioMass"] },
-  naphtha: { label: { tr: "Nafta", en: "Naphtha", ru: "Нафта" }, aliases: ["naphtha", "nafta"] },
+  naphtha: { label: { tr: "Nafta", en: "Naphtha", ru: "Нафта" }, aliases: ["naphtha", "naphta", "nafta"] },
   lng: { label: { tr: "LNG", en: "LNG", ru: "LNG" }, aliases: ["lng", "LNG"] },
-  international: { label: { tr: "Uluslararası", en: "International", ru: "Международный" }, aliases: ["international", "interconnection"] },
-  blackHeat: { label: { tr: "Atık Isı", en: "Waste Heat", ru: "Отходящее тепло" }, aliases: ["blackHeat", "wasteHeat", "waste_heat"] },
+  international: { label: { tr: "Uluslararası", en: "International", ru: "Международный" }, aliases: ["international", "interconnection", "importExport", "importexport"] },
+  blackHeat: { label: { tr: "Atık Isı", en: "Waste Heat", ru: "Отходящее тепло" }, aliases: ["blackHeat", "wasteHeat", "waste_heat", "wasteheat"] },
 };
 
 const ptfMap: Record<string, { label: { tr: string; en: string; ru: string }; aliases: string[] }> = {

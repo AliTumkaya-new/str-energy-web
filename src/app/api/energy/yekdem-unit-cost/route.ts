@@ -50,7 +50,11 @@ export async function POST(request: NextRequest) {
     }
 
     const data = await response.json();
-    return NextResponse.json({ items: data?.items ?? [] });
+    const items = Array.isArray(data?.items) ? data.items : [];
+    return NextResponse.json({
+      items,
+      notice: items.length === 0 ? "YEKDEM verileri aylık yayımlanır. Seçilen aralık için henüz kayıt bulunamadı." : undefined,
+    });
   } catch (error) {
     console.error("[api/energy/yekdem-unit-cost] Unexpected server error", error);
     return NextResponse.json({ error: "Unexpected server error" }, { status: 500 });

@@ -50,7 +50,11 @@ export async function POST(request: NextRequest) {
     }
 
     const data = await response.json();
-    return NextResponse.json({ items: data?.items ?? [] });
+    const items = Array.isArray(data?.items) ? data.items : [];
+    return NextResponse.json({
+      items,
+      notice: items.length === 0 ? "Seçilen tarih aralığında gerçek zamanlı üretim verisi bulunamadı." : undefined,
+    });
   } catch (error) {
     console.error("[api/energy/realtime-generation] Unexpected server error", error);
     return NextResponse.json({ error: "Unexpected server error" }, { status: 500 });

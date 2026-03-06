@@ -50,7 +50,11 @@ export async function POST(request: NextRequest) {
 
     if (response.ok) {
       const data = await response.json();
-      return NextResponse.json({ items: data?.items ?? [] });
+      const items = Array.isArray(data?.items) ? data.items : [];
+      return NextResponse.json({
+        items,
+        notice: items.length === 0 ? "Seçilen tarih aralığında PTF verisi bulunamadı." : undefined,
+      });
     }
 
     const errorBody = await response.text().catch(() => "");
