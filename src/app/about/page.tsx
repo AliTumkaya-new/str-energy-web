@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import HeroPatternLayer from "@/components/HeroPatternLayer";
+import ProductsGrid from "@/components/ProductsGrid";
 import { useHeroSpotlight } from "@/lib/useHeroSpotlight";
 import { useTheme } from "@/context/ThemeContext";
 import { useLanguage } from "@/context/LanguageContext";
@@ -96,6 +97,8 @@ export default function AboutPage() {
           </div>
         </div>
       </section>
+
+      <ProductsGrid />
 
       <Footer />
     </div>
