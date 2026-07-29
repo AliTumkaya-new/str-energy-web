@@ -1,12 +1,11 @@
 "use client";
 
-import { useId } from "react";
-
 type CircuitBoardPatternProps = {
   className?: string;
   stroke?: string;
   strokeWidth?: number;
   nodeFill?: string;
+  id?: string;
 };
 
 export default function CircuitBoardPattern({
@@ -14,9 +13,9 @@ export default function CircuitBoardPattern({
   stroke = "rgba(0,0,0,0.12)",
   strokeWidth = 0.8,
   nodeFill = "rgba(0,0,0,0.18)",
+  id = "circuit_board_pattern_static",
 }: CircuitBoardPatternProps) {
-  const baseId = useId().replace(/[^a-zA-Z0-9_-]/g, "");
-  const patternId = `circuit_${baseId}`;
+  const patternId = id;
 
   return (
     <svg className={className} width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">

@@ -18,6 +18,7 @@ const navigation = [
 ];
 
 const products = [
+  { key: "product.energypulse", href: "/products/energypulse" },
   { key: "product.energyos", href: "/products/energyos" },
   { key: "product.gridanalytics", href: "/products/gridanalytics" },
   { key: "product.powerforecast", href: "/products/powerforecast" },
@@ -27,13 +28,17 @@ const products = [
 ];
 
 const company = [
+  { key: "nav.insights", href: "/insights" },
   { key: "nav.about", href: "/about" },
   { key: "nav.news", href: "/news" },
   { key: "nav.testimonials", href: "/testimonials" },
   { key: "nav.privacy", href: "/privacy" },
+  { key: "nav.terms", href: "/terms" },
+  { key: "nav.cookiePolicy", href: "/cookie-policy" },
+  { key: "nav.disclaimer", href: "/disclaimer" },
 ];
 
-export default function Footer() {
+export default function Footer({ compact = false }: { compact?: boolean }) {
   const { t } = useLanguage();
   const { theme } = useTheme();
   const isDark = theme === "dark";
@@ -49,67 +54,69 @@ export default function Footer() {
   return (
     <footer id="contacts" className={`border-t ${isDark ? "bg-black border-white/5" : "bg-white border-black/10"}`}>
       {/* CTA Section */}
-      <div
-        ref={heroRef}
-        onPointerEnter={onHeroPointerEnter}
-        onPointerLeave={onHeroPointerLeave}
-        onPointerMove={onHeroPointerMove}
-        className={`relative py-16 border-b overflow-hidden [--str-hex-x:50%] [--str-hex-y:50%] ${
-          isDark ? "border-white/5" : "border-black/10"
-        }`}
-      >
-        <div className={`absolute inset-0 ${isDark ? "bg-black" : "bg-white"}`}>
-          <WaveMeshPattern
-            className="w-full h-full"
-            stroke={isDark ? "rgba(249,115,22,0.22)" : "rgba(0,0,0,0.08)"}
-            strokeWidth={0.75}
-            spacing={80}
-            amplitude={14}
-            frequency={0.011}
-          />
-          <div
-            className={`absolute inset-0 transition-opacity duration-200 ${patternHot ? "opacity-100" : "opacity-0"}`}
-            style={{
-              WebkitMaskImage:
-                "radial-gradient(160px circle at var(--str-hex-x) var(--str-hex-y), #000 0 65%, transparent 100%)",
-              maskImage:
-                "radial-gradient(160px circle at var(--str-hex-x) var(--str-hex-y), #000 0 65%, transparent 100%)",
-            }}
-          >
+      {!compact && (
+        <div
+          ref={heroRef}
+          onPointerEnter={onHeroPointerEnter}
+          onPointerLeave={onHeroPointerLeave}
+          onPointerMove={onHeroPointerMove}
+          className={`relative py-16 border-b overflow-hidden [--str-hex-x:50%] [--str-hex-y:50%] ${
+            isDark ? "border-white/5" : "border-black/10"
+          }`}
+        >
+          <div className={`absolute inset-0 ${isDark ? "bg-black" : "bg-white"}`}>
             <WaveMeshPattern
               className="w-full h-full"
-              stroke={isDark ? "rgba(255,168,75,0.95)" : "rgba(249,115,22,0.85)"}
-              strokeWidth={1.15}
+              stroke={isDark ? "rgba(249,115,22,0.22)" : "rgba(0,0,0,0.08)"}
+              strokeWidth={0.75}
               spacing={80}
               amplitude={14}
               frequency={0.011}
             />
+            <div
+              className={`absolute inset-0 transition-opacity duration-200 ${patternHot ? "opacity-100" : "opacity-0"}`}
+              style={{
+                WebkitMaskImage:
+                  "radial-gradient(160px circle at var(--str-hex-x) var(--str-hex-y), #000 0 65%, transparent 100%)",
+                maskImage:
+                  "radial-gradient(160px circle at var(--str-hex-x) var(--str-hex-y), #000 0 65%, transparent 100%)",
+              }}
+            >
+              <WaveMeshPattern
+                className="w-full h-full"
+                stroke={isDark ? "rgba(255,168,75,0.95)" : "rgba(249,115,22,0.85)"}
+                strokeWidth={1.15}
+                spacing={80}
+                amplitude={14}
+                frequency={0.011}
+              />
+            </div>
+          </div>
+          <div className="container relative">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              viewport={{ once: true }}
+              className={`rounded-2xl p-8 md:p-12 text-center border ${
+                isDark ? "bg-black/60 border-white/10" : "bg-white/80 border-black/10"
+              }`}
+            >
+              <h2 className={`text-2xl md:text-3xl font-bold mb-4 ${isDark ? "text-white" : "text-zinc-900"}`}>
+                {t("footer.cta.title")}
+              </h2>
+              <motion.a
+                href={withLocale("/contacts")}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="inline-flex items-center justify-center px-8 py-4 bg-orange-500 hover:bg-orange-400 text-black font-semibold rounded-full transition-all hover:shadow-lg hover:shadow-orange-500/25"
+              >
+                {t("footer.cta.button")}
+              </motion.a>
+            </motion.div>
           </div>
         </div>
-        <div className="container relative">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-            className={`rounded-2xl p-8 md:p-12 text-center border ${
-              isDark ? "bg-black/60 border-white/10" : "bg-white/80 border-black/10"
-            }`}
-          >
-            <h2 className={`text-2xl md:text-3xl font-bold mb-4 ${isDark ? "text-white" : "text-zinc-900"}`}>
-              {t("footer.cta.title")}
-            </h2>
-            <motion.a
-              href={withLocale("/contacts")}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="inline-flex items-center justify-center px-8 py-4 bg-orange-500 hover:bg-orange-400 text-black font-semibold rounded-full transition-all hover:shadow-lg hover:shadow-orange-500/25"
-            >
-              {t("footer.cta.button")}
-            </motion.a>
-          </motion.div>
-        </div>
-      </div>
+      )}
 
       {/* Main Footer */}
       <div className="py-16">
@@ -234,7 +241,7 @@ export default function Footer() {
               <ul className="space-y-4">
                 <li>
                   <a
-                    href={`https://wa.me/${phoneHref.replace('+', '')}`}
+                    href={`https://wa.me/${phoneHref.replace("+", "")}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className={`flex items-center gap-3 hover:text-orange-500 transition-colors ${
@@ -281,9 +288,18 @@ export default function Footer() {
             <p className={`${isDark ? "text-gray-600" : "text-zinc-600"} text-sm`}>
               © 2026 {t("brand.name")} — {t("footer.rights")}
             </p>
-            <div className="flex items-center gap-6 text-sm">
+            <div className="flex flex-wrap items-center gap-4 md:gap-6 text-xs md:text-sm">
               <a href={withLocale("/privacy")} className={`${isDark ? "text-gray-500" : "text-zinc-600"} hover:text-orange-500 transition-colors`}>
                 {t("nav.privacy")}
+              </a>
+              <a href={withLocale("/terms")} className={`${isDark ? "text-gray-500" : "text-zinc-600"} hover:text-orange-500 transition-colors`}>
+                {t("nav.terms")}
+              </a>
+              <a href={withLocale("/cookie-policy")} className={`${isDark ? "text-gray-500" : "text-zinc-600"} hover:text-orange-500 transition-colors`}>
+                {t("nav.cookiePolicy")}
+              </a>
+              <a href={withLocale("/disclaimer")} className={`${isDark ? "text-gray-500" : "text-zinc-600"} hover:text-orange-500 transition-colors`}>
+                {t("nav.disclaimer")}
               </a>
             </div>
           </div>

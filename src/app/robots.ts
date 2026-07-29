@@ -9,6 +9,7 @@ export default function robots(): MetadataRoute.Robots {
         disallow: ["/api/", "/portal/"],
       },
     ],
-    sitemap: "https://str.energy/sitemap.xml",
+    sitemap: "https://www.str-energy.com/sitemap.xml",
+    host: "https://www.str-energy.com",
   };
 }

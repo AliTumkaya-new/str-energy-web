@@ -5,6 +5,8 @@ import { LanguageProvider } from "@/context/LanguageContext";
 import { ThemeProvider } from "@/context/ThemeContext";
 import ChatWidget from "@/components/ChatWidget";
 import SmoothScroll from "@/components/SmoothScroll";
+import { Analytics } from "@vercel/analytics/next";
+import { organizationJsonLd, SITE_URL } from "@/lib/seo";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -23,7 +25,7 @@ const displayFont = Oxanium({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://str.energy"),
+  metadataBase: new URL(SITE_URL),
   title: {
     default: "STR Energy | Enerji Yazılım Ar-Ge",
     template: "%s | STR Energy",
@@ -31,8 +33,8 @@ export const metadata: Metadata = {
   description:
     "Şebeke, tesis ve sayaç verilerini tek platformda birleştiren; gerçek zamanlı izleme, analitik ve otomasyon sunan enerji yazılım çözümleri.",
   keywords: [
-    "enerji yazılım",
     "energy software",
+    "enerji yazılım",
     "PTF",
     "YEKDEM",
     "EnergyOS",
@@ -46,15 +48,18 @@ export const metadata: Metadata = {
     "energy data",
     "STR Energy",
   ],
-  authors: [{ name: "STR Energy", url: "https://str.energy" }],
+  authors: [{ name: "STR Energy", url: SITE_URL }],
   creator: "STR Energy",
   publisher: "STR Energy",
+  verification: {
+    google: "myfLV4uK_PH-ii6P6nzCLnc-qXBAvQUGja3fhR5YjaQ",
+  },
   robots: { index: true, follow: true },
   openGraph: {
     type: "website",
     locale: "tr_TR",
     alternateLocale: ["en_US", "ru_RU"],
-    url: "https://str.energy",
+    url: SITE_URL,
     siteName: "STR Energy",
     title: "STR Energy | Enerji Yazılım Ar-Ge",
     description:
@@ -93,6 +98,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="tr" className="light" suppressHydrationWarning>
+      <head>
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }} />
+        <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4762071706286282"
+          crossOrigin="anonymous"
+        />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${displayFont.variable} antialiased`}
       >
@@ -101,6 +114,7 @@ export default function RootLayout({
           <ThemeProvider>
             {children}
             <ChatWidget />
+            <Analytics />
           </ThemeProvider>
         </LanguageProvider>
       </body>

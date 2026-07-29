@@ -1,4 +1,4 @@
-import React, { useId } from "react";
+import React from "react";
 
 export type HeroPatternVariant = "hatch" | "grid" | "dots" | "waves" | "circuit" | "diagonal" | "ticks";
 
@@ -17,10 +17,8 @@ export default function HeroPatternLayer({
   accentColor = "#f97316",
   variant = "hatch",
 }: HeroPatternLayerProps) {
-  const reactId = useId();
-  const safeId = reactId.replace(/[^a-zA-Z0-9_-]/g, "");
-  const basePatternId = `strPatternBase_${safeId}`;
-  const hotPatternId = `strPatternHot_${safeId}`;
+  const basePatternId = `strPatternBase_${variant}`;
+  const hotPatternId = `strPatternHot_${variant}`;
 
   // Slightly stronger than before to meet “more visible” ask,
   // but still subtle enough not to compete with hero content.

@@ -1,10 +1,13 @@
 import type { NextConfig } from "next";
+import path from "path";
+
+const projectRoot = path.resolve(__dirname);
 
 const nextConfig: NextConfig = {
   reactCompiler: true,
   poweredByHeader: false,
   turbopack: {
-    root: process.cwd(),
+    root: projectRoot,
   },
   async headers() {
     const csp = [

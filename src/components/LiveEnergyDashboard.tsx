@@ -22,9 +22,9 @@ import {
 /* ─────────────── i18n ─────────────── */
 const copyByLang = {
   tr: {
-    headline: "Canlı Enerji Verisi",
-    subhead: "Türkiye, Avrupa ve global enerji verilerini tek panelde izleyin.",
-    badge: "CANLI",
+    headline: "EnergyPulse",
+    subhead: "Türkiye, Avrupa ve global enerji piyasalarını tek üründe canlı izleyin.",
+    badge: "ŞU AN AKTİF VERİ ALINIYOR",
     regionTR: "Türkiye",
     regionEU: "Avrupa",
     regionGlobal: "Global",
@@ -76,9 +76,9 @@ const copyByLang = {
     sectorInd: "Sanayi",
   },
   en: {
-    headline: "Live Energy Data",
-    subhead: "Monitor Turkey, Europe, and global energy data in one panel.",
-    badge: "LIVE",
+    headline: "EnergyPulse",
+    subhead: "Monitor energy markets across Turkey, Europe, and the world live in one product.",
+    badge: "LIVE DATA IS ACTIVE",
     regionTR: "Turkey",
     regionEU: "Europe",
     regionGlobal: "Global",
@@ -130,9 +130,9 @@ const copyByLang = {
     sectorInd: "Industrial",
   },
   ru: {
-    headline: "Данные в реальном времени",
-    subhead: "Отслеживайте данные Турции, Европы и мира в одной панели.",
-    badge: "LIVE",
+    headline: "EnergyPulse",
+    subhead: "Следите за энергорынками Турции, Европы и мира в одном продукте.",
+    badge: "ДАННЫЕ ПОСТУПАЮТ СЕЙЧАС",
     regionTR: "Турция",
     regionEU: "Европа",
     regionGlobal: "Глобальный",
@@ -1207,7 +1207,7 @@ export default function LiveEnergyDashboard() {
   ];
 
   return (
-    <section id="live-energy" className={`py-16 md:py-24 ${sectionBg}`}>
+    <section id="live-energy" className={`scroll-mt-24 py-16 md:py-24 ${sectionBg}`}>
       <div className="container">
         {/* ── Header ── */}
         <motion.div
@@ -1216,10 +1216,16 @@ export default function LiveEnergyDashboard() {
           viewport={{ once: true }}
           className="text-center mb-10"
         >
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-500 text-xs font-semibold tracking-wider mb-4">
+          <div
+            className={`mb-5 inline-flex items-center gap-2 rounded-full border px-3 py-1.5 text-[11px] font-semibold tracking-wide ${
+              isDark
+                ? "border-emerald-500/25 bg-emerald-500/10 text-emerald-300"
+                : "border-emerald-600/20 bg-emerald-50 text-emerald-700"
+            }`}
+          >
             <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-60" />
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
             </span>
             {copy.badge}
           </div>

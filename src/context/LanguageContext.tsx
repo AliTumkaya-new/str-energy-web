@@ -1,6 +1,6 @@
 "use client";
 
-import React, { createContext, useContext, useState, useCallback, ReactNode, useEffect } from "react";
+import React, { createContext, useContext, useCallback, ReactNode, useEffect, useSyncExternalStore } from "react";
 import { usePathname } from "next/navigation";
 import { getLocaleFromPathname, supportedLocales, type SupportedLocale } from "@/lib/locale";
 
@@ -25,10 +25,12 @@ const translations: Translations = {
   "nav.about": { tr: "Hakkımızda", en: "About us", ru: "О нас" },
   "nav.testimonials": { tr: "Referanslar", en: "Testimonials", ru: "Отзывы" },
   "nav.privacy": { tr: "Gizlilik Politikası", en: "Privacy Policy", ru: "Политика" },
+  "nav.terms": { tr: "Kullanım Şartları", en: "Terms of Service", ru: "Условия использования" },
+  "nav.cookiePolicy": { tr: "Çerez Politikası", en: "Cookie Policy", ru: "Политика cookie" },
+  "nav.disclaimer": { tr: "Sorumluluk Reddi", en: "Disclaimer", ru: "Отказ от ответственности" },
   "nav.help": { tr: "Yardım Merkezi", en: "Help Center", ru: "Помощь" },
   "nav.news": { tr: "Haberler", en: "News", ru: "Новости" },
-
-  // Chat widget
+  "nav.insights": { tr: "Bilgi Merkezi", en: "Insights", ru: "Insights" },
   "chat.title": { tr: "Canlı Enerji Asistanı", en: "Live Energy Assistant", ru: "Энергетический ассистент" },
   "chat.subtitle": { tr: "PTF, YEKDEM ve ürün sorularında hızlı yanıt.", en: "Fast answers for PTF, YEKDEM, and product questions.", ru: "Быстрые ответы по PTF, YEKDEM и продуктам." },
   "chat.placeholder": { tr: "Bir şey sorun…", en: "Ask anything…", ru: "Задайте вопрос…" },
@@ -65,8 +67,13 @@ const translations: Translations = {
   // Products
   "products.title": { tr: "Enerji operasyonları için ihtiyacınız olan her şey", en: "Everything you need for energy operations", ru: "Все для энергетических операций" },
   "products.subtitle": { tr: "STR Enerji, şebeke, tesis ve sayaç verilerini tek çatı altında birleştirerek izleme, analitik ve optimizasyon sunar.", en: "STR Energy unifies grid, facility, and meter data to deliver monitoring, analytics, and optimization.", ru: "STR Energy объединяет данные сети, объектов и счетчиков для мониторинга, аналитики и оптимизации." },
+  "products.index.title": { tr: "Ürünler", en: "Products", ru: "Продукты" },
+  "products.index.subtitle": { tr: "Enerji yazılım ürünlerimizin her biri izleme, analiz, tahmin, güvenlik veya veri yönetimi gibi belirli bir probleme odaklanır.", en: "Each energy software product focuses on a specific challenge such as monitoring, analytics, forecasting, security, or data management.", ru: "Каждый продукт решает отдельную задачу: мониторинг, аналитика, прогнозирование, безопасность или управление данными." },
+  "products.index.details": { tr: "Ürünü incele", en: "Explore product", ru: "О продукте" },
 
   // Product names
+  "product.climateos": { tr: "ClimateOS", en: "ClimateOS", ru: "ClimateOS" },
+  "product.climateos.desc": { tr: "Karbon, GRI ve şehir emisyon yazılımı", en: "Carbon, GRI, and city emissions software", ru: "Carbon, GRI, and city emissions software" },
   "product.energyos": { tr: "EnergyOS", en: "EnergyOS", ru: "EnergyOS" },
   "product.energyos.desc": { tr: "Enerji yönetimi ve otomasyon", en: "Energy management & automation", ru: "Управление энергией и автоматизация" },
   "product.gridanalytics": { tr: "GridAnalytics", en: "GridAnalytics", ru: "GridAnalytics" },
@@ -79,6 +86,8 @@ const translations: Translations = {
   "product.smartmeter.desc": { tr: "Akıllı sayaç entegrasyonu", en: "Smart meter integration", ru: "Интеграция умных счётчиков" },
   "product.energycloud": { tr: "EnergyCloud", en: "EnergyCloud", ru: "EnergyCloud" },
   "product.energycloud.desc": { tr: "Bulut tabanlı enerji platformu", en: "Cloud-based energy platform", ru: "Облачная энергетическая платформа" },
+  "product.energypulse": { tr: "EnergyPulse", en: "EnergyPulse", ru: "EnergyPulse" },
+  "product.energypulse.desc": { tr: "Türkiye, Avrupa ve global enerji piyasası verileri", en: "Energy market data across Türkiye, Europe, and the world", ru: "Данные энергорынков Турции, Европы и мира" },
 
   // Header dropdown descriptions
   "nav.about.desc": { tr: "STR Enerji hakkında", en: "About STR Energy", ru: "О STR Energy" },
@@ -87,6 +96,7 @@ const translations: Translations = {
   "nav.help.desc": { tr: "Destek ve sık sorulan sorular", en: "Support & FAQs", ru: "Поддержка и FAQ" },
   "nav.contacts.desc": { tr: "Bizimle iletişime geçin", en: "Get in touch", ru: "Связаться с нами" },
   "nav.news.desc": { tr: "Duyurular ve güncellemeler", en: "Announcements and updates", ru: "Анонсы и обновления" },
+  "nav.insights.desc": { tr: "Enerji piyasası rehberleri", en: "Energy market guides", ru: "Energy market guides" },
 
   // About
   "about.title": { tr: "STR Enerji", en: "STR Energy", ru: "STR Energy" },
@@ -251,7 +261,7 @@ const translations: Translations = {
   "contacts.card.office": { tr: "Ofis", en: "Office", ru: "Офис" },
   "contacts.value.phone": { tr: "+90 544 918 70 90", en: "+90 544 918 70 90", ru: "+90 544 918 70 90" },
   "contacts.value.phone.href": { tr: "+905449187090", en: "+905449187090", ru: "+905449187090" },
-  "contacts.value.office": { tr: "Mücahitler, 72037. Sk No:2, Okan Towers, 27060 Şehitkamil/Gaziantep", en: "Mücahitler, 72037. Sk No:2, Okan Towers, 27060 Şehitkamil/Gaziantep", ru: "Мюджахитлер, 72037. Sk No:2, Okan Towers, 27060 Шехиткамиль/Газиантеп" },
+  "contacts.value.office": { tr: "İskenderun / Hatay", en: "Iskenderun / Hatay, Turkey", ru: "Искендерун / Хатай, Турция" },
 
   // FAQ
   "faq.title": { tr: "Sıkça Sorulan Sorular", en: "Frequently Asked Questions", ru: "Часто задаваемые вопросы" },
@@ -274,6 +284,31 @@ const translations: Translations = {
   "footer.cta.title": { tr: "Projeni bizimle tartışmaya hazır mısın?", en: "Ready to discuss your project with us?", ru: "Готовы обсудить ваш проект?" },
   "footer.cta.button": { tr: "Uzman desteği almak", en: "Get expert support", ru: "Получить консультацию" },
 };
+const LANGUAGE_EVENT = "str-language-change";
+
+function getLanguageSnapshot(): Language {
+  if (typeof window === "undefined") return "tr";
+  const saved = localStorage.getItem("language");
+  if (saved === "tr" || saved === "en" || saved === "ru") return saved;
+  return "tr";
+}
+
+function getLanguageServerSnapshot(): Language {
+  return "tr";
+}
+
+function subscribeLanguage(onStoreChange: () => void) {
+  if (typeof window === "undefined") return () => undefined;
+
+  const handleChange = () => onStoreChange();
+  window.addEventListener("storage", handleChange);
+  window.addEventListener(LANGUAGE_EVENT, handleChange);
+
+  return () => {
+    window.removeEventListener("storage", handleChange);
+    window.removeEventListener(LANGUAGE_EVENT, handleChange);
+  };
+}
 
 interface LanguageContextType {
   language: Language;
@@ -286,17 +321,14 @@ const LanguageContext = createContext<LanguageContextType | undefined>(undefined
 export function LanguageProvider({ children }: { children: ReactNode }) {
   const pathname = usePathname();
   const pathLocale = getLocaleFromPathname(pathname) as Language | null;
-  const [storedLanguage, setStoredLanguage] = useState<Language>(() => {
-    if (typeof window === "undefined") return "tr";
-    const saved = localStorage.getItem("language");
-    if (saved === "tr" || saved === "en" || saved === "ru") return saved;
-    return "tr";
-  });
+  const storedLanguage = useSyncExternalStore(subscribeLanguage, getLanguageSnapshot, getLanguageServerSnapshot);
   const language = pathLocale ?? storedLanguage;
 
   const setLanguage = useCallback((lang: Language) => {
-    setStoredLanguage(lang);
-    localStorage.setItem("language", lang);
+    if (typeof window !== "undefined") {
+      localStorage.setItem("language", lang);
+      window.dispatchEvent(new Event(LANGUAGE_EVENT));
+    }
   }, []);
 
   useEffect(() => {

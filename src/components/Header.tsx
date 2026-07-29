@@ -5,21 +5,23 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, ChevronDown, Sun, Moon, Phone, Zap, BarChart3, TrendingUp, Shield, Gauge, Cloud, Users, Lock, HelpCircle, Mail, Sparkles, Star } from "lucide-react";
+import { Menu, X, ChevronDown, Sun, Moon, Phone, Zap, BarChart3, TrendingUp, Shield, Gauge, Cloud, Users, Lock, HelpCircle, Mail, Sparkles, Star, BookOpen } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
 import { useTheme } from "@/context/ThemeContext";
 import { getLocaleFromPathname, prefixHrefWithLocale, replaceLocaleInPath, supportedLocales, type SupportedLocale } from "@/lib/locale";
 
 const products = [
-  { key: "energyos", icon: Zap },
-  { key: "gridanalytics", icon: BarChart3 },
-  { key: "powerforecast", icon: TrendingUp },
-  { key: "securegrid", icon: Shield },
-  { key: "smartmeter", icon: Gauge },
-  { key: "energycloud", icon: Cloud },
+  { key: "energypulse", icon: BarChart3, href: "/products/energypulse" },
+  { key: "energyos", icon: Zap, href: "/products/energyos" },
+  { key: "gridanalytics", icon: BarChart3, href: "/products/gridanalytics" },
+  { key: "powerforecast", icon: TrendingUp, href: "/products/powerforecast" },
+  { key: "securegrid", icon: Shield, href: "/products/securegrid" },
+  { key: "smartmeter", icon: Gauge, href: "/products/smartmeter" },
+  { key: "energycloud", icon: Cloud, href: "/products/energycloud" },
 ];
 
 const companyLinks = [
+  { key: "nav.insights", icon: BookOpen, href: "/insights" },
   { key: "nav.about", icon: Users, href: "/about" },
   { key: "nav.news", icon: Sparkles, href: "/news" },
   { key: "nav.testimonials", icon: Star, href: "/testimonials" },
@@ -30,9 +32,10 @@ const companyLinks = [
 
 type HeaderProps = {
   variant?: "default" | "floating";
+  withAnnouncement?: boolean;
 };
 
-export default function Header({ variant = "default" }: HeaderProps) {
+export default function Header({ variant = "default", withAnnouncement = false }: HeaderProps) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
@@ -89,7 +92,7 @@ export default function Header({ variant = "default" }: HeaderProps) {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      className={`fixed ${withAnnouncement ? "top-10" : "top-0"} left-0 right-0 z-50 transition-all duration-300 ${
         isFloating ? "py-2 md:py-3" : ""
       } ${
         !isFloating && isScrolled
@@ -152,20 +155,19 @@ export default function Header({ variant = "default" }: HeaderProps) {
                     animate={{ opacity: 1, y: 0, scale: 1 }}
                     exit={{ opacity: 0, y: 10, scale: 0.95 }}
                     transition={{ duration: 0.15 }}
-                    className={`absolute top-full left-0 mt-2 w-125 backdrop-blur-xl rounded-2xl border shadow-2xl overflow-hidden ${
+                    className={`absolute top-full left-0 mt-2 w-[420px] backdrop-blur-xl rounded-2xl border shadow-2xl overflow-hidden ${
                       isDark
                         ? "bg-zinc-900/95 border-white/10"
                         : "bg-white/92 border-black/10"
                     }`}
                   >
-                    {/* 2-Column Grid */}
                     <div className="grid grid-cols-2 gap-1 p-3">
                       {products.map((product) => {
                         const Icon = product.icon;
                         return (
                           <Link
                             key={product.key}
-                            href={withLocale(`/products/${product.key}`)}
+                            href={withLocale(product.href)}
                             onClick={() => setActiveDropdown(null)}
                             className="flex items-start gap-3 p-3 rounded-xl hover:bg-orange-500/10 transition-colors group"
                           >
@@ -197,7 +199,7 @@ export default function Header({ variant = "default" }: HeaderProps) {
                       <div className="flex items-center justify-between">
                         <span className={`${isDark ? "text-gray-400" : "text-zinc-600"} text-sm`}>{t("nav.products.cta")}</span>
                         <Link 
-                          href={withLocale("/contacts")} 
+                          href={withLocale("/contacts")}
                           onClick={() => setActiveDropdown(null)}
                           className="text-orange-500 text-sm font-medium hover:underline"
                         >
@@ -411,7 +413,7 @@ export default function Header({ variant = "default" }: HeaderProps) {
                               return (
                                 <Link
                                   key={product.key}
-                                  href={withLocale(`/products/${product.key}`)}
+                                  href={withLocale(product.href)}
                                   className={`flex items-center gap-3 p-2 rounded-lg ${
                                     isDark ? "text-gray-400 hover:text-orange-500" : "text-zinc-600 hover:text-orange-600"
                                   }`}

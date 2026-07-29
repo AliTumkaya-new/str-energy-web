@@ -9,6 +9,7 @@ import { usePathname } from "next/navigation";
 import { getLocaleFromPathname, prefixHrefWithLocale, type SupportedLocale } from "@/lib/locale";
 
 const products = [
+  { key: "energypulse", icon: BarChart3, href: "/products/energypulse" },
   { key: "energyos", icon: Zap, href: "/products/energyos" },
   { key: "gridanalytics", icon: BarChart3, href: "/products/gridanalytics" },
   { key: "powerforecast", icon: TrendingUp, href: "/products/powerforecast" },

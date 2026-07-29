@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Future of Information Systems</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: #000; overflow: hidden; font-family: 'Inter', sans-serif; width: 100vw; height: 100vh; display: flex; align-items: center; justify-content: center; }
+
+.container {
+  width: 1080px; height: 1920px;
+  position: relative; overflow: hidden; background: #000;
+}
+
+.slide {
+  position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+  opacity: 0; transition: opacity 1.8s ease-in-out; z-index: 1;
+}
+.slide.active { opacity: 1; z-index: 10; }
+
+.slide-bg {
+  position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+  background-size: cover; background-position: center;
+}
+
+.slide.active .slide-bg { animation: kenburns 10s ease-in-out forwards; }
+@keyframes kenburns { from { transform: scale(1); } to { transform: scale(1.12) translate(-1%,-1%); } }
+
+.slide:nth-child(3).active .slide-bg { animation: kb2 10s ease-in-out forwards; }
+@keyframes kb2 { from { transform: scale(1.1) translate(2%,1%); } to { transform: scale(1); } }
+
+.slide:nth-child(4).active .slide-bg { animation: kb3 10s ease-in-out forwards; }
+@keyframes kb3 { from { transform: scale(1); } to { transform: scale(1.1) translate(-2%,1%); } }
+
+.slide:nth-child(5).active .slide-bg { animation: kb4 10s ease-in-out forwards; }
+@keyframes kb4 { from { transform: scale(1.08); } to { transform: scale(1) translate(1%,-1%); } }
+
+.slide:nth-child(6).active .slide-bg { animation: kb5 10s ease-in-out forwards; }
+@keyframes kb5 { from { transform: scale(1) translate(-1%,0); } to { transform: scale(1.1) translate(1%,1%); } }
+
+.slide:nth-child(7).active .slide-bg { animation: kb6 10s ease-in-out forwards; }
+@keyframes kb6 { from { transform: scale(1.1) translate(0,1%); } to { transform: scale(1); } }
+
+.overlay {
+  position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+  background: linear-gradient(180deg, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0.05) 30%, rgba(0,0,0,0.05) 45%, rgba(0,0,0,0.55) 70%, rgba(0,0,0,0.9) 100%);
+}
+
+.content { position: absolute; bottom: 100px; left: 60px; right: 60px; z-index: 20; }
+
+.tag {
+  font-size: 20px; font-weight: 600; color: #64b5f6;
+  text-transform: uppercase; letter-spacing: 5px; margin-bottom: 18px;
+  opacity: 0; transform: translateY(25px);
+}
+.slide.active .tag { animation: fadeUp 1s ease-out 0.6s forwards; }
+
+.text {
+  font-size: 30px; font-weight: 300; color: #fff; line-height: 1.55;
+  text-shadow: 0 2px 25px rgba(0,0,0,0.9);
+  opacity: 0; transform: translateY(25px);
+}
+.slide.active .text { animation: fadeUp 1.2s ease-out 1.1s forwards; }
+
+@keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+
+/* Title slide */
+.title-slide {
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  background: linear-gradient(135deg, #060e1a 0%, #0d2137 40%, #0f2b46 70%, #060e1a 100%);
+}
+.title-main {
+  font-size: 58px; font-weight: 700; color: #fff; text-align: center;
+  line-height: 1.3; opacity: 0; padding: 0 40px;
+}
+.slide.active .title-main { animation: fadeZoom 2s ease-out 0.3s forwards; }
+.title-sub {
+  font-size: 26px; font-weight: 300; color: #90caf9; text-align: center;
+  margin-top: 20px; letter-spacing: 4px; opacity: 0;
+}
+.slide.active .title-sub { animation: fadeZoom 2s ease-out 1s forwards; }
+.title-line { width: 120px; height: 3px; background: linear-gradient(90deg,#1565c0,#64b5f6); margin-top: 28px; opacity: 0; }
+.slide.active .title-line { animation: fadeZoom 1.5s ease-out 1.5s forwards; }
+.title-uni { font-size: 22px; color: #78909c; margin-top: 36px; letter-spacing: 3px; opacity: 0; }
+.slide.active .title-uni { animation: fadeZoom 2s ease-out 2s forwards; }
+@keyframes fadeZoom { from { opacity: 0; transform: scale(0.94); } to { opacity: 1; transform: scale(1); } }
+
+/* Closing */
+.closing-slide {
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  background: linear-gradient(135deg, #060e1a 0%, #0d2137 50%, #060e1a 100%);
+}
+.cq { font-size: 40px; font-weight: 300; color: #fff; text-align: center; line-height: 1.55; padding: 0 50px; font-style: italic; opacity: 0; }
+.slide.active .cq { animation: fadeUp 2s ease-out 0.4s forwards; }
+.ca { font-size: 20px; color: #64b5f6; margin-top: 36px; letter-spacing: 4px; text-transform: uppercase; opacity: 0; }
+.slide.active .ca { animation: fadeUp 2s ease-out 1.5s forwards; }
+.cu { font-size: 26px; color: #90caf9; margin-top: 50px; font-weight: 600; opacity: 0; }
+.slide.active .cu { animation: fadeUp 2s ease-out 2s forwards; }
+.cd { font-size: 18px; color: #78909c; margin-top: 10px; opacity: 0; }
+.slide.active .cd { animation: fadeUp 2s ease-out 2.4s forwards; }
+
+/* Progress */
+.progress { position: absolute; bottom: 0; left: 0; height: 4px; background: linear-gradient(90deg,#1565c0,#42a5f5,#1565c0); z-index: 100; transition: width 0.3s linear; }
+
+/* Dots */
+.dots { position: absolute; top: 50px; left: 50px; display: flex; gap: 6px; z-index: 50; }
+.dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,0.25); transition: all 0.4s ease; }
+.dot.on { background: #64b5f6; width: 22px; border-radius: 4px; box-shadow: 0 0 12px rgba(100,181,246,0.5); }
+
+/* Play */
+.play {
+  position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+  background: rgba(0,0,0,0.85); display: flex; flex-direction: column;
+  align-items: center; justify-content: center; z-index: 1000; cursor: pointer;
+}
+.play.off { opacity: 0; pointer-events: none; transition: opacity 0.6s ease; }
+.pbtn {
+  width: 110px; height: 110px; border-radius: 50%; border: 3px solid rgba(100,181,246,0.4);
+  background: rgba(25,118,210,0.15); display: flex; align-items: center; justify-content: center;
+  transition: all 0.3s ease;
+}
+.pbtn:hover { background: rgba(25,118,210,0.35); border-color: #64b5f6; transform: scale(1.1); }
+.pbtn svg { fill: #fff; margin-left: 6px; }
+.ptxt { color: #607d8b; font-size: 16px; margin-top: 20px; letter-spacing: 5px; text-transform: uppercase; }
+
+/* Text-only slide */
+.text-slide {
+  background: linear-gradient(135deg, #0a1628 0%, #102a43 50%, #0a1628 100%);
+  display: flex; align-items: center; justify-content: center;
+}
+.text-slide .content { bottom: auto; position: relative; }
+</style>
+</head>
+<body>
+<div class="container" id="c">
+  <div class="play" id="po" onclick="go()">
+    <div class="pbtn"><svg width="38" height="38" viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
+    <div class="ptxt">Click to Play</div>
+  </div>
+  <div class="dots" id="dots"></div>
+  <div class="progress" id="pb"></div>
+
+  <!-- 0: TITLE -->
+  <div class="slide title-slide" id="s0">
+    <div class="title-main">The Future of<br>Information Systems</div>
+    <div class="title-sub">THE INVISIBLE BACKBONE</div>
+    <div class="title-line"></div>
+    <div class="title-uni">GAZİANTEP ÜNİVERSİTESİ</div>
+  </div>
+
+  <!-- 1: UNIVERSITY -->
+  <div class="slide" id="s1">
+    <div class="slide-bg" style="background-image:url('scene01.png')"></div>
+    <div class="overlay"></div>
+    <div class="content">
+      <div class="tag">Gaziantep, Türkiye</div>
+      <div class="text">In the heart of Southeastern Türkiye, Gaziantep University stands as a beacon of knowledge and innovation — where the future of information systems is being shaped.</div>
+    </div>
+  </div>
+
+  <!-- 2: DATA CENTER -->
+  <div class="slide" id="s2">
+    <div class="slide-bg" style="background-image:url('scene02.png')"></div>
+    <div class="overlay"></div>
+    <div class="content">
+      <div class="tag">Data Infrastructure</div>
+      <div class="text">Deep inside data centers, rows of servers hum with purpose. Every email, every transaction, every piece of knowledge we share — stored, processed, and protected here.</div>
+    </div>
+  </div>
+
+  <!-- 3: CYBERSECURITY -->
+  <div class="slide" id="s3">
+    <div class="slide-bg" style="background-image:url('scene03.png')"></div>
+    <div class="overlay"></div>
+    <div class="content">
+      <div class="tag">Cybersecurity</div>
+      <div class="text">Cybersecurity teams work around the clock — defending networks, protecting identities, safeguarding the digital infrastructure that modern society depends on.</div>
+    </div>
+  </div>
+
+  <!-- 4: HEALTHCARE -->
+  <div class="slide" id="s4">
+    <div class="slide-bg" style="background-image:url('scene04.png')"></div>
+    <div class="overlay"></div>
+    <div class="content">
+      <div class="tag">Healthcare</div>
+      <div class="text">In hospitals across Türkiye, information systems save lives. Patient records, diagnostic data, and treatment plans — flowing through secure digital networks.</div>
+    </div>
+  </div>
+
+  <!-- 5: LOGISTICS -->
+  <div class="slide" id="s5">
+    <div class="slide-bg" style="background-image:url('scene05.png')"></div>
+    <div class="overlay"></div>
+    <div class="content">
+      <div class="tag">Logistics & Supply Chain</div>
+      <div class="text">From logistics hubs managing millions of packages to supply chains across continents — every barcode scanned, every route optimized, powered by data.</div>
+    </div>
+  </div>
+
+  <!-- 6: FACTORY -->
+  <div class="slide" id="s6">
+    <div class="slide-bg" style="background-image:url('scene06.png')"></div>
+    <div class="overlay"></div>
+    <div class="content">
+      <div class="tag">Smart Manufacturing</div>
+      <div class="text">On factory floors, sensors, automation, and real-time analytics transform production — reducing waste, increasing quality, building the industrial backbone of nations.</div>
+    </div>
+  </div>
+
+  <!-- 7: ENERGY/TRAFFIC (text) -->
+  <div class="slide text-slide" id="s7">
+    <div class="content">
+      <div class="tag">Energy · Traffic · Telecom</div>
+      <div class="text">Energy grids monitored through SCADA systems. Traffic control centers managing city arteries. Telecom networks connecting billions. All powered by information systems — the silent engine of modern civilization.</div>
+    </div>
+  </div>
+
+  <!-- 8: CLOSING -->
+  <div class="slide closing-slide" id="s8">
+    <div class="cq">"Information systems are the invisible backbone of modern civilization. They connect us. They protect us. They heal us. They power us."</div>
+    <div class="ca">From Gaziantep to the World</div>
+    <div class="cu">GAZİANTEP ÜNİVERSİTESİ</div>
+    <div class="cd">Department of Information Systems</div>
+  </div>
+</div>
+
+<script>
+const N=9, DUR=8000; let cur=0, iv;
+// dots
+const d=document.getElementById('dots');
+for(let i=0;i<N;i++){const e=document.createElement('div');e.className='dot';e.id='d'+i;d.appendChild(e);}
+
+function show(i){
+  for(let j=0;j<N;j++){
+    document.getElementById('s'+j).classList.remove('active');
+    document.getElementById('d'+j).classList.remove('on');
+  }
+  const sl=document.getElementById('s'+i);
+  sl.classList.add('active');
+  document.getElementById('d'+i).classList.add('on');
+  document.getElementById('pb').style.width=((i+1)/N*100)+'%';
+  cur=i;
+}
+
+function next(){ if(cur+1>=N){clearInterval(iv);return;} show(cur+1); }
+
+function go(){
+  document.getElementById('po').classList.add('off');
+  show(0);
+  iv=setInterval(next,DUR);
+}
+
+// Scale
+function fit(){
+  const c=document.getElementById('c');
+  const s=Math.min(innerWidth/1080,innerHeight/1920);
+  c.style.transform=`scale(${s})`;
+  c.style.transformOrigin='top left';
+  c.style.position='absolute';
+  c.style.left=((innerWidth-1080*s)/2)+'px';
+  c.style.top=((innerHeight-1920*s)/2)+'px';
+}
+fit(); onresize=fit;
+
+// Keys
+onkeydown=e=>{
+  if(e.key===' '||e.key==='Enter'){e.preventDefault();if(!document.getElementById('po').classList.contains('off'))go();}
+  if(e.key==='ArrowRight'){clearInterval(iv);next();iv=setInterval(next,DUR);}
+  if(e.key==='ArrowLeft'){clearInterval(iv);show(Math.max(0,cur-1));iv=setInterval(next,DUR);}
+};
+</script>
+</body>
+</html>

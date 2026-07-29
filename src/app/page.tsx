@@ -9,12 +9,14 @@ import DeviceSection from "@/components/DeviceSection";
 import TestimonialsSection from "@/components/TestimonialsSection";
 import FAQSection from "@/components/FAQSection";
 import Footer from "@/components/Footer";
+import EnergyPulseAnnouncement from "@/components/EnergyPulseAnnouncement";
 
 export default function Home() {
   return (
     <>
-      <Header />
+      <Header withAnnouncement />
       <main>
+        <EnergyPulseAnnouncement />
         <HeroSection />
         <StatsSection />
         <LiveEnergyDashboard />

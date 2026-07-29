@@ -1,0 +1,306 @@
+⚠ Fast Refresh had to perform a full reload due to a runtime error.
+⚠ Fast Refresh had to perform a full reload due to a runtime error.
+⨯ Error: ENOENT: no such file or directory, open 'C:\STR-Web\str-energy\test\data\05-versions-space.pdf'
+    at module evaluation (src\app\api\cbam\excel-analysis\route.ts:2:1)
+    at Object.<anonymous> (C:\STR-Web\str-energy\.next\dev\server\app\api\cbam\excel-analysis\route.js:22:3)
+  1 | import { NextResponse } from "next/server";
+> 2 | import pdfParse from "pdf-parse";
+    | ^
+  3 |
+  4 | import { analyzeCbamExcel, analyzeCbamRows } from "@/lib/cbamExcelAnalyzer";
+  5 | {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'C:\\STR-Web\\str-energy\\test\\data\\05-versions-space.pdf',
+  page: '/api/cbam/excel-analysis'
+}
+⨯ Error: ENOENT: no such file or directory, open 'C:\STR-Web\str-energy\test\data\05-versions-space.pdf'
+    at module evaluation (src\app\api\cbam\excel-analysis\route.ts:2:1)
+    at Object.<anonymous> (C:\STR-Web\str-energy\.next\dev\server\app\api\cbam\excel-analysis\route.js:22:3)
+  1 | import { NextResponse } from "next/server";
+> 2 | import pdfParse from "pdf-parse";
+    | ^
+  3 |
+  4 | import { analyzeCbamExcel, analyzeCbamRows } from "@/lib/cbamExcelAnalyzer";
+  5 | {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'C:\\STR-Web\\str-energy\\test\\data\\05-versions-space.pdf',
+  page: '/api/cbam/excel-analysis'
+}
+(node:18824) MaxListenersExceededWarning: Possible EventEmitter memory leak detected. 11 exit listeners added to [process]. MaxListeners is 10. Use emitter.setMaxListeners() to increase limit
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:18824) [DEP0005] DeprecationWarning: Buffer() is deprecated due to security and usability issues. Please use the Buffer.alloc(), Buffer.allocUnsafe(), or Buffer.from() methods instead.
+⨯ ./src/app/platform/cbam/page.tsx:2:1
+Module not found: Can't resolve '@/components/platform/CbamAuthGate'
+[0m [90m 1 |[39m [36mimport[39m [33mCbamPlatform[39m [36mfrom[39m [32m"@/components/platform/CbamPlatform"[39m[33m;[39m
+[31m[1m>[22m[39m[90m 2 |[39m [36mimport[39m [33mCbamAuthGate[39m [36mfrom[39m [32m"@/components/platform/CbamAuthGate"[39m[33m;[39m
+ [90m   |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m 3 |[39m
+ [90m 4 |[39m [36mexport[39m [36mdefault[39m [36mfunction[39m [33mCbamPlatformPage[39m() {
+ [90m 5 |[39m   [36mreturn[39m ([0m
+
+Import map: aliased to relative './src/components/platform/CbamAuthGate' inside of [project]/
+
+
+Import trace:
+  Server Component:
+    ./src/app/platform/cbam/page.tsx
+    ./src/app/[lang]/[...slug]/page.tsx
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./src/app/platform/cbam/page.tsx:2:1
+Module not found: Can't resolve '@/components/platform/CbamAuthGate'
+[0m [90m 1 |[39m [36mimport[39m [33mCbamPlatform[39m [36mfrom[39m [32m"@/components/platform/CbamPlatform"[39m[33m;[39m
+[31m[1m>[22m[39m[90m 2 |[39m [36mimport[39m [33mCbamAuthGate[39m [36mfrom[39m [32m"@/components/platform/CbamAuthGate"[39m[33m;[39m
+ [90m   |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m 3 |[39m
+ [90m 4 |[39m [36mexport[39m [36mdefault[39m [36mfunction[39m [33mCbamPlatformPage[39m() {
+ [90m 5 |[39m   [36mreturn[39m ([0m
+
+Import map: aliased to relative './src/components/platform/CbamAuthGate' inside of [project]/
+
+
+Import trace:
+  Server Component:
+    ./src/app/platform/cbam/page.tsx
+    ./src/app/[lang]/[...slug]/page.tsx
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./src/app/platform/cbam/page.tsx:2:1
+Module not found: Can't resolve '@/components/platform/CbamAuthGate'
+[0m [90m 1 |[39m [36mimport[39m [33mCbamPlatform[39m [36mfrom[39m [32m"@/components/platform/CbamPlatform"[39m[33m;[39m
+[31m[1m>[22m[39m[90m 2 |[39m [36mimport[39m [33mCbamAuthGate[39m [36mfrom[39m [32m"@/components/platform/CbamAuthGate"[39m[33m;[39m
+ [90m   |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m 3 |[39m
+ [90m 4 |[39m [36mexport[39m [36mdefault[39m [36mfunction[39m [33mCbamPlatformPage[39m() {
+ [90m 5 |[39m   [36mreturn[39m ([0m
+
+Import map: aliased to relative './src/components/platform/CbamAuthGate' inside of [project]/
+
+
+Import trace:
+  Server Component:
+    ./src/app/platform/cbam/page.tsx
+    ./src/app/[lang]/[...slug]/page.tsx
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./src/app/platform/cbam/page.tsx:2:1
+Module not found: Can't resolve '@/components/platform/CbamAuthGate'
+[0m [90m 1 |[39m [36mimport[39m [33mCbamPlatform[39m [36mfrom[39m [32m"@/components/platform/CbamPlatform"[39m[33m;[39m
+[31m[1m>[22m[39m[90m 2 |[39m [36mimport[39m [33mCbamAuthGate[39m [36mfrom[39m [32m"@/components/platform/CbamAuthGate"[39m[33m;[39m
+ [90m   |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m 3 |[39m
+ [90m 4 |[39m [36mexport[39m [36mdefault[39m [36mfunction[39m [33mCbamPlatformPage[39m() {
+ [90m 5 |[39m   [36mreturn[39m ([0m
+
+Import map: aliased to relative './src/components/platform/CbamAuthGate' inside of [project]/
+
+
+Import trace:
+  Server Component:
+    ./src/app/platform/cbam/page.tsx
+    ./src/app/[lang]/[...slug]/page.tsx
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./src/app/platform/cbam/page.tsx:2:1
+Module not found: Can't resolve '@/components/platform/CbamAuthGate'
+[0m [90m 1 |[39m [36mimport[39m [33mCbamPlatform[39m [36mfrom[39m [32m"@/components/platform/CbamPlatform"[39m[33m;[39m
+[31m[1m>[22m[39m[90m 2 |[39m [36mimport[39m [33mCbamAuthGate[39m [36mfrom[39m [32m"@/components/platform/CbamAuthGate"[39m[33m;[39m
+ [90m   |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m 3 |[39m
+ [90m 4 |[39m [36mexport[39m [36mdefault[39m [36mfunction[39m [33mCbamPlatformPage[39m() {
+ [90m 5 |[39m   [36mreturn[39m ([0m
+
+Import map: aliased to relative './src/components/platform/CbamAuthGate' inside of [project]/
+
+
+Import trace:
+  Server Component:
+    ./src/app/platform/cbam/page.tsx
+    ./src/app/[lang]/[...slug]/page.tsx
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./src/app/platform/cbam/page.tsx:2:1
+Module not found: Can't resolve '@/components/platform/CbamAuthGate'
+[0m [90m 1 |[39m [36mimport[39m [33mCbamPlatform[39m [36mfrom[39m [32m"@/components/platform/CbamPlatform"[39m[33m;[39m
+[31m[1m>[22m[39m[90m 2 |[39m [36mimport[39m [33mCbamAuthGate[39m [36mfrom[39m [32m"@/components/platform/CbamAuthGate"[39m[33m;[39m
+ [90m   |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m 3 |[39m
+ [90m 4 |[39m [36mexport[39m [36mdefault[39m [36mfunction[39m [33mCbamPlatformPage[39m() {
+ [90m 5 |[39m   [36mreturn[39m ([0m
+
+Import map: aliased to relative './src/components/platform/CbamAuthGate' inside of [project]/
+
+
+Import trace:
+  Server Component:
+    ./src/app/platform/cbam/page.tsx
+    ./src/app/[lang]/[...slug]/page.tsx
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./src/app/[lang]/[...slug]/page.tsx:22:1
+Module not found: Can't resolve '../../platform/cbam/login/page'
+[0m [90m 20 |[39m [36mimport[39m [33mClimatePortalPage[39m [36mfrom[39m [32m"../../portal/climateos/page"[39m[33m;[39m
+ [90m 21 |[39m [36mimport[39m [33mCbamPlatformPage[39m [36mfrom[39m [32m"../../platform/cbam/page"[39m[33m;[39m
+[31m[1m>[22m[39m[90m 22 |[39m [36mimport[39m [33mCbamLoginPage[39m [36mfrom[39m [32m"../../platform/cbam/login/page"[39m[33m;[39m
+ [90m    |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m 23 |[39m [36mimport[39m [33mNewsPage[39m [36mfrom[39m [32m"../../news/page"[39m[33m;[39m
+ [90m 24 |[39m
+ [90m 25 |[39m [36mconst[39m routeMap[33m:[39m [33mRecord[39m[33m<[39m[33mstring[39m[33m,[39m () [33m=>[39m [33mReactNode[39m[33m>[39m [33m=[39m {[0m
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./src/app/[lang]/[...slug]/page.tsx:22:1
+Module not found: Can't resolve '../../platform/cbam/login/page'
+[0m [90m 20 |[39m [36mimport[39m [33mClimatePortalPage[39m [36mfrom[39m [32m"../../portal/climateos/page"[39m[33m;[39m
+ [90m 21 |[39m [36mimport[39m [33mCbamPlatformPage[39m [36mfrom[39m [32m"../../platform/cbam/page"[39m[33m;[39m
+[31m[1m>[22m[39m[90m 22 |[39m [36mimport[39m [33mCbamLoginPage[39m [36mfrom[39m [32m"../../platform/cbam/login/page"[39m[33m;[39m
+ [90m    |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m 23 |[39m [36mimport[39m [33mNewsPage[39m [36mfrom[39m [32m"../../news/page"[39m[33m;[39m
+ [90m 24 |[39m
+ [90m 25 |[39m [36mconst[39m routeMap[33m:[39m [33mRecord[39m[33m<[39m[33mstring[39m[33m,[39m () [33m=>[39m [33mReactNode[39m[33m>[39m [33m=[39m {[0m
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./src/app/[lang]/[...slug]/page.tsx:22:1
+Module not found: Can't resolve '../../platform/cbam/login/page'
+[0m [90m 20 |[39m [36mimport[39m [33mClimatePortalPage[39m [36mfrom[39m [32m"../../portal/climateos/page"[39m[33m;[39m
+ [90m 21 |[39m [36mimport[39m [33mCbamPlatformPage[39m [36mfrom[39m [32m"../../platform/cbam/page"[39m[33m;[39m
+[31m[1m>[22m[39m[90m 22 |[39m [36mimport[39m [33mCbamLoginPage[39m [36mfrom[39m [32m"../../platform/cbam/login/page"[39m[33m;[39m
+ [90m    |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m 23 |[39m [36mimport[39m [33mNewsPage[39m [36mfrom[39m [32m"../../news/page"[39m[33m;[39m
+ [90m 24 |[39m
+ [90m 25 |[39m [36mconst[39m routeMap[33m:[39m [33mRecord[39m[33m<[39m[33mstring[39m[33m,[39m () [33m=>[39m [33mReactNode[39m[33m>[39m [33m=[39m {[0m
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./src/app/[lang]/[...slug]/page.tsx:22:1
+Module not found: Can't resolve '../../platform/cbam/login/page'
+[0m [90m 20 |[39m [36mimport[39m [33mClimatePortalPage[39m [36mfrom[39m [32m"../../portal/climateos/page"[39m[33m;[39m
+ [90m 21 |[39m [36mimport[39m [33mCbamPlatformPage[39m [36mfrom[39m [32m"../../platform/cbam/page"[39m[33m;[39m
+[31m[1m>[22m[39m[90m 22 |[39m [36mimport[39m [33mCbamLoginPage[39m [36mfrom[39m [32m"../../platform/cbam/login/page"[39m[33m;[39m
+ [90m    |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m 23 |[39m [36mimport[39m [33mNewsPage[39m [36mfrom[39m [32m"../../news/page"[39m[33m;[39m
+ [90m 24 |[39m
+ [90m 25 |[39m [36mconst[39m routeMap[33m:[39m [33mRecord[39m[33m<[39m[33mstring[39m[33m,[39m () [33m=>[39m [33mReactNode[39m[33m>[39m [33m=[39m {[0m
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./src/app/[lang]/[...slug]/page.tsx:22:1
+Module not found: Can't resolve '../../platform/cbam/login/page'
+[0m [90m 20 |[39m [36mimport[39m [33mClimatePortalPage[39m [36mfrom[39m [32m"../../portal/climateos/page"[39m[33m;[39m
+ [90m 21 |[39m [36mimport[39m [33mCbamPlatformPage[39m [36mfrom[39m [32m"../../platform/cbam/page"[39m[33m;[39m
+[31m[1m>[22m[39m[90m 22 |[39m [36mimport[39m [33mCbamLoginPage[39m [36mfrom[39m [32m"../../platform/cbam/login/page"[39m[33m;[39m
+ [90m    |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m 23 |[39m [36mimport[39m [33mNewsPage[39m [36mfrom[39m [32m"../../news/page"[39m[33m;[39m
+ [90m 24 |[39m
+ [90m 25 |[39m [36mconst[39m routeMap[33m:[39m [33mRecord[39m[33m<[39m[33mstring[39m[33m,[39m () [33m=>[39m [33mReactNode[39m[33m>[39m [33m=[39m {[0m
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./src/app/[lang]/[...slug]/page.tsx:22:1
+Module not found: Can't resolve '../../platform/cbam/login/page'
+[0m [90m 20 |[39m [36mimport[39m [33mClimatePortalPage[39m [36mfrom[39m [32m"../../portal/climateos/page"[39m[33m;[39m
+ [90m 21 |[39m [36mimport[39m [33mCbamPlatformPage[39m [36mfrom[39m [32m"../../platform/cbam/page"[39m[33m;[39m
+[31m[1m>[22m[39m[90m 22 |[39m [36mimport[39m [33mCbamLoginPage[39m [36mfrom[39m [32m"../../platform/cbam/login/page"[39m[33m;[39m
+ [90m    |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m 23 |[39m [36mimport[39m [33mNewsPage[39m [36mfrom[39m [32m"../../news/page"[39m[33m;[39m
+ [90m 24 |[39m
+ [90m 25 |[39m [36mconst[39m routeMap[33m:[39m [33mRecord[39m[33m<[39m[33mstring[39m[33m,[39m () [33m=>[39m [33mReactNode[39m[33m>[39m [33m=[39m {[0m
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./src/app/[lang]/[...slug]/page.tsx:22:1
+Module not found: Can't resolve '../../platform/cbam/login/page'
+[0m [90m 20 |[39m [36mimport[39m [33mClimatePortalPage[39m [36mfrom[39m [32m"../../portal/climateos/page"[39m[33m;[39m
+ [90m 21 |[39m [36mimport[39m [33mCbamPlatformPage[39m [36mfrom[39m [32m"../../platform/cbam/page"[39m[33m;[39m
+[31m[1m>[22m[39m[90m 22 |[39m [36mimport[39m [33mCbamLoginPage[39m [36mfrom[39m [32m"../../platform/cbam/login/page"[39m[33m;[39m
+ [90m    |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m 23 |[39m [36mimport[39m [33mNewsPage[39m [36mfrom[39m [32m"../../news/page"[39m[33m;[39m
+ [90m 24 |[39m
+ [90m 25 |[39m [36mconst[39m routeMap[33m:[39m [33mRecord[39m[33m<[39m[33mstring[39m[33m,[39m () [33m=>[39m [33mReactNode[39m[33m>[39m [33m=[39m {[0m
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./src/app/[lang]/[...slug]/page.tsx:22:1
+Module not found: Can't resolve '../../platform/cbam/login/page'
+[0m [90m 20 |[39m [36mimport[39m [33mClimatePortalPage[39m [36mfrom[39m [32m"../../portal/climateos/page"[39m[33m;[39m
+ [90m 21 |[39m [36mimport[39m [33mCbamPlatformPage[39m [36mfrom[39m [32m"../../platform/cbam/page"[39m[33m;[39m
+[31m[1m>[22m[39m[90m 22 |[39m [36mimport[39m [33mCbamLoginPage[39m [36mfrom[39m [32m"../../platform/cbam/login/page"[39m[33m;[39m
+ [90m    |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m 23 |[39m [36mimport[39m [33mNewsPage[39m [36mfrom[39m [32m"../../news/page"[39m[33m;[39m
+ [90m 24 |[39m
+ [90m 25 |[39m [36mconst[39m routeMap[33m:[39m [33mRecord[39m[33m<[39m[33mstring[39m[33m,[39m () [33m=>[39m [33mReactNode[39m[33m>[39m [33m=[39m {[0m
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./src/app/[lang]/[...slug]/page.tsx:22:1
+Module not found: Can't resolve '../../platform/cbam/login/page'
+[0m [90m 20 |[39m [36mimport[39m [33mClimatePortalPage[39m [36mfrom[39m [32m"../../portal/climateos/page"[39m[33m;[39m
+ [90m 21 |[39m [36mimport[39m [33mCbamPlatformPage[39m [36mfrom[39m [32m"../../platform/cbam/page"[39m[33m;[39m
+[31m[1m>[22m[39m[90m 22 |[39m [36mimport[39m [33mCbamLoginPage[39m [36mfrom[39m [32m"../../platform/cbam/login/page"[39m[33m;[39m
+ [90m    |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m 23 |[39m [36mimport[39m [33mNewsPage[39m [36mfrom[39m [32m"../../news/page"[39m[33m;[39m
+ [90m 24 |[39m
+ [90m 25 |[39m [36mconst[39m routeMap[33m:[39m [33mRecord[39m[33m<[39m[33mstring[39m[33m,[39m () [33m=>[39m [33mReactNode[39m[33m>[39m [33m=[39m {[0m
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./src/app/[lang]/[...slug]/page.tsx:22:1
+Module not found: Can't resolve '../../platform/cbam/login/page'
+[0m [90m 20 |[39m [36mimport[39m [33mClimatePortalPage[39m [36mfrom[39m [32m"../../portal/climateos/page"[39m[33m;[39m
+ [90m 21 |[39m [36mimport[39m [33mCbamPlatformPage[39m [36mfrom[39m [32m"../../platform/cbam/page"[39m[33m;[39m
+[31m[1m>[22m[39m[90m 22 |[39m [36mimport[39m [33mCbamLoginPage[39m [36mfrom[39m [32m"../../platform/cbam/login/page"[39m[33m;[39m
+ [90m    |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m 23 |[39m [36mimport[39m [33mNewsPage[39m [36mfrom[39m [32m"../../news/page"[39m[33m;[39m
+ [90m 24 |[39m
+ [90m 25 |[39m [36mconst[39m routeMap[33m:[39m [33mRecord[39m[33m<[39m[33mstring[39m[33m,[39m () [33m=>[39m [33mReactNode[39m[33m>[39m [33m=[39m {[0m
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⚠ Fast Refresh had to perform a full reload when ./node_modules/next/dist/shared/lib/router/router.js changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload

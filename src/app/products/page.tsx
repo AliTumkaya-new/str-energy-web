@@ -7,8 +7,10 @@ import Footer from "@/components/Footer";
 import { useLanguage } from "@/context/LanguageContext";
 import { useTheme } from "@/context/ThemeContext";
 import { Zap, BarChart3, TrendingUp, Shield, Gauge, Cloud, ArrowRight } from "lucide-react";
+import { useLocaleHref } from "@/lib/useLocaleHref";
 
 const products = [
+  { key: "energypulse", icon: BarChart3, href: "/products/energypulse" },
   { key: "energyos", icon: Zap, href: "/products/energyos" },
   { key: "gridanalytics", icon: BarChart3, href: "/products/gridanalytics" },
   { key: "powerforecast", icon: TrendingUp, href: "/products/powerforecast" },
@@ -21,6 +23,7 @@ export default function ProductsPage() {
   const { t } = useLanguage();
   const { theme } = useTheme();
   const isDark = theme === "dark";
+  const withLocale = useLocaleHref();
 
   return (
     <div className={`min-h-screen ${isDark ? "bg-black text-white" : "bg-white text-zinc-900"}`}>
@@ -43,10 +46,10 @@ export default function ProductsPage() {
               {t("nav.products")}
             </div>
             <h1 className={`mt-6 text-4xl md:text-5xl font-bold tracking-tight ${isDark ? "text-white" : "text-zinc-900"}`}>
-              Ürünler
+              {t("products.index.title")}
             </h1>
             <p className={`mt-4 text-lg ${isDark ? "text-gray-400" : "text-zinc-600"}`}>
-              Enerji yazılım ürünlerimizin her biri ayrı bir probleme odaklanır: izleme, analiz, tahmin, güvenlik ve veri yönetimi.
+              {t("products.index.subtitle")}
             </p>
           </motion.div>
         </div>
@@ -88,12 +91,12 @@ export default function ProductsPage() {
 
                   <div className="mt-6">
                     <Link
-                      href={product.href}
+                      href={withLocale(product.href)}
                       className={`inline-flex items-center gap-2 text-sm font-semibold ${
                         isDark ? "text-orange-400 hover:text-orange-300" : "text-orange-700 hover:text-orange-600"
                       }`}
                     >
-                      Detaylar
+                      {t("products.index.details")}
                       <ArrowRight className="w-4 h-4" />
                     </Link>
                   </div>

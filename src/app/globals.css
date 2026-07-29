@@ -205,6 +205,14 @@ h4 {
   letter-spacing: -0.035em;
 }
 
+.cbam-platform h1,
+.cbam-platform h2,
+.cbam-platform h3,
+.cbam-platform h4 {
+  font-family: var(--font-geist-sans), system-ui, -apple-system, "Segoe UI", sans-serif;
+  letter-spacing: 0;
+}
+
 /* Hero title effects: dark mode overrides */
 .dark .str-hero-line--primary {
   background-image: linear-gradient(90deg, #ffffff, #d4d4d8, #ffffff);
@@ -249,4 +257,3 @@ h4 {
     opacity: 0.2;
   }
 }
-

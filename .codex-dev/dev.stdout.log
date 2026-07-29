@@ -1,0 +1,16 @@
+
+> str-energy@0.1.0 dev
+> next dev
+
+▲ Next.js 16.1.6 (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://192.168.0.101:3000
+- Environments: .env.local
+
+✓ Starting...
+Creating turbopack project { dir: 'C:\\STR-Web\\str-energy', testMode: true }
+✓ Ready in 2.7s
+○ Compiling /[lang]/[...slug] ...
+ GET /tr/products/proofmesh 200 in 13.8s (compile: 13.0s, proxy.ts: 249ms, render: 608ms)
+ GET /tr/products/proofmesh 200 in 528ms (compile: 99ms, proxy.ts: 15ms, render: 414ms)
+ GET /tr/platform/proofmesh 200 in 135ms (compile: 13ms, proxy.ts: 7ms, render: 115ms)

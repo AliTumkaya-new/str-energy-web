@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
+import { notFound } from "next/navigation";
+import { buildMetadata } from "@/lib/seo";
+import { supportedLocales, type SupportedLocale } from "@/lib/locale";
 
 type LocaleLayoutProps = {
   children: ReactNode;
@@ -8,13 +11,12 @@ type LocaleLayoutProps = {
 
 export async function generateMetadata({ params }: LocaleLayoutProps): Promise<Metadata> {
   const { lang } = await params;
-  const brandName = lang === "tr" ? "STR Enerji" : "STR Energy";
-  return {
-    title: `${brandName} | Software R&D`,
-  };
+  if (!supportedLocales.includes(lang as SupportedLocale)) return {};
+  return buildMetadata(lang as SupportedLocale);
 }
 
 export default async function LocaleLayout({ children, params }: LocaleLayoutProps) {
-  await params;
+  const { lang } = await params;
+  if (!supportedLocales.includes(lang as SupportedLocale)) notFound();
   return children;
 }

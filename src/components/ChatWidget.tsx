@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Loader2, MessageCircle, Send, X } from "lucide-react";
+import { usePathname } from "next/navigation";
 import { useLanguage } from "@/context/LanguageContext";
 import { useTheme } from "@/context/ThemeContext";
 import { cn } from "@/lib/utils";
@@ -25,8 +26,8 @@ const knowledgeBase: KBEntry[] = [
   {
     keywords: ["ptf", "piyasa takas", "market clearing", "fiyat", "price"],
     answer: {
-      tr: "PTF (Piyasa Takas Fiyatı), Türkiye'nin saatlik toptan elektrik fiyatıdır. EPİAŞ tarafından gün öncesi piyasasında belirlenir. Güncel PTF verilerini Canlı Enerji Verisi panelimizden 'PTF' veri setini seçerek görüntüleyebilirsiniz.",
-      en: "PTF (Market Clearing Price) is Turkey's hourly wholesale electricity price, determined by EPİAŞ in the day-ahead market. You can view current PTF data from our Live Energy Data panel by selecting the 'PTF' dataset.",
+      tr: "PTF (Piyasa Takas Fiyatı), Türkiye'nin saatlik toptan elektrik fiyatıdır. EPİAŞ tarafından gün öncesi piyasasında belirlenir. Güncel PTF verilerini EnergyPulse ürünümüzden 'PTF' veri setini seçerek görüntüleyebilirsiniz.",
+      en: "PTF (Market Clearing Price) is Turkey's hourly wholesale electricity price, determined by EPİAŞ in the day-ahead market. You can view current PTF data in EnergyPulse by selecting the 'PTF' dataset.",
       ru: "PTF — это часовая оптовая цена электроэнергии в Турции, определяемая EPİAŞ на рынке на сутки вперёд. Вы можете просмотреть текущие данные PTF, выбрав набор данных 'PTF' в нашей панели.",
     },
   },
@@ -115,8 +116,8 @@ const knowledgeBase: KBEntry[] = [
   {
     keywords: ["epiaş", "epias", "canlı", "live", "veri", "data", "данные"],
     answer: {
-      tr: "Canlı enerji verilerine ana sayfamızdaki Enerji Verisi panelinden ulaşabilirsiniz. PTF, YEKDEM birim maliyet, gerçek zamanlı üretim, yük tahmin planı ve GİP ağırlıklı ortalama verilerini EPİAŞ API üzerinden çekiyoruz. Tarih aralığı seçip 'Sorgula' butonuna tıklayın.",
-      en: "Access live energy data from the Energy Data panel on our homepage. We pull PTF, YEKDEM unit cost, real-time generation, load estimation, and weighted average price data via the EPİAŞ API. Select a date range and click 'Query'.",
+      tr: "Canlı enerji verilerine ana sayfamızdaki EnergyPulse ürününden ulaşabilirsiniz. PTF, YEKDEM birim maliyet, gerçek zamanlı üretim, yük tahmin planı ve GİP ağırlıklı ortalama verilerini EPİAŞ API üzerinden çekiyoruz. Tarih aralığı seçip 'Sorgula' butonuna tıklayın.",
+      en: "Access live energy data through EnergyPulse on our homepage. We pull PTF, YEKDEM unit cost, real-time generation, load estimation, and weighted average price data via the EPİAŞ API. Select a date range and click 'Query'.",
       ru: "Доступ к данным в реальном времени — на главной странице в панели Энергоданных. PTF, YEKDEM, генерация и средневзвешенная цена через API EPİAŞ.",
     },
   },
@@ -159,9 +160,9 @@ const knowledgeBase: KBEntry[] = [
 ];
 
 const defaultAnswer: { tr: string; en: string; ru: string } = {
-  tr: "Bu konuda şu an detaylı bilgi veremiyorum, ancak aşağıdaki konularda yardımcı olabilirim:\n\n• PTF ve YEKDEM verileri\n• EnergyOS, EnergyCloud, PowerForecast\n• GridAnalytics, SecureGrid, SmartMeter\n• STR Energy hakkında genel bilgi\n• Demo talebi ve iletişim\n\nLütfen bu konulardan birini sorun veya +90 544 918 70 90 numarasını arayın.",
-  en: "I don't have detailed information on that topic right now, but I can help with:\n\n• PTF and YEKDEM data\n• EnergyOS, EnergyCloud, PowerForecast\n• GridAnalytics, SecureGrid, SmartMeter\n• General info about STR Energy\n• Demo requests and contact\n\nPlease ask about one of these topics or call +90 544 918 70 90.",
-  ru: "По этой теме у меня нет данных, но я могу помочь с:\n\n• PTF и YEKDEM\n• EnergyOS, EnergyCloud, PowerForecast\n• GridAnalytics, SecureGrid, SmartMeter\n• Общая информация о STR Energy\n• Запрос демо и контакты\n\nЗадайте вопрос по одной из тем или звоните +90 544 918 70 90.",
+  tr: "Bu konuda şu an detaylı bilgi veremiyorum, ancak PTF ve YEKDEM verileri, STR Energy ürünleri, demo talebi ve iletişim konularında yardımcı olabilirim. Lütfen bu konulardan birini sorun veya +90 544 918 70 90 numarasını arayın.",
+  en: "I don't have detailed information on that topic right now, but I can help with PTF and YEKDEM data, STR Energy products, demo requests, and contact information. Please ask about one of these topics or call +90 544 918 70 90.",
+  ru: "Сейчас у меня нет подробной информации по этой теме, но я могу помочь с PTF, YEKDEM, продуктами STR Energy, демонстрациями и контактами. Задайте вопрос по одной из тем или звоните +90 544 918 70 90.",
 };
 
 function findAnswer(question: string, lang: Lang): string {
@@ -191,6 +192,7 @@ const panelMotion = {
 };
 
 export default function ChatWidget() {
+  const pathname = usePathname();
   const { t, language } = useLanguage();
   const { theme } = useTheme();
   const isDark = theme === "dark";
@@ -214,6 +216,8 @@ export default function ChatWidget() {
     if (!scrollRef.current) return;
     scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
   }, [messages, isOpen]);
+
+  if (pathname?.match(/\/platform(?:\/|$)/)) return null;
 
   const sendMessage = (content: string) => {
     const trimmed = content.trim();

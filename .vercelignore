@@ -1,0 +1,13 @@
+# Vercel CLI ignore patterns
+# Keep local artifacts and recordings out of deployments
+artifacts/
+
+# Local environment files
+.env*
+
+# Dependencies and build outputs
+node_modules/
+.next/
+out/
+build/
+coverage/
