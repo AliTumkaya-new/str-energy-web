@@ -50,8 +50,8 @@ const routeSeo: Record<string, SeoCopy> = {
     ru: { title: "Новости энергетических технологий | STR Energy", description: "Новости продуктов, энергетических проектов, рыночных данных и партнерств STR Energy." },
   },
   insights: {
-    tr: { title: "Enerji Bilgi Merkezi | STR Energy", description: "PTF, YEKDEM, Avrupa elektrik fiyatları, enerji yönetimi, talep tahmini ve global enerji verileri hakkında teknik rehberler." },
-    en: { title: "Energy Insights and Market Guides | STR Energy", description: "Technical guides covering PTF, YEKDEM, European electricity prices, energy management, demand forecasting and global energy data." },
+    tr: { title: "Enerji Bilgi Merkezi | STR Energy", description: "Elektrik piyasaları, enerji yönetimi, tahminleme, karbon, yenilenebilir enerji, depolama, şebeke teknolojileri ve OT güvenliği hakkında teknik rehberler." },
+    en: { title: "Energy Insights and Market Guides | STR Energy", description: "Technical guides to electricity markets, energy management, forecasting, carbon, renewables, storage, grid technologies and OT cybersecurity." },
     ru: { title: "Energy Insights | STR Energy", description: "Technical energy market and data guides from STR Energy." },
   },
   contacts: {
@@ -90,13 +90,14 @@ export function buildMetadata(locale: SupportedLocale, path = ""): Metadata {
     description: copy.description,
     alternates: { canonical, languages: languageAlternates },
     openGraph: {
-      type: "website",
+      type: insight ? "article" : "website",
       url: canonical,
       siteName: SITE_NAME,
       locale: locale === "tr" ? "tr_TR" : locale === "ru" ? "ru_RU" : "en_US",
       title: copy.title,
       description: copy.description,
       images: [{ url: `${SITE_URL}/og-image.svg`, width: 1200, height: 630, alt: `${SITE_NAME} energy technology` }],
+      ...(insight ? { publishedTime: insight.publishedAt ?? "2026-07-16", modifiedTime: insight.updatedAt ?? insight.publishedAt ?? "2026-07-16" } : {}),
     },
     twitter: { card: "summary_large_image", title: copy.title, description: copy.description, images: [`${SITE_URL}/og-image.svg`] },
     robots: { index: true, follow: true, googleBot: { index: true, follow: true, "max-image-preview": "large", "max-snippet": -1, "max-video-preview": -1 } },

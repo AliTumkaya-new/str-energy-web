@@ -100,7 +100,7 @@ export default function PrivacyPage() {
                       Users may opt out of personalized advertising by visiting{" "}
                       <a href="https://adssettings.google.com" target="_blank" rel="noopener noreferrer" className="text-orange-500 underline hover:text-orange-400">
                         Google Ads Settings
-                      </a>. Alternatively, you can opt out of a third-party vendor's use of cookies for personalized advertising by visiting{" "}
+                      </a>. Alternatively, you can opt out of a third-party vendor&apos;s use of cookies for personalized advertising by visiting{" "}
                       <a href="https://www.aboutads.info/choices/" target="_blank" rel="noopener noreferrer" className="text-orange-500 underline hover:text-orange-400">
                         www.aboutads.info
                       </a>.

@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 import { SITE_URL } from "@/lib/seo";
-import { insightSlugs } from "@/lib/insights";
+import { insights } from "@/lib/insights";
 
 const locales = ["tr", "en", "ru"] as const;
 const routes = [
@@ -44,14 +44,21 @@ export default function sitemap(): MetadataRoute.Sitemap {
       },
     }))
   );
-  const insightEntries = ["", ...insightSlugs].flatMap((slug) =>
+  const insightIndexEntries = (["tr", "en"] as const).map((locale) => ({
+    url: `${SITE_URL}/${locale}/insights`,
+    lastModified: new Date("2026-08-26T00:00:00.000Z"),
+    changeFrequency: "weekly" as const,
+    priority: 0.85,
+    alternates: { languages: { tr: `${SITE_URL}/tr/insights`, en: `${SITE_URL}/en/insights`, "x-default": `${SITE_URL}/en/insights` } },
+  }));
+  const insightEntries = insights.flatMap((article) =>
     (["tr", "en"] as const).map((locale) => ({
-      url: `${SITE_URL}/${locale}/insights${slug ? `/${slug}` : ""}`,
-      lastModified,
+      url: `${SITE_URL}/${locale}/insights/${article.slug}`,
+      lastModified: new Date(`${article.updatedAt ?? article.publishedAt ?? "2026-07-16"}T00:00:00.000Z`),
       changeFrequency: "monthly" as const,
       priority: 0.8,
-      alternates: { languages: { tr: `${SITE_URL}/tr/insights${slug ? `/${slug}` : ""}`, en: `${SITE_URL}/en/insights${slug ? `/${slug}` : ""}`, "x-default": `${SITE_URL}/en/insights${slug ? `/${slug}` : ""}` } },
+      alternates: { languages: { tr: `${SITE_URL}/tr/insights/${article.slug}`, en: `${SITE_URL}/en/insights/${article.slug}`, "x-default": `${SITE_URL}/en/insights/${article.slug}` } },
     }))
   );
-  return [...coreEntries, ...insightEntries];
+  return [...coreEntries, ...insightIndexEntries, ...insightEntries];
 }

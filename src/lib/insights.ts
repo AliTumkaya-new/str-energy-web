@@ -8,12 +8,15 @@ export type InsightArticle = {
   title: LocalizedText;
   description: LocalizedText;
   intro: LocalizedText;
+  publishedAt?: string;
+  updatedAt?: string;
+  readMinutes?: number;
   sections: Array<{ heading: LocalizedText; body: LocalizedText }>;
   takeaways: Record<InsightLocale, string[]>;
   sources: Array<{ label: string; url: string }>;
 };
 
-export const insights: InsightArticle[] = [
+const coreInsights: InsightArticle[] = [
   {
     slug: "ptf-market-clearing-price",
     category: { tr: "Türkiye Elektrik Piyasası", en: "Türkiye Electricity Market" },
@@ -244,9 +247,12 @@ export const insights: InsightArticle[] = [
   },
 ];
 
+import { additionalInsights } from "@/lib/insights-additional";
+
+export const insights: InsightArticle[] = [...additionalInsights, ...coreInsights];
+
 export const insightSlugs = insights.map((article) => article.slug);
 
 export function getInsight(slug: string) {
   return insights.find((article) => article.slug === slug);
 }
-
