@@ -7,8 +7,6 @@ import { useLanguage } from "@/context/LanguageContext";
 import { useTheme } from "@/context/ThemeContext";
 import { usePathname } from "next/navigation";
 import { getLocaleFromPathname, prefixHrefWithLocale, type SupportedLocale } from "@/lib/locale";
-import { useHeroSpotlight } from "@/lib/useHeroSpotlight";
-import WaveMeshPattern from "@/components/WaveMeshPattern";
 
 const navigation = [
   { key: "footer.main", href: "/" },
@@ -18,11 +16,11 @@ const navigation = [
 ];
 
 const products = [
-  { key: "product.intelligence", href: "/products/energy-intelligence-platform" },
+  { key: "product.intelligence", href: "/about" },
 ];
 
 const company = [
-  { key: "nav.investors", href: "/energy-startup" },
+  { key: "nav.investors", href: "/about" },
   { key: "nav.marketData", href: "/projects/market-data" },
   { key: "nav.methodology", href: "/methodology/market-data" },
   { key: "nav.insights", href: "/insights" },
@@ -39,7 +37,6 @@ export default function Footer({ compact = false }: { compact?: boolean }) {
   const { t } = useLanguage();
   const { theme } = useTheme();
   const isDark = theme === "dark";
-  const { heroRef, patternHot, onHeroPointerEnter, onHeroPointerLeave, onHeroPointerMove } = useHeroSpotlight();
   const pathname = usePathname();
   const currentLocale = (getLocaleFromPathname(pathname) || "tr") as SupportedLocale;
   const withLocale = (href: string) => prefixHrefWithLocale(href, currentLocale);
@@ -53,42 +50,11 @@ export default function Footer({ compact = false }: { compact?: boolean }) {
       {/* CTA Section */}
       {!compact && (
         <div
-          ref={heroRef}
-          onPointerEnter={onHeroPointerEnter}
-          onPointerLeave={onHeroPointerLeave}
-          onPointerMove={onHeroPointerMove}
-          className={`relative py-16 border-b overflow-hidden [--str-hex-x:50%] [--str-hex-y:50%] ${
+          className={`relative py-16 border-b overflow-hidden ${
             isDark ? "border-white/5" : "border-black/10"
           }`}
         >
-          <div className={`absolute inset-0 ${isDark ? "bg-black" : "bg-white"}`}>
-            <WaveMeshPattern
-              className="w-full h-full"
-              stroke={isDark ? "rgba(249,115,22,0.22)" : "rgba(0,0,0,0.08)"}
-              strokeWidth={0.75}
-              spacing={80}
-              amplitude={14}
-              frequency={0.011}
-            />
-            <div
-              className={`absolute inset-0 transition-opacity duration-200 ${patternHot ? "opacity-100" : "opacity-0"}`}
-              style={{
-                WebkitMaskImage:
-                  "radial-gradient(160px circle at var(--str-hex-x) var(--str-hex-y), #000 0 65%, transparent 100%)",
-                maskImage:
-                  "radial-gradient(160px circle at var(--str-hex-x) var(--str-hex-y), #000 0 65%, transparent 100%)",
-              }}
-            >
-              <WaveMeshPattern
-                className="w-full h-full"
-                stroke={isDark ? "rgba(255,168,75,0.95)" : "rgba(249,115,22,0.85)"}
-                strokeWidth={1.15}
-                spacing={80}
-                amplitude={14}
-                frequency={0.011}
-              />
-            </div>
-          </div>
+          <div className={`pointer-events-none absolute inset-0 ${isDark ? "bg-[radial-gradient(circle_at_50%_0%,rgba(249,115,22,0.12),transparent_55%)]" : "bg-[radial-gradient(circle_at_50%_0%,rgba(249,115,22,0.08),transparent_55%)]"}`} />
           <div className="container relative">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -130,9 +96,6 @@ export default function Footer({ compact = false }: { compact?: boolean }) {
                   className="h-14 md:h-16 w-auto"
                 />
               </a>
-              <p className="mb-3 text-xs font-semibold uppercase tracking-[0.14em] text-orange-500">
-                {t("brand.expansion")}
-              </p>
               <p className="text-gray-500 mb-6 max-w-sm">
                 {t("footer.description")}
               </p>

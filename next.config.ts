@@ -2,19 +2,6 @@ import type { NextConfig } from "next";
 import path from "path";
 
 const projectRoot = path.resolve(__dirname);
-const legacyProductSlugs = [
-  "cbam",
-  "climateos",
-  "energyos",
-  "gridanalytics",
-  "mini-audit",
-  "powerforecast",
-  "proofmesh",
-  "securegrid",
-  "smartmeter",
-  "energycloud",
-];
-
 const legacyInsightRedirects: Record<string, string> = {
   "yekdem-cost": "ptf-market-clearing-price",
   "gip-intraday-market-clearing": "ptf-market-clearing-price",
@@ -64,16 +51,36 @@ const nextConfig: NextConfig = {
         destination: "/:lang/projects/market-data",
         permanent: true,
       },
-      ...legacyProductSlugs.map((slug) => ({
-        source: `/products/${slug}`,
-        destination: "/products/energy-intelligence-platform",
+      {
+        source: "/products",
+        destination: "/about",
         permanent: true,
-      })),
-      ...legacyProductSlugs.map((slug) => ({
-        source: `/:lang(tr|en|ru)/products/${slug}`,
-        destination: "/:lang/products/energy-intelligence-platform",
+      },
+      {
+        source: "/products/:path*",
+        destination: "/about",
         permanent: true,
-      })),
+      },
+      {
+        source: "/:lang(tr|en|ru)/products",
+        destination: "/:lang/about",
+        permanent: true,
+      },
+      {
+        source: "/:lang(tr|en|ru)/products/:path*",
+        destination: "/:lang/about",
+        permanent: true,
+      },
+      {
+        source: "/energy-startup",
+        destination: "/about",
+        permanent: true,
+      },
+      {
+        source: "/:lang(tr|en|ru)/energy-startup",
+        destination: "/:lang/about",
+        permanent: true,
+      },
       ...Object.entries(legacyInsightRedirects).map(([source, destination]) => ({
         source: `/insights/${source}`,
         destination: `/insights/${destination}`,

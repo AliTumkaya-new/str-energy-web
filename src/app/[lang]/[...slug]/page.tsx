@@ -11,10 +11,7 @@ import DisclaimerPage from "../../disclaimer/page";
 import EditorialPolicyPage from "../../editorial-policy/page";
 import EditorialTeamPage from "../../authors/str-energy-editorial-team/page";
 import MarketDataMethodologyPage from "../../methodology/market-data/page";
-import ProductsIndexPage from "../../products/page";
-import EnergyIntelligencePlatformPage from "../../products/energy-intelligence-platform/page";
 import MarketDataProjectPage from "../../projects/market-data/page";
-import EnergyStartupPage from "../../energy-startup/page";
 import PortalPage from "../../portal/page";
 import ClimatePortalPage from "../../portal/climateos/page";
 import InsightsIndex from "@/components/InsightsIndex";
@@ -33,10 +30,7 @@ const routeMap: Record<string, () => ReactNode> = {
   "editorial-policy": () => <EditorialPolicyPage />,
   "authors/str-energy-editorial-team": () => <EditorialTeamPage />,
   "methodology/market-data": () => <MarketDataMethodologyPage />,
-  "products": () => <ProductsIndexPage />,
-  "products/energy-intelligence-platform": () => <EnergyIntelligencePlatformPage />,
   "projects/market-data": () => <MarketDataProjectPage />,
-  "energy-startup": () => <EnergyStartupPage />,
   "portal": () => <PortalPage />,
   "portal/climateos": () => <ClimatePortalPage />,
   "insights": () => <InsightsIndex />,
@@ -60,10 +54,10 @@ export default async function LocaleCatchAllPage({ params }: { params: Promise<{
     redirect(`/${lang}/projects/market-data`);
   }
   if (["products/cbam", "products/climateos", "products/energyos", "products/gridanalytics", "products/mini-audit", "products/powerforecast", "products/proofmesh", "products/securegrid", "products/smartmeter", "products/energycloud"].includes(slugPath)) {
-    redirect(`/${lang}/products/energy-intelligence-platform`);
+    redirect(`/${lang}/about`);
   }
   if (["platform/proofmesh", "platform/cbam", "platform/cbam/login"].includes(slugPath)) {
-    redirect(`/${lang}/products/energy-intelligence-platform`);
+    redirect(`/${lang}/about`);
   }
   const renderer = routeMap[slugPath];
   if (!renderer) return notFound();

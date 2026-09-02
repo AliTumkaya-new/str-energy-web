@@ -1,14 +1,14 @@
 # STR Energy Web
 
-STR Energy — Smart Technologies for Renewables
+STR Energy — Enerji Yazılım Ar-Ge
 
 STR Energy develops an AI-powered industrial energy intelligence platform that connects directly to field equipment, analyzes real-time consumption and helps facilities reduce energy cost, waste and carbon emissions.
 
-STR Energy is an early-stage energy technology startup in product development and pilot validation. The company is open to conversations with early-stage investors, pilot facilities and strategic industrial partners.
+STR Energy is an energy software and applied R&D venture founded in Türkiye by young entrepreneurs. The company develops data-driven solutions for real energy-sector needs and collaborates with industrial and technology partners.
 
 ## Features
 
-- **STR Energy Intelligence Platform**: RS485 / Modbus field integration, real-time monitoring, AI anomaly detection, forecasting, expected-vs-actual production analysis, cost and carbon impact, ISO 50001 reporting, and equipment-level digital twins.
+- **Energy software R&D**: data architecture, analytics, reporting and applied software research for measurable energy-sector needs.
 
 ## Independent R&D Project
 

@@ -4,8 +4,6 @@ import { motion } from "framer-motion";
 import { Zap, Settings, TrendingUp } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
 import { useTheme } from "@/context/ThemeContext";
-import HoneycombPattern from "@/components/HoneycombPattern";
-import { useHeroSpotlight } from "@/lib/useHeroSpotlight";
 
 const features = [
   {
@@ -33,50 +31,15 @@ const features = [
 
 export default function DeviceSection() {
   const { t } = useLanguage();
-  const { heroRef, patternHot, onHeroPointerEnter, onHeroPointerLeave, onHeroPointerMove } = useHeroSpotlight();
   const { theme } = useTheme();
 
   return (
     <section
-      ref={heroRef}
-      onPointerEnter={onHeroPointerEnter}
-      onPointerLeave={onHeroPointerLeave}
-      onPointerMove={onHeroPointerMove}
-      className={`relative py-24 overflow-hidden [--str-hex-x:50%] [--str-hex-y:50%] ${
+      className={`relative py-24 overflow-hidden ${
         theme === "dark" ? "bg-black" : "bg-white"
       }`}
     >
-      <div className="absolute inset-x-0 top-[5.5%] bottom-0 overflow-hidden">
-        <HoneycombPattern
-          className="w-full h-full translate-y-[0%]"
-          size={6}
-          cols={28}
-          rows={22}
-          enableHover={false}
-          stroke={theme === "dark" ? "rgba(255,255,255,0.35)" : "rgba(214,214,220,0.7)"}
-          strokeWidth={0.75}
-          hoverStroke="rgba(249,115,22,0.6)"
-        />
-        <div
-          className={`absolute inset-0 transition-opacity duration-200 ${patternHot ? "opacity-100" : "opacity-0"}`}
-          style={{
-            WebkitMaskImage:
-              "radial-gradient(180px circle at var(--str-hex-x) var(--str-hex-y), #000 0 70%, transparent 100%)",
-            maskImage:
-              "radial-gradient(180px circle at var(--str-hex-x) var(--str-hex-y), #000 0 70%, transparent 100%)",
-          }}
-        >
-          <HoneycombPattern
-            className="w-full h-full translate-y-[1%]"
-            size={6}
-            cols={28}
-            rows={22}
-            stroke="rgba(249,115,22,0.55)"
-            strokeWidth={0.9}
-            enableHover={false}
-          />
-        </div>
-      </div>
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_78%_28%,rgba(249,115,22,0.10),transparent_30%),linear-gradient(135deg,rgba(113,113,122,0.055)_1px,transparent_1px)] bg-[size:auto,36px_36px]" />
 
       <div className="container relative">
         <motion.div

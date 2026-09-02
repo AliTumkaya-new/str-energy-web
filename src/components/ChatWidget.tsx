@@ -40,31 +40,31 @@ const knowledgeBase: KBEntry[] = [
       ru: "YEKDEM — это Механизм поддержки возобновляемых источников энергии Турции, включающий солнечную, ветровую, гидро- и геотермальную энергию. Данные о стоимости YEKDEM доступны на нашей панели.",
     },
   },
-  /* ───── STR Energy Intelligence Platform ───── */
+  /* ───── STR Energy R&D ───── */
   {
-    keywords: ["intelligence", "platform", "energyos", "energycloud", "powerforecast", "gridanalytics", "securegrid", "smartmeter", "modbus", "rs485", "anomali", "anomaly", "tahmin", "forecast", "dijital ikiz", "digital twin", "iso 50001", "üretim fark", "production gap", "kök neden", "root cause"],
+    keywords: ["arge", "ar-ge", "r&d", "research", "yazılım", "software", "veri", "data", "enerji", "energy", "teknoloji", "technology"],
     answer: {
-      tr: "STR Energy Intelligence Platform; RS485 / Modbus üzerinden enerji analizörleri ve saha ekipmanlarına bağlanan tek ürünümüzdür. Gerçek zamanlı izleme, AI anomali tespiti, tüketim ve üretim tahmini, beklenen–gerçekleşen performans farkı, kök neden açıklaması, maliyet ve karbon etkisi, ISO 50001 raporlaması ve ekipman bazlı dijital ikiz analizi sunar.",
-      en: "STR Energy Intelligence Platform is our single product, connecting to energy analyzers and field equipment over RS485 / Modbus. It provides real-time monitoring, AI anomaly detection, consumption and production forecasts, expected-versus-actual performance gaps, root-cause explanations, cost and carbon impact, ISO 50001 reporting and equipment-level digital twin analytics.",
-      ru: "STR Energy Intelligence Platform — наш единый продукт, подключающийся к анализаторам энергии и полевому оборудованию по RS485 / Modbus. Он включает мониторинг, ИИ-аномалии, прогнозы, сравнение ожидаемого и фактического, объяснение причин, затраты, углерод, ISO 50001 и цифровые двойники.",
+      tr: "STR Energy; enerji verisi, yazılım geliştirme ve uygulamalı Ar-Ge alanlarında çalışır. Gerçek ihtiyacı ve veri kapsamını birlikte tanımlar, ardından ölçülebilir ve geliştirilebilir çözümler üretiriz.",
+      en: "STR Energy works across energy data, software development and applied R&D. We define the real need and data scope first, then build measurable and extensible solutions.",
+      ru: "STR Energy работает с энергетическими данными, разработкой ПО и прикладными исследованиями. Сначала мы определяем реальную задачу и границы данных, затем создаем измеримые и развиваемые решения.",
     },
   },
   /* ───── STR Energy Company ───── */
   {
     keywords: ["str energy", "şirket", "company", "компания", "hakkında", "about", "kim", "who", "кто"],
     answer: {
-      tr: "STR, Smart Technologies for Renewables'ın kısaltmasıdır. STR Energy; ürün geliştirme ve pilot doğrulama aşamasındaki erken aşama bir enerji teknolojileri girişimidir. Tek ticari ürünü saha ekipmanlarına bağlanan STR Energy Intelligence Platform'dur; Piyasa Veri Projesi ise bağımsız bir Ar-Ge çalışmasıdır.",
-      en: "STR stands for Smart Technologies for Renewables. STR Energy is an early-stage energy technology startup in product development and pilot validation. Its single commercial product is STR Energy Intelligence Platform; the Market Data Project is a separate R&D initiative.",
-      ru: "STR означает Smart Technologies for Renewables. STR Energy — энергетический стартап ранней стадии на этапе разработки продукта и пилотной проверки. Его единственный коммерческий продукт — STR Energy Intelligence Platform; проект рыночных данных является отдельной R&D-инициативой.",
+      tr: "STR Energy, enerji ve teknoloji alanında üretmek isteyen genç girişimciler tarafından Türkiye’de kurulmuş bir enerji yazılım ve Ar-Ge girişimidir. Piyasa Veri Projesi, veri kaynaklarını ve yöntemini açıkça belgelediğimiz çalışmalarımızdan biridir.",
+      en: "STR Energy is an energy software and R&D venture founded in Türkiye by young entrepreneurs working at the intersection of energy and technology. The Market Data Project is one of our openly documented research initiatives.",
+      ru: "STR Energy — проект в области энергетического ПО и R&D, основанный в Турции молодыми предпринимателями. Проект рыночных данных — одна из наших открыто документированных исследовательских инициатив.",
     },
   },
   /* ───── Investment / partnerships ───── */
   {
     keywords: ["yatırım", "yatırımcı", "fon", "funding", "investor", "investment", "startup", "girişim", "seed", "partner", "ortaklık", "инвест", "стартап"],
     answer: {
-      tr: "Evet. STR Energy ürün geliştirme ve pilot doğrulama aşamasındaki erken aşama bir enerji girişimidir. Erken aşama yatırımcılar, pilot tesis sağlayabilecek sanayi kuruluşları ve stratejik teknoloji ortaklarıyla görüşmeye açığız. Ayrıntılar için Yatırımcılar sayfasını inceleyebilir veya İletişim sayfasından doğrudan ulaşabilirsiniz.",
-      en: "Yes. STR Energy is an early-stage energy startup in product development and pilot validation. We are open to conversations with early-stage investors, industrial organizations able to host pilots and strategic technology partners. See the Investors page or contact us directly.",
-      ru: "Да. STR Energy — энергетический стартап ранней стадии на этапе разработки продукта и пилотной проверки. Мы открыты к диалогу с ранними инвесторами, промышленными пилотными площадками и стратегическими технологическими партнерами.",
+      tr: "STR Energy; enerji, yazılım ve uygulamalı Ar-Ge alanlarında proje ortaklıklarına açıktır. Sanayi kuruluşları, teknoloji ekipleri ve stratejik ortaklar İletişim sayfasından doğrudan ekibimize ulaşabilir.",
+      en: "STR Energy is open to project partnerships across energy, software and applied R&D. Industrial organizations, technology teams and strategic partners can contact our team directly.",
+      ru: "STR Energy открыта к партнерствам в энергетике, разработке ПО и прикладных исследованиях. Промышленные организации и технологические команды могут связаться с нами напрямую.",
     },
   },
   /* ───── Contact ───── */
@@ -89,27 +89,27 @@ const knowledgeBase: KBEntry[] = [
   {
     keywords: ["demo", "deneme", "trial", "демо"],
     answer: {
-      tr: "STR Energy Intelligence Platform demosunu talep etmek için İletişim sayfamızı ziyaret edebilir veya +90 544 918 70 90 numarasını arayabilirsiniz.",
-      en: "To request a demo of STR Energy Intelligence Platform, visit our Contact page or call +90 544 918 70 90.",
-      ru: "Для бесплатной демо-версии посетите страницу Контакты или позвоните по номеру +90 544 918 70 90.",
+      tr: "Bir enerji yazılımı veya Ar-Ge çalışmasını görüşmek için İletişim sayfamızı ziyaret edebilir ya da +90 544 918 70 90 numarasını arayabilirsiniz.",
+      en: "To discuss an energy software or R&D project, visit our Contact page or call +90 544 918 70 90.",
+      ru: "Чтобы обсудить проект в области энергетического ПО или R&D, посетите страницу контактов или позвоните по номеру +90 544 918 70 90.",
     },
   },
   /* ───── Pricing ───── */
   {
     keywords: ["fiyat", "ücret", "pricing", "cost", "цена", "стоимость", "tarife"],
     answer: {
-      tr: "Platform fiyatlandırması; bağlanacak cihaz, veri noktası, tesis ve devreye alma kapsamına göre belirlenir. Teklif almak için İletişim sayfamızdan bize ulaşabilirsiniz.",
-      en: "Platform pricing depends on connected devices, data points, facilities and commissioning scope. Contact us for a proposal.",
-      ru: "Цена платформы зависит от количества устройств, точек данных, объектов и объема внедрения. Свяжитесь с нами для предложения.",
+      tr: "Proje kapsamı; veri, yazılım geliştirme, analiz ve uygulama ihtiyacına göre birlikte belirlenir. Teklif almak için İletişim sayfamızdan bize ulaşabilirsiniz.",
+      en: "Project scope is defined around data, software development, analysis and implementation needs. Contact us for a proposal.",
+      ru: "Объем проекта определяется задачами по данным, разработке ПО, аналитике и внедрению. Свяжитесь с нами для предложения.",
     },
   },
   /* ───── Merhaba / Greetings ───── */
   {
     keywords: ["merhaba", "hello", "hi", "hey", "selam", "привет", "здравствуй"],
     answer: {
-      tr: "Merhaba! 👋 STR Energy Asistanına hoş geldiniz. Piyasa verileri veya STR Energy Intelligence Platform hakkında yardımcı olabilirim. Ne sormak istersiniz?",
-      en: "Hello! 👋 Welcome to the STR Energy Assistant. I can help with market data or STR Energy Intelligence Platform. What would you like to know?",
-      ru: "Привет! 👋 Я могу помочь с рыночными данными или STR Energy Intelligence Platform. Что хотите узнать?",
+      tr: "Merhaba! 👋 STR Energy Asistanına hoş geldiniz. Piyasa verileri, enerji yazılımı veya Ar-Ge çalışmalarımız hakkında yardımcı olabilirim. Ne sormak istersiniz?",
+      en: "Hello! 👋 Welcome to the STR Energy Assistant. I can help with market data, energy software or our R&D work. What would you like to know?",
+      ru: "Привет! 👋 Я могу помочь с рыночными данными, энергетическим ПО или нашими R&D-проектами. Что хотите узнать?",
     },
   },
   /* ───── Thanks ───── */
@@ -124,9 +124,9 @@ const knowledgeBase: KBEntry[] = [
 ];
 
 const defaultAnswer: { tr: string; en: string; ru: string } = {
-  tr: "Bu konuda şu an detaylı bilgi veremiyorum; ancak PTF/YEKDEM verileri, STR Energy Intelligence Platform, demo ve iletişim konularında yardımcı olabilirim.",
-  en: "I don't have detailed information on that topic right now, but I can help with PTF/YEKDEM data, STR Energy Intelligence Platform, demos and contact information.",
-  ru: "Сейчас у меня нет подробной информации, но я могу помочь с PTF/YEKDEM, STR Energy Intelligence Platform, демо и контактами.",
+  tr: "Bu konuda şu an detaylı bilgi veremiyorum; ancak PTF/YEKDEM verileri, enerji yazılımı, Ar-Ge ve iletişim konularında yardımcı olabilirim.",
+  en: "I don't have detailed information on that topic right now, but I can help with PTF/YEKDEM data, energy software, R&D and contact information.",
+  ru: "Сейчас у меня нет подробной информации, но я могу помочь с PTF/YEKDEM, энергетическим ПО, R&D и контактами.",
 };
 
 function findAnswer(question: string, lang: Lang): string {
@@ -155,12 +155,12 @@ const panelMotion = {
   transition: { duration: 0.18, ease: "easeOut" },
 };
 
-export default function ChatWidget() {
+export default function ChatWidget({ initiallyOpen = false }: { initiallyOpen?: boolean }) {
   const pathname = usePathname();
   const { t, language } = useLanguage();
   const { theme } = useTheme();
   const isDark = theme === "dark";
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(initiallyOpen);
   const [isLoading, setIsLoading] = useState(false);
   const [input, setInput] = useState("");
   const [messages, setMessages] = useState<ChatMessage[]>([]);

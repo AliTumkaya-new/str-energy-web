@@ -11,11 +11,11 @@ import { useTheme } from "@/context/ThemeContext";
 import { getLocaleFromPathname, prefixHrefWithLocale, replaceLocaleInPath, supportedLocales, type SupportedLocale } from "@/lib/locale";
 
 const products = [
-  { key: "intelligence", icon: BrainCircuit, href: "/products/energy-intelligence-platform" },
+  { key: "intelligence", icon: BrainCircuit, href: "/about" },
 ];
 
 const companyLinks = [
-  { key: "nav.investors", icon: Rocket, href: "/energy-startup" },
+  { key: "nav.investors", icon: Rocket, href: "/about" },
   { key: "nav.marketData", icon: Database, href: "/projects/market-data" },
   { key: "nav.methodology", icon: Scale, href: "/methodology/market-data" },
   { key: "nav.insights", icon: BookOpen, href: "/insights" },
@@ -25,12 +25,9 @@ const companyLinks = [
   { key: "nav.contacts", icon: Mail, href: "/contacts" },
 ];
 
-type HeaderProps = {
-  variant?: "default" | "floating";
-  withAnnouncement?: boolean;
-};
+type HeaderProps = { variant?: "default" | "floating" };
 
-export default function Header({ variant = "default", withAnnouncement = false }: HeaderProps) {
+export default function Header({ variant = "default" }: HeaderProps) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
@@ -87,7 +84,7 @@ export default function Header({ variant = "default", withAnnouncement = false }
 
   return (
     <header
-      className={`fixed ${withAnnouncement ? "top-10" : "top-0"} left-0 right-0 z-50 transition-all duration-300 ${
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isFloating ? "py-2 md:py-3" : ""
       } ${
         !isFloating && isScrolled
@@ -115,7 +112,7 @@ export default function Header({ variant = "default", withAnnouncement = false }
         >
           <nav className={`flex items-center ${isFloating ? "px-3 sm:px-5" : ""} h-16 md:h-20`}>
           {/* Logo */}
-          <Link href={withLocale("/")} className="flex items-center gap-2" aria-label={`${t("brand.name")} — ${t("brand.expansion")}`}>
+          <Link href={withLocale("/")} className="flex items-center gap-2" aria-label={t("brand.name")}>
             <Image
               src="/logo.png"
               alt={t("brand.name")}
@@ -124,7 +121,6 @@ export default function Header({ variant = "default", withAnnouncement = false }
               className="h-14 md:h-16 w-auto"
               priority
             />
-            <span className="sr-only">{t("brand.expansion")}</span>
           </Link>
 
           {/* Desktop Navigation */}

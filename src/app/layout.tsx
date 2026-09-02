@@ -3,8 +3,7 @@ import { Geist, Geist_Mono, Oxanium } from "next/font/google";
 import "./globals.css";
 import { LanguageProvider } from "@/context/LanguageContext";
 import { ThemeProvider } from "@/context/ThemeContext";
-import ChatWidget from "@/components/ChatWidget";
-import SmoothScroll from "@/components/SmoothScroll";
+import DeferredChatWidget from "@/components/DeferredChatWidget";
 import { Analytics } from "@vercel/analytics/next";
 import { organizationJsonLd, SITE_URL } from "@/lib/seo";
 import { headers } from "next/headers";
@@ -29,24 +28,21 @@ const displayFont = Oxanium({
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "STR Energy | Energy Technology Startup & Intelligence Platform",
+    default: "STR Energy | Enerji Yazılım Ar-Ge",
     template: "%s | STR Energy",
   },
   description:
-    "STR — Smart Technologies for Renewables, saha ekipmanlarına bağlanan AI destekli endüstriyel enerji zekâsı platformunu geliştiren erken aşama enerji teknolojileri girişimidir.",
+    "Genç girişimciler tarafından Türkiye’de kurulan STR Energy, enerji verisi, yazılım ve Ar-Ge alanlarında ölçülebilir çözümler geliştirir.",
   keywords: [
     "energy software",
     "enerji yazılım",
     "enerji girişimi",
     "enerji teknolojileri girişimi",
-    "energy startup",
-    "climate tech startup",
-    "Smart Technologies for Renewables",
+    "energy software R&D",
+    "enerji teknolojileri",
     "PTF",
     "YEKDEM",
     "STR Energy Intelligence Platform",
-    "RS485",
-    "Modbus",
     "enerji analizörü",
     "ISO 50001",
     "AI anomaly detection",
@@ -69,9 +65,9 @@ export const metadata: Metadata = {
     alternateLocale: ["en_US", "ru_RU"],
     url: SITE_URL,
     siteName: "STR Energy",
-    title: "STR Energy | Energy Technology Startup & Intelligence Platform",
+    title: "STR Energy | Enerji Yazılım Ar-Ge",
     description:
-      "Smart Technologies for Renewables: erken aşama enerji girişimi ve AI destekli endüstriyel enerji zekâsı platformu.",
+      "Genç girişimciler tarafından Türkiye’de kurulan enerji yazılım ve Ar-Ge girişimi.",
     images: [
       {
         url: "/og-image.svg",
@@ -83,9 +79,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "STR Energy | Energy Technology Startup & Intelligence Platform",
+    title: "STR Energy | Energy Software R&D",
     description:
-      "Smart Technologies for Renewables: an early-stage startup building industrial energy intelligence from field equipment to measurable action.",
+      "An energy software and R&D venture founded in Türkiye by young entrepreneurs.",
     images: ["/og-image.svg"],
   },
   icons: {
@@ -123,11 +119,10 @@ export default async function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${displayFont.variable} antialiased`}
       >
-        <SmoothScroll />
         <LanguageProvider>
           <ThemeProvider>
             {children}
-            <ChatWidget />
+            <DeferredChatWidget />
             <Analytics />
           </ThemeProvider>
         </LanguageProvider>

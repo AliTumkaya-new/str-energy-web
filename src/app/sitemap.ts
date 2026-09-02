@@ -14,9 +14,6 @@ const routes = [
   "editorial-policy",
   "authors/str-energy-editorial-team",
   "methodology/market-data",
-  "products",
-  "products/energy-intelligence-platform",
-  "energy-startup",
   "projects/market-data",
 ] as const;
 
@@ -28,7 +25,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: `${SITE_URL}/${locale}${route ? `/${route}` : ""}`,
       lastModified,
       changeFrequency: route === "" ? "weekly" as const : "monthly" as const,
-      priority: route === "" ? 1 : route === "products/energy-intelligence-platform" ? 0.95 : route === "energy-startup" ? 0.9 : route === "projects/market-data" ? 0.8 : route.startsWith("products") ? 0.85 : 0.65,
+      priority: route === "" ? 1 : route === "projects/market-data" ? 0.8 : 0.65,
       alternates: {
         languages: {
           tr: `${SITE_URL}/tr${route ? `/${route}` : ""}`,

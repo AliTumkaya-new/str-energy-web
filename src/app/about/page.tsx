@@ -4,7 +4,6 @@ import { motion } from "framer-motion";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import HeroPatternLayer from "@/components/HeroPatternLayer";
-import ProductsGrid from "@/components/ProductsGrid";
 import { useHeroSpotlight } from "@/lib/useHeroSpotlight";
 import { useTheme } from "@/context/ThemeContext";
 import { useLanguage } from "@/context/LanguageContext";
@@ -34,21 +33,21 @@ export default function AboutPage() {
     tr: {
       eyebrow: "YAYIN VE VERİ ŞEFFAFLIĞI",
       title: "İddiaları, kaynakları ve sınırları görünür tutuyoruz.",
-      text: "STR Energy erken aşama bir enerji teknolojileri girişimidir. Teknik rehberlerimiz kurumsal editoryal ekip imzasıyla, birincil kaynaklar ve görünür güncelleme tarihleri kullanılarak yayımlanır. Piyasa Veri Projesi’nde kullanılan EPİAŞ, ENTSO-E ve EIA kaynakları ile dönüşüm ve hata davranışları ayrı metodoloji sayfasında belgelenir.",
+      text: "STR Energy, genç girişimciler tarafından Türkiye’de kurulan bir enerji yazılım ve Ar-Ge girişimidir. Teknik rehberlerimiz kurumsal editoryal ekip imzasıyla, birincil kaynaklar ve görünür güncelleme tarihleri kullanılarak yayımlanır. Piyasa Veri Projesi’nde kullanılan EPİAŞ, ENTSO-E ve EIA kaynakları ile dönüşüm ve hata davranışları ayrı metodoloji sayfasında belgelenir.",
       editorial: "Editoryal ilkeler",
       methodology: "Veri metodolojisi",
     },
     en: {
       eyebrow: "PUBLISHING AND DATA TRANSPARENCY",
       title: "We keep claims, sources and limitations visible.",
-      text: "STR Energy is an early-stage energy technology startup. Our technical guides use an institutional editorial byline, primary sources and visible review dates. The EPİAŞ, ENTSO-E and EIA sources, transformations and failure behaviour used by the Market Data Project are documented on a separate methodology page.",
+      text: "STR Energy is an energy software and R&D venture founded in Türkiye by young entrepreneurs. Our technical guides use an institutional editorial byline, primary sources and visible review dates. The EPİAŞ, ENTSO-E and EIA sources, transformations and failure behaviour used by the Market Data Project are documented on a separate methodology page.",
       editorial: "Editorial standards",
       methodology: "Data methodology",
     },
     ru: {
       eyebrow: "ПРОЗРАЧНОСТЬ ПУБЛИКАЦИЙ И ДАННЫХ",
       title: "Мы открыто указываем заявления, источники и ограничения.",
-      text: "STR Energy — энергетический технологический стартап ранней стадии. Технические материалы публикуются от имени редакционной команды, содержат первичные источники и даты проверки. Источники EPİAŞ, ENTSO-E и EIA, преобразования и обработка ошибок описаны в методологии проекта данных.",
+      text: "STR Energy — проект в области энергетического ПО и R&D, основанный в Турции молодыми предпринимателями. Технические материалы публикуются от имени редакционной команды, содержат первичные источники и даты проверки. Источники EPİAŞ, ENTSO-E и EIA, преобразования и обработка ошибок описаны в методологии проекта данных.",
       editorial: "Редакционные стандарты",
       methodology: "Методология данных",
     },
@@ -143,8 +142,6 @@ export default function AboutPage() {
           </div>
         </div>
       </section>
-
-      <ProductsGrid />
 
       <Footer />
     </div>

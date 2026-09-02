@@ -260,11 +260,6 @@ export default function HeroSection() {
 
       <div className="container relative z-10 hero-static">
         <div className="max-w-4xl mx-auto text-center">
-          <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-orange-500/25 bg-orange-500/10 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-orange-500">
-            <span className="font-bold">STR</span>
-            <span className={isDark ? "text-zinc-400" : "text-zinc-600"}>·</span>
-            {t("brand.expansion")}
-          </div>
           <h1
             className={`text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight ${
               isDark ? "text-white" : "text-zinc-900"
@@ -296,7 +291,7 @@ export default function HeroSection() {
             </a>
 
             <a
-              href={withLocale("#products")}
+              href={withLocale("/projects/market-data")}
               className={`group inline-flex items-center justify-center w-full sm:w-auto gap-2 px-8 py-4 border hover:border-orange-500/50 text-orange-500 font-semibold rounded-full transition-all ${
                 isDark
                   ? "bg-white/5 border-white/10 hover:bg-white/10"
