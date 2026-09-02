@@ -15,6 +15,27 @@ type CachedIndex = {
 const CACHE_TTL_MS = 5 * 60 * 1000;
 const SOURCE_DIRS = ["src/app", "src/components", "src/context"];
 const SOURCE_EXT = new Set([".tsx", ".ts"]);
+const LEGACY_PRODUCT_PATHS = [
+  "src/app/help/",
+  "src/app/news/",
+  "src/app/testimonials/",
+  "src/app/platform/",
+  "src/app/portal/",
+  "src/app/products/cbam/",
+  "src/app/products/climateos/",
+  "src/app/products/energycloud/",
+  "src/app/products/energyos/",
+  "src/app/products/energypulse/",
+  "src/app/products/gridanalytics/",
+  "src/app/products/mini-audit/",
+  "src/app/products/powerforecast/",
+  "src/app/products/proofmesh/",
+  "src/app/products/securegrid/",
+  "src/app/products/smartmeter/",
+  "src/components/CbamWorkspacePreview.tsx",
+  "src/components/TestimonialsSection.tsx",
+  "src/components/platform/",
+];
 let cachedIndex: CachedIndex | null = null;
 
 function listSourceFiles(root: string, dir: string, acc: string[]) {
@@ -87,6 +108,7 @@ function buildIndex(): RagChunk[] {
 
     const joined = strings.join("\n");
     const relativePath = path.relative(projectRoot, filePath).replace(/\\/g, "/");
+    if (LEGACY_PRODUCT_PATHS.some((legacyPath) => relativePath.startsWith(legacyPath))) continue;
     const fileChunks = chunkText(joined);
 
     fileChunks.forEach((chunk, index) => {

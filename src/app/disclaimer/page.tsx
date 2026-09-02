@@ -61,6 +61,8 @@ export default function DisclaimerPage() {
             <p className={`text-sm leading-relaxed ${desc}`}>
               {language === "tr"
                 ? "str-energy.com sitesinde yer alan tüm bilgiler, veriler, makaleler ve hesaplamalar yalnızca genel bilgilendirme ve teknik rehberlik amacıyla sunulmaktadır. Sitede yer alan hiçbir veri doğrudan yatırım, finans veya bağlayıcı ticaret tavsiyesi teşkil etmez."
+                : language === "ru"
+                ? "Все сведения, данные, статьи и расчеты на str-energy.com предоставляются в образовательных и информационных целях. Они не являются инвестиционной, финансовой, юридической или обязательной инженерной рекомендацией."
                 : "All articles, market data, charts, and forecasts published on str-energy.com are provided strictly for general informational and educational purposes. Nothing on this site constitutes binding financial or investment advice."}
             </p>
           </motion.div>
@@ -72,6 +74,8 @@ export default function DisclaimerPage() {
             <p className={`text-sm leading-relaxed ${desc}`}>
               {language === "tr"
                 ? "Elektrik piyasası verileri EPİAŞ, ENTSO-E, EIA ve diğer resmi platformlardan çekilmektedir. Verilerin güncelliği ve doğruluğu için özen gösterilmekle birlikte, resmi kurumların veri sistemlerinde yaşanabilecek gecikme veya düzeltmelerden STR Enerji sorumlu değildir."
+                : language === "ru"
+                ? "Данные энергорынков поступают из EPİAŞ, ENTSO-E, EIA и других официальных платформ. Источники могут задерживать, исправлять или пересматривать сведения. Время запроса и методология должны учитываться при интерпретации результата."
                 : "Market data streams are integrated from official sources including EPİAŞ, ENTSO-E, and EIA. While we strive to maintain accurate feeds, STR Energy does not guarantee uninterrupted third-party data availability."}
             </p>
           </motion.div>
@@ -83,6 +87,8 @@ export default function DisclaimerPage() {
             <p className={`text-sm leading-relaxed ${desc}`}>
               {language === "tr"
                 ? "Sitemiz harici web sitelerine bağlantılar içerebilir. Bu dış sitelerin içeriği, gizlilik politikaları veya uygulamalarından STR Enerji sorumlu değildir."
+                : language === "ru"
+                ? "Сайт может содержать ссылки на сторонние ресурсы. STR Energy не контролирует их содержание, доступность, политику конфиденциальности или последующие изменения. Политика проверена 2 сентября 2026 г."
                 : "Our site may contain links to external third-party websites. STR Energy is not responsible for the privacy practices or content of third-party external links."}
             </p>
           </motion.div>

@@ -7,10 +7,10 @@ import { useHeroSpotlight } from "@/lib/useHeroSpotlight";
 import { useTheme } from "@/context/ThemeContext";
 
 const stats = [
-  { value: "25+", key: "stats.companies" },
-  { value: "3", key: "stats.systems" },
-  { value: "99.9%", key: "stats.uptime" },
-  { value: "24/7", key: "stats.support" },
+  { value: "EARLY", key: "stats.stage" },
+  { value: "RS485 / MODBUS", key: "stats.field" },
+  { value: "AI + TWIN", key: "stats.intelligence" },
+  { value: "PILOT", key: "stats.pilot" },
 ];
 
 export default function StatsSection() {

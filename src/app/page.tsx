@@ -6,10 +6,10 @@ import ProductsGrid from "@/components/ProductsGrid";
 import AboutSection from "@/components/AboutSection";
 import PartnerSection from "@/components/PartnerSection";
 import DeviceSection from "@/components/DeviceSection";
-import TestimonialsSection from "@/components/TestimonialsSection";
 import FAQSection from "@/components/FAQSection";
 import Footer from "@/components/Footer";
 import EnergyPulseAnnouncement from "@/components/EnergyPulseAnnouncement";
+import StartupSection from "@/components/StartupSection";
 
 export default function Home() {
   return (
@@ -19,12 +19,12 @@ export default function Home() {
         <EnergyPulseAnnouncement />
         <HeroSection />
         <StatsSection />
-        <LiveEnergyDashboard />
         <ProductsGrid />
+        <StartupSection />
+        <LiveEnergyDashboard />
         <AboutSection />
         <PartnerSection />
         <DeviceSection />
-        <TestimonialsSection />
         <FAQSection />
       </main>
       <Footer />

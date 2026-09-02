@@ -3,22 +3,20 @@ import type { Metadata } from "next";
 import { notFound, redirect } from "next/navigation";
 
 import AboutPage from "../../about/page";
-import TestimonialsPage from "../../testimonials/page";
 import PrivacyPage from "../../privacy/page";
-import HelpPage from "../../help/page";
 import ContactsPage from "../../contacts/page";
+import TermsPage from "../../terms/page";
+import CookiePolicyPage from "../../cookie-policy/page";
+import DisclaimerPage from "../../disclaimer/page";
+import EditorialPolicyPage from "../../editorial-policy/page";
+import EditorialTeamPage from "../../authors/str-energy-editorial-team/page";
+import MarketDataMethodologyPage from "../../methodology/market-data/page";
 import ProductsIndexPage from "../../products/page";
-import ClimateOSPage from "../../products/climateos/page";
-import EnergyOSPage from "../../products/energyos/page";
-import GridAnalyticsPage from "../../products/gridanalytics/page";
-import PowerForecastPage from "../../products/powerforecast/page";
-import SecureGridPage from "../../products/securegrid/page";
-import SmartMeterPage from "../../products/smartmeter/page";
-import EnergyCloudPage from "../../products/energycloud/page";
+import EnergyIntelligencePlatformPage from "../../products/energy-intelligence-platform/page";
+import MarketDataProjectPage from "../../projects/market-data/page";
+import EnergyStartupPage from "../../energy-startup/page";
 import PortalPage from "../../portal/page";
 import ClimatePortalPage from "../../portal/climateos/page";
-import NewsPage from "../../news/page";
-import EnergyPulsePage from "../../products/energypulse/page";
 import InsightsIndex from "@/components/InsightsIndex";
 import InsightArticle from "@/components/InsightArticle";
 import { insightSlugs } from "@/lib/insights";
@@ -27,22 +25,20 @@ import { supportedLocales, type SupportedLocale } from "@/lib/locale";
 
 const routeMap: Record<string, () => ReactNode> = {
   "about": () => <AboutPage />,
-  "testimonials": () => <TestimonialsPage />,
   "privacy": () => <PrivacyPage />,
-  "help": () => <HelpPage />,
   "contacts": () => <ContactsPage />,
+  "terms": () => <TermsPage />,
+  "cookie-policy": () => <CookiePolicyPage />,
+  "disclaimer": () => <DisclaimerPage />,
+  "editorial-policy": () => <EditorialPolicyPage />,
+  "authors/str-energy-editorial-team": () => <EditorialTeamPage />,
+  "methodology/market-data": () => <MarketDataMethodologyPage />,
   "products": () => <ProductsIndexPage />,
-  "products/climateos": () => <ClimateOSPage />,
-  "products/energyos": () => <EnergyOSPage />,
-  "products/gridanalytics": () => <GridAnalyticsPage />,
-  "products/powerforecast": () => <PowerForecastPage />,
-  "products/securegrid": () => <SecureGridPage />,
-  "products/smartmeter": () => <SmartMeterPage />,
-  "products/energycloud": () => <EnergyCloudPage />,
-  "products/energypulse": () => <EnergyPulsePage />,
+  "products/energy-intelligence-platform": () => <EnergyIntelligencePlatformPage />,
+  "projects/market-data": () => <MarketDataProjectPage />,
+  "energy-startup": () => <EnergyStartupPage />,
   "portal": () => <PortalPage />,
   "portal/climateos": () => <ClimatePortalPage />,
-  "news": () => <NewsPage />,
   "insights": () => <InsightsIndex />,
 };
 
@@ -60,8 +56,14 @@ export default async function LocaleCatchAllPage({ params }: { params: Promise<{
     return <InsightArticle slug={slugPath.slice("insights/".length)} />;
   }
   if (slugPath === "insights" && lang === "ru") redirect("/en/insights");
-  if (["products/proofmesh", "products/cbam", "products/mini-audit", "platform/proofmesh", "platform/cbam", "platform/cbam/login"].includes(slugPath)) {
-    redirect(`/${lang}/products`);
+  if (slugPath === "products/energypulse") {
+    redirect(`/${lang}/projects/market-data`);
+  }
+  if (["products/cbam", "products/climateos", "products/energyos", "products/gridanalytics", "products/mini-audit", "products/powerforecast", "products/proofmesh", "products/securegrid", "products/smartmeter", "products/energycloud"].includes(slugPath)) {
+    redirect(`/${lang}/products/energy-intelligence-platform`);
+  }
+  if (["platform/proofmesh", "platform/cbam", "platform/cbam/login"].includes(slugPath)) {
+    redirect(`/${lang}/products/energy-intelligence-platform`);
   }
   const renderer = routeMap[slugPath];
   if (!renderer) return notFound();

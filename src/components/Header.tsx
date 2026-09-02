@@ -5,28 +5,23 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, ChevronDown, Sun, Moon, Phone, Zap, BarChart3, TrendingUp, Shield, Gauge, Cloud, Users, Lock, HelpCircle, Mail, Sparkles, Star, BookOpen } from "lucide-react";
+import { Menu, X, ChevronDown, Sun, Moon, Phone, BrainCircuit, Database, Users, Lock, Mail, BookOpen, Rocket, Scale, UserRoundCheck } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
 import { useTheme } from "@/context/ThemeContext";
 import { getLocaleFromPathname, prefixHrefWithLocale, replaceLocaleInPath, supportedLocales, type SupportedLocale } from "@/lib/locale";
 
 const products = [
-  { key: "energypulse", icon: BarChart3, href: "/products/energypulse" },
-  { key: "energyos", icon: Zap, href: "/products/energyos" },
-  { key: "gridanalytics", icon: BarChart3, href: "/products/gridanalytics" },
-  { key: "powerforecast", icon: TrendingUp, href: "/products/powerforecast" },
-  { key: "securegrid", icon: Shield, href: "/products/securegrid" },
-  { key: "smartmeter", icon: Gauge, href: "/products/smartmeter" },
-  { key: "energycloud", icon: Cloud, href: "/products/energycloud" },
+  { key: "intelligence", icon: BrainCircuit, href: "/products/energy-intelligence-platform" },
 ];
 
 const companyLinks = [
+  { key: "nav.investors", icon: Rocket, href: "/energy-startup" },
+  { key: "nav.marketData", icon: Database, href: "/projects/market-data" },
+  { key: "nav.methodology", icon: Scale, href: "/methodology/market-data" },
   { key: "nav.insights", icon: BookOpen, href: "/insights" },
   { key: "nav.about", icon: Users, href: "/about" },
-  { key: "nav.news", icon: Sparkles, href: "/news" },
-  { key: "nav.testimonials", icon: Star, href: "/testimonials" },
+  { key: "nav.editorialPolicy", icon: UserRoundCheck, href: "/editorial-policy" },
   { key: "nav.privacy", icon: Lock, href: "/privacy" },
-  { key: "nav.help", icon: HelpCircle, href: "/help" },
   { key: "nav.contacts", icon: Mail, href: "/contacts" },
 ];
 
@@ -120,7 +115,7 @@ export default function Header({ variant = "default", withAnnouncement = false }
         >
           <nav className={`flex items-center ${isFloating ? "px-3 sm:px-5" : ""} h-16 md:h-20`}>
           {/* Logo */}
-          <Link href={withLocale("/")} className="flex items-center gap-2" aria-label={t("brand.name")}>
+          <Link href={withLocale("/")} className="flex items-center gap-2" aria-label={`${t("brand.name")} — ${t("brand.expansion")}`}>
             <Image
               src="/logo.png"
               alt={t("brand.name")}
@@ -129,6 +124,7 @@ export default function Header({ variant = "default", withAnnouncement = false }
               className="h-14 md:h-16 w-auto"
               priority
             />
+            <span className="sr-only">{t("brand.expansion")}</span>
           </Link>
 
           {/* Desktop Navigation */}
@@ -161,7 +157,7 @@ export default function Header({ variant = "default", withAnnouncement = false }
                         : "bg-white/92 border-black/10"
                     }`}
                   >
-                    <div className="grid grid-cols-2 gap-1 p-3">
+                    <div className="grid grid-cols-1 gap-1 p-3">
                       {products.map((product) => {
                         const Icon = product.icon;
                         return (

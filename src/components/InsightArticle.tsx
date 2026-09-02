@@ -1,23 +1,29 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowLeft, ArrowRight, CalendarDays, CheckCircle2, Clock3, ExternalLink, List } from "lucide-react";
+import { ArrowLeft, ArrowRight, CalendarDays, CheckCircle2, Clock3, ExternalLink, List, ShieldCheck, UserRoundCheck } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { useLanguage } from "@/context/LanguageContext";
 import { useTheme } from "@/context/ThemeContext";
 import { useLocaleHref } from "@/lib/useLocaleHref";
-import { getInsight, insights, type InsightLocale } from "@/lib/insights";
+import { getInsight, getReadMinutes, insights, type InsightLocale } from "@/lib/insights";
 
 const copy = {
   tr: {
     back: "Tüm rehberler",
     summary: "Kısa özet",
     contents: "Bu yazıda",
-    sources: "Kaynaklar",
+    sources: "Birincil ve teknik kaynaklar",
+    author: "STR Energy Editoryal Ekibi",
+    authorRole: "Kurumsal yayıncı",
+    reviewedUnder: "Editoryal ilkeler ve kaynak kontrolü kapsamında gözden geçirildi.",
+    methodology: "Editoryal ilkeler",
+    dataMethodology: "Veri metodolojisi",
+    disclaimer: "Bu rehber eğitim amaçlıdır; yatırım, hukuk veya bağlayıcı mühendislik tavsiyesi değildir. Güncel mevzuat ve resmi kayıtlar karar öncesinde ayrıca doğrulanmalıdır.",
     related: "İlgili makaleler",
     relatedDescription: "Konuyu tamamlayan diğer STR Energy rehberleri.",
-    product: "Veriyi EnergyPulse'ta incele",
+    product: "Piyasa Veri Projesi'ni incele",
     published: "Yayımlandı",
     updated: "Güncellendi",
     minute: "dk okuma",
@@ -27,10 +33,16 @@ const copy = {
     back: "All insights",
     summary: "Key takeaways",
     contents: "In this article",
-    sources: "Sources",
+    sources: "Primary and technical sources",
+    author: "STR Energy Editorial Team",
+    authorRole: "Institutional publisher",
+    reviewedUnder: "Reviewed under our editorial and source-verification standards.",
+    methodology: "Editorial standards",
+    dataMethodology: "Data methodology",
+    disclaimer: "This guide is educational and is not investment, legal or binding engineering advice. Verify current rules and official records before acting.",
     related: "Related articles",
     relatedDescription: "More STR Energy guides to continue exploring the topic.",
-    product: "Explore the data in EnergyPulse",
+    product: "Explore the Market Data Project",
     published: "Published",
     updated: "Updated",
     minute: "min read",
@@ -54,9 +66,9 @@ export default function InsightArticle({ slug }: { slug: string }) {
   if (!article) return null;
 
   const labels = copy[locale];
-  const publishedAt = article.publishedAt ?? "2026-07-16";
-  const updatedAt = article.updatedAt ?? publishedAt;
-  const readMinutes = article.readMinutes ?? 4;
+  const publishedAt = article.publishedAt;
+  const updatedAt = article.updatedAt;
+  const readMinutes = getReadMinutes(article, locale);
   const dateFormatter = new Intl.DateTimeFormat(locale === "tr" ? "tr-TR" : "en-US", { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" });
   const publishedLabel = dateFormatter.format(new Date(`${publishedAt}T00:00:00Z`));
   const updatedLabel = dateFormatter.format(new Date(`${updatedAt}T00:00:00Z`));
@@ -72,8 +84,11 @@ export default function InsightArticle({ slug }: { slug: string }) {
     inLanguage: locale,
     mainEntityOfPage: canonical,
     articleSection: article.category[locale],
-    author: { "@type": "Organization", name: "STR Energy", url: "https://www.str-energy.com" },
+    author: { "@type": "Organization", name: labels.author, url: `https://www.str-energy.com/${locale}/authors/str-energy-editorial-team` },
     publisher: { "@type": "Organization", name: "STR Energy", logo: { "@type": "ImageObject", url: "https://www.str-energy.com/logo.png" } },
+    isPartOf: { "@type": "WebSite", name: "STR Energy", url: "https://www.str-energy.com" },
+    citation: article.sources.map((source) => source.url),
+    timeRequired: `PT${readMinutes}M`,
   };
   const breadcrumbJsonLd = {
     "@context": "https://schema.org",
@@ -103,7 +118,7 @@ export default function InsightArticle({ slug }: { slug: string }) {
               <div className={`mt-7 flex flex-wrap items-center gap-x-5 gap-y-2 text-xs ${isDark ? "text-zinc-500" : "text-zinc-500"}`}>
                 <span className="inline-flex items-center gap-2"><CalendarDays className="h-4 w-4 text-orange-500" />{updatedAt === publishedAt ? labels.published : labels.updated}: <time dateTime={updatedAt}>{updatedAt === publishedAt ? publishedLabel : updatedLabel}</time></span>
                 <span className="inline-flex items-center gap-2"><Clock3 className="h-4 w-4 text-orange-500" />{readMinutes} {labels.minute}</span>
-                <span>STR Energy</span>
+                <Link href={withLocale("/authors/str-energy-editorial-team")} className="inline-flex items-center gap-2 font-semibold hover:text-orange-500"><UserRoundCheck className="h-4 w-4 text-orange-500" />{labels.author}</Link>
               </div>
             </div>
           </header>
@@ -116,7 +131,7 @@ export default function InsightArticle({ slug }: { slug: string }) {
                     <span className={`mt-1 inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-xs font-bold ${isDark ? "bg-orange-500/15 text-orange-400" : "bg-orange-100 text-orange-600"}`}>{index + 1}</span>
                     <div>
                       <h2 className="text-2xl font-bold leading-tight md:text-3xl">{section.heading[locale]}</h2>
-                      <p className={`mt-4 text-base leading-8 md:text-[17px] ${isDark ? "text-zinc-300" : "text-zinc-700"}`}>{section.body[locale]}</p>
+                      <p className={`mt-4 whitespace-pre-line text-base leading-8 md:text-[17px] ${isDark ? "text-zinc-300" : "text-zinc-700"}`}>{section.body[locale]}</p>
                     </div>
                   </div>
                 </section>
@@ -134,6 +149,23 @@ export default function InsightArticle({ slug }: { slug: string }) {
                   ))}
                 </ul>
               </section>
+
+              <section className={`rounded-2xl border p-6 ${isDark ? "border-white/10 bg-white/[0.03]" : "border-black/10 bg-zinc-50"}`}>
+                <div className="flex items-start gap-4">
+                  <ShieldCheck className="mt-1 h-6 w-6 shrink-0 text-orange-500" />
+                  <div>
+                    <h2 className="text-xl font-bold">{labels.author}</h2>
+                    <p className={`mt-1 text-sm font-semibold ${isDark ? "text-zinc-300" : "text-zinc-700"}`}>{labels.authorRole}</p>
+                    <p className={`mt-3 text-sm leading-7 ${isDark ? "text-zinc-400" : "text-zinc-600"}`}>{labels.reviewedUnder}</p>
+                    <div className="mt-4 flex flex-wrap gap-4 text-sm font-bold text-orange-500">
+                      <Link href={withLocale("/editorial-policy")} className="hover:underline">{labels.methodology}</Link>
+                      <Link href={withLocale("/methodology/market-data")} className="hover:underline">{labels.dataMethodology}</Link>
+                    </div>
+                  </div>
+                </div>
+              </section>
+
+              <p className={`text-sm leading-7 ${isDark ? "text-zinc-500" : "text-zinc-500"}`}>{labels.disclaimer}</p>
             </div>
 
             <aside className="space-y-5 lg:sticky lg:top-28 lg:self-start">
@@ -160,7 +192,7 @@ export default function InsightArticle({ slug }: { slug: string }) {
                     </li>
                   ))}
                 </ul>
-                <Link href={withLocale("/products/energypulse")} className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-orange-500 px-4 py-3 text-center text-xs font-bold text-white transition hover:bg-orange-600">
+                <Link href={withLocale("/projects/market-data")} className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-orange-500 px-4 py-3 text-center text-xs font-bold text-white transition hover:bg-orange-600">
                   {labels.product}<ArrowRight className="h-4 w-4" />
                 </Link>
               </div>

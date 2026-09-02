@@ -22,9 +22,9 @@ import {
 /* ─────────────── i18n ─────────────── */
 const copyByLang = {
   tr: {
-    headline: "EnergyPulse",
-    subhead: "Türkiye, Avrupa ve global enerji piyasalarını tek üründe canlı izleyin.",
-    badge: "ŞU AN AKTİF VERİ ALINIYOR",
+    headline: "STR Energy Piyasa Veri Projesi",
+    subhead: "EPİAŞ, ENTSO-E ve EIA kaynaklı Türkiye, Avrupa ve global enerji piyasası verileri için bağımsız araştırma projesi.",
+    badge: "BAĞIMSIZ AR-GE PROJESİ · AKTİF VERİ",
     regionTR: "Türkiye",
     regionEU: "Avrupa",
     regionGlobal: "Global",
@@ -76,9 +76,9 @@ const copyByLang = {
     sectorInd: "Sanayi",
   },
   en: {
-    headline: "EnergyPulse",
-    subhead: "Monitor energy markets across Turkey, Europe, and the world live in one product.",
-    badge: "LIVE DATA IS ACTIVE",
+    headline: "STR Energy Market Data Project",
+    subhead: "An independent research project for energy market data across Turkey, Europe and the world from EPİAŞ, ENTSO-E and EIA.",
+    badge: "INDEPENDENT R&D PROJECT · LIVE DATA",
     regionTR: "Turkey",
     regionEU: "Europe",
     regionGlobal: "Global",
@@ -130,9 +130,9 @@ const copyByLang = {
     sectorInd: "Industrial",
   },
   ru: {
-    headline: "EnergyPulse",
-    subhead: "Следите за энергорынками Турции, Европы и мира в одном продукте.",
-    badge: "ДАННЫЕ ПОСТУПАЮТ СЕЙЧАС",
+    headline: "Проект рыночных данных STR Energy",
+    subhead: "Независимый исследовательский проект по данным энергорынков Турции, Европы и мира из EPİAŞ, ENTSO-E и EIA.",
+    badge: "НЕЗАВИСИМЫЙ R&D-ПРОЕКТ · АКТИВНЫЕ ДАННЫЕ",
     regionTR: "Турция",
     regionEU: "Европа",
     regionGlobal: "Глобальный",

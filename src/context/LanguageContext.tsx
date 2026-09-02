@@ -17,94 +17,88 @@ interface Translations {
 const translations: Translations = {
   // Brand
   "brand.name": { tr: "STR Enerji", en: "STR Energy", ru: "STR Energy" },
+  "brand.expansion": { tr: "Smart Technologies for Renewables", en: "Smart Technologies for Renewables", ru: "Smart Technologies for Renewables" },
 
   // Header
-  "nav.products": { tr: "Ürünler", en: "Products", ru: "Продукты" },
+  "nav.products": { tr: "Platform", en: "Platform", ru: "Платформа" },
   "nav.company": { tr: "Şirket", en: "Company", ru: "Компания" },
   "nav.contacts": { tr: "İletişim", en: "Contacts", ru: "Контакты" },
   "nav.about": { tr: "Hakkımızda", en: "About us", ru: "О нас" },
-  "nav.testimonials": { tr: "Referanslar", en: "Testimonials", ru: "Отзывы" },
   "nav.privacy": { tr: "Gizlilik Politikası", en: "Privacy Policy", ru: "Политика" },
   "nav.terms": { tr: "Kullanım Şartları", en: "Terms of Service", ru: "Условия использования" },
   "nav.cookiePolicy": { tr: "Çerez Politikası", en: "Cookie Policy", ru: "Политика cookie" },
   "nav.disclaimer": { tr: "Sorumluluk Reddi", en: "Disclaimer", ru: "Отказ от ответственности" },
-  "nav.help": { tr: "Yardım Merkezi", en: "Help Center", ru: "Помощь" },
-  "nav.news": { tr: "Haberler", en: "News", ru: "Новости" },
   "nav.insights": { tr: "Bilgi Merkezi", en: "Insights", ru: "Insights" },
+  "nav.marketData": { tr: "Piyasa Veri Projesi", en: "Market Data Project", ru: "Проект рыночных данных" },
+  "nav.methodology": { tr: "Veri Metodolojisi", en: "Data Methodology", ru: "Методология данных" },
+  "nav.investors": { tr: "Yatırımcılar", en: "Investors", ru: "Инвесторам" },
+  "nav.editorialPolicy": { tr: "Editoryal İlkeler", en: "Editorial Standards", ru: "Редакционные стандарты" },
+  "nav.editorialTeam": { tr: "Editoryal Ekip", en: "Editorial Team", ru: "Редакционная команда" },
   "chat.title": { tr: "Canlı Enerji Asistanı", en: "Live Energy Assistant", ru: "Энергетический ассистент" },
-  "chat.subtitle": { tr: "PTF, YEKDEM ve ürün sorularında hızlı yanıt.", en: "Fast answers for PTF, YEKDEM, and product questions.", ru: "Быстрые ответы по PTF, YEKDEM и продуктам." },
+  "chat.subtitle": { tr: "Piyasa verisi ve platform sorularında hızlı yanıt.", en: "Fast answers on market data and the platform.", ru: "Ответы по рыночным данным и платформе." },
   "chat.placeholder": { tr: "Bir şey sorun…", en: "Ask anything…", ru: "Задайте вопрос…" },
   "chat.send": { tr: "Gönder", en: "Send", ru: "Отправить" },
   "chat.open": { tr: "Asistanı aç", en: "Open assistant", ru: "Открыть ассистента" },
   "chat.minimize": { tr: "Kapat", en: "Minimize", ru: "Свернуть" },
-  "chat.empty": { tr: "Size yardımcı olmak için buradayım. PTF, YEKDEM veya ürünlerle ilgili sorun.", en: "I am here to help. Ask about PTF, YEKDEM, or our products.", ru: "Я здесь, чтобы помочь. Спросите о PTF, YEKDEM или продуктах." },
+  "chat.empty": { tr: "PTF, YEKDEM veya STR Energy Intelligence Platform hakkında sorun.", en: "Ask about PTF, YEKDEM or STR Energy Intelligence Platform.", ru: "Спросите о PTF, YEKDEM или STR Energy Intelligence Platform." },
   "chat.loading": { tr: "Yanıt hazırlanıyor…", en: "Preparing response…", ru: "Готовим ответ…" },
   "chat.error": { tr: "Şu an yanıt veremiyorum. Lütfen tekrar deneyin.", en: "I cannot respond right now. Please try again.", ru: "Сейчас не могу ответить. Попробуйте еще раз." },
   "chat.suggestion.ptf": { tr: "Bugün PTF nedir?", en: "What is today's PTF?", ru: "Какая сегодня PTF?" },
   "chat.suggestion.yekdem": { tr: "YEKDEM üretimi anlık ver.", en: "Show live YEKDEM generation.", ru: "Покажи текущую генерацию YEKDEM." },
-  "chat.suggestion.product": { tr: "EnergyOS ile neler yapılıyor?", en: "What does EnergyOS provide?", ru: "Что дает EnergyOS?" },
+  "chat.suggestion.product": { tr: "STR Energy Intelligence Platform neler yapıyor?", en: "What does STR Energy Intelligence Platform do?", ru: "Что делает STR Energy Intelligence Platform?" },
 
   "nav.products.cta": { tr: "İlgini çekti mi? Demo talep et →", en: "Interested? Request a demo →", ru: "Интересно? Запросить демо →" },
   "nav.products.cta.link": { tr: "İletişime geç", en: "Contact us", ru: "Связаться" },
 
   // Hero
-  "hero.title1": { tr: "Enerji", en: "Energy", ru: "Энергия" },
-  "hero.title2": { tr: "Yazılım Ar-Ge", en: "Software R&D", ru: "Разработка ПО" },
+  "hero.title1": { tr: "STR Energy Intelligence", en: "STR Energy Intelligence", ru: "STR Energy Intelligence" },
+  "hero.title2": { tr: "Platform", en: "Platform", ru: "Platform" },
   "hero.description": {
-    tr: "Şebeke, tesis ve sayaç verilerinizi tek platformda birleştirin. Gerçek zamanlı izleme, analitik ve otomasyonla verimliliği artırın.",
-    en: "Unify grid, facility, and meter data in one platform. Boost efficiency with real-time monitoring, analytics, and automation.",
-    ru: "Объединяйте данные сети, объектов и счетчиков на одной платформе. Повышайте эффективность с мониторингом в реальном времени, аналитикой и автоматизацией."
+    tr: "STR Energy, saha ekipmanlarına doğrudan bağlanan, gerçek zamanlı tüketimi analiz eden ve tesislerin enerji maliyetini, israfı ve karbon emisyonlarını azaltmasına yardımcı olan yapay zekâ destekli bir endüstriyel enerji zekâsı platformu geliştirir.",
+    en: "STR Energy develops an AI-powered industrial energy intelligence platform that connects directly to field equipment, analyzes real-time consumption and helps facilities reduce energy cost, waste and carbon emissions.",
+    ru: "STR Energy разрабатывает платформу промышленной энергетической аналитики на базе ИИ, которая напрямую подключается к полевому оборудованию, анализирует потребление в реальном времени и помогает предприятиям снижать энергозатраты, потери и выбросы углерода."
   },
-  "hero.cta": { tr: "Projeni Görüşelim", en: "Discuss Project", ru: "Обсудить проект" },
-  "hero.cta2": { tr: "Ürünler", en: "Products", ru: "Продукты" },
+  "hero.cta": { tr: "Demo Talep Et", en: "Request a Demo", ru: "Запросить демо" },
+  "hero.cta2": { tr: "Platformu İncele", en: "Explore the Platform", ru: "О платформе" },
 
   // Stats
   "stats.companies": { tr: "Şirket", en: "Companies", ru: "Компаний" },
   "stats.systems": { tr: "SCADA / AMI / DMS", en: "SCADA / AMI / DMS", ru: "SCADA / AMI / DMS" },
   "stats.uptime": { tr: "Çalışma Süresi", en: "Uptime", ru: "Время работы" },
   "stats.support": { tr: "Destek", en: "Support", ru: "Поддержка" },
+  "stats.stage": { tr: "Girişim aşaması", en: "Venture stage", ru: "Стадия проекта" },
+  "stats.field": { tr: "Saha bağlantısı", en: "Field connectivity", ru: "Полевое подключение" },
+  "stats.intelligence": { tr: "Zekâ katmanı", en: "Intelligence layer", ru: "Уровень аналитики" },
+  "stats.pilot": { tr: "İşbirliği modeli", en: "Collaboration model", ru: "Модель сотрудничества" },
 
   // Products
-  "products.title": { tr: "Enerji operasyonları için ihtiyacınız olan her şey", en: "Everything you need for energy operations", ru: "Все для энергетических операций" },
-  "products.subtitle": { tr: "STR Enerji, şebeke, tesis ve sayaç verilerini tek çatı altında birleştirerek izleme, analitik ve optimizasyon sunar.", en: "STR Energy unifies grid, facility, and meter data to deliver monitoring, analytics, and optimization.", ru: "STR Energy объединяет данные сети, объектов и счетчиков для мониторинга, аналитики и оптимизации." },
-  "products.index.title": { tr: "Ürünler", en: "Products", ru: "Продукты" },
-  "products.index.subtitle": { tr: "Enerji yazılım ürünlerimizin her biri izleme, analiz, tahmin, güvenlik veya veri yönetimi gibi belirli bir probleme odaklanır.", en: "Each energy software product focuses on a specific challenge such as monitoring, analytics, forecasting, security, or data management.", ru: "Каждый продукт решает отдельную задачу: мониторинг, аналитика, прогнозирование, безопасность или управление данными." },
-  "products.index.details": { tr: "Ürünü incele", en: "Explore product", ru: "О продукте" },
+  "products.title": { tr: "Yeni ürün: endüstriyel enerjinin karar katmanı", en: "New product: the decision layer for industrial energy", ru: "Новый продукт: уровень принятия решений для промышленной энергетики" },
+  "products.subtitle": { tr: "Sahadan gelen ham enerji verisini; ne olduğunu gösteren, ne olacağını tahmin eden ve performans farkının nedenini açıklayan operasyonel zekâya dönüştürür.", en: "It turns raw field energy data into operational intelligence that shows what is happening, predicts what comes next and explains the cause of performance gaps.", ru: "Она превращает полевые энергетические данные в операционную аналитику: показывает текущую ситуацию, прогнозирует будущее и объясняет причины отклонений." },
+  "products.index.title": { tr: "STR Energy Intelligence Platform", en: "STR Energy Intelligence Platform", ru: "STR Energy Intelligence Platform" },
+  "products.index.subtitle": { tr: "Endüstriyel tesisler için saha bağlantısı, enerji analitiği, öngörü ve kök neden açıklamasını tek üründe birleştiren platform.", en: "A single product for industrial facilities that combines field connectivity, energy analytics, forecasting and root-cause explanations.", ru: "Единый продукт для промышленных предприятий: подключение оборудования, энергетическая аналитика, прогнозирование и объяснение первопричин." },
+  "products.index.details": { tr: "Platformu incele", en: "Explore the platform", ru: "О платформе" },
 
-  // Product names
-  "product.climateos": { tr: "ClimateOS", en: "ClimateOS", ru: "ClimateOS" },
-  "product.climateos.desc": { tr: "Karbon, GRI ve şehir emisyon yazılımı", en: "Carbon, GRI, and city emissions software", ru: "Carbon, GRI, and city emissions software" },
-  "product.energyos": { tr: "EnergyOS", en: "EnergyOS", ru: "EnergyOS" },
-  "product.energyos.desc": { tr: "Enerji yönetimi ve otomasyon", en: "Energy management & automation", ru: "Управление энергией и автоматизация" },
-  "product.gridanalytics": { tr: "GridAnalytics", en: "GridAnalytics", ru: "GridAnalytics" },
-  "product.gridanalytics.desc": { tr: "Şebeke analizi ve raporlama", en: "Grid analytics & reporting", ru: "Аналитика сети и отчётность" },
-  "product.powerforecast": { tr: "PowerForecast", en: "PowerForecast", ru: "PowerForecast" },
-  "product.powerforecast.desc": { tr: "Tüketim tahmini ve planlama", en: "Consumption forecasting & planning", ru: "Прогнозирование потребления и планирование" },
-  "product.securegrid": { tr: "SecureGrid", en: "SecureGrid", ru: "SecureGrid" },
-  "product.securegrid.desc": { tr: "Güvenlik ve siber koruma", en: "Security & cyber protection", ru: "Безопасность и киберзащита" },
-  "product.smartmeter": { tr: "SmartMeter Hub", en: "SmartMeter Hub", ru: "SmartMeter Hub" },
-  "product.smartmeter.desc": { tr: "Akıllı sayaç entegrasyonu", en: "Smart meter integration", ru: "Интеграция умных счётчиков" },
-  "product.energycloud": { tr: "EnergyCloud", en: "EnergyCloud", ru: "EnergyCloud" },
-  "product.energycloud.desc": { tr: "Bulut tabanlı enerji platformu", en: "Cloud-based energy platform", ru: "Облачная энергетическая платформа" },
-  "product.energypulse": { tr: "EnergyPulse", en: "EnergyPulse", ru: "EnergyPulse" },
-  "product.energypulse.desc": { tr: "Türkiye, Avrupa ve global enerji piyasası verileri", en: "Energy market data across Türkiye, Europe, and the world", ru: "Данные энергорынков Турции, Европы и мира" },
+  // Product
+  "product.intelligence": { tr: "STR Energy Intelligence Platform", en: "STR Energy Intelligence Platform", ru: "STR Energy Intelligence Platform" },
+  "product.intelligence.desc": { tr: "Gerçek zamanlı enerji zekâsı, AI tahminleme ve üretim performansı analizi", en: "Real-time energy intelligence, AI forecasting and production performance analysis", ru: "Энергетическая аналитика в реальном времени, ИИ-прогнозы и анализ производства" },
 
   // Header dropdown descriptions
   "nav.about.desc": { tr: "STR Enerji hakkında", en: "About STR Energy", ru: "О STR Energy" },
-  "nav.testimonials.desc": { tr: "Müşteri deneyimleri", en: "Customer experiences", ru: "Отзывы клиентов" },
   "nav.privacy.desc": { tr: "Gizlilik ve veri politikası", en: "Privacy & data policy", ru: "Политика конфиденциальности" },
-  "nav.help.desc": { tr: "Destek ve sık sorulan sorular", en: "Support & FAQs", ru: "Поддержка и FAQ" },
   "nav.contacts.desc": { tr: "Bizimle iletişime geçin", en: "Get in touch", ru: "Связаться с нами" },
-  "nav.news.desc": { tr: "Duyurular ve güncellemeler", en: "Announcements and updates", ru: "Анонсы и обновления" },
   "nav.insights.desc": { tr: "Enerji piyasası rehberleri", en: "Energy market guides", ru: "Energy market guides" },
+  "nav.marketData.desc": { tr: "Bağımsız enerji piyasası veri araştırması", en: "Independent energy market data research", ru: "Независимое исследование рыночных данных" },
+  "nav.methodology.desc": { tr: "Kaynak, kapsam ve veri sınırlamaları", en: "Sources, scope and data limitations", ru: "Источники, охват и ограничения данных" },
+  "nav.investors.desc": { tr: "Erken aşama yatırım ve stratejik ortaklık", en: "Early-stage investment and strategic partnerships", ru: "Ранние инвестиции и стратегическое партнерство" },
+  "nav.editorialPolicy.desc": { tr: "Yayın, kaynak ve düzeltme standartları", en: "Publishing, sourcing and corrections", ru: "Публикация, источники и исправления" },
 
   // About
   "about.title": { tr: "STR Enerji", en: "STR Energy", ru: "STR Energy" },
-  "about.subtitle": { tr: "Enerji operasyonlarınızın dijital temeli", en: "Digital foundation for your energy operations", ru: "Цифровой фундамент ваших энергетических операций" },
+  "about.subtitle": { tr: "Smart Technologies for Renewables", en: "Smart Technologies for Renewables", ru: "Smart Technologies for Renewables" },
   "about.description": {
-    tr: "STR Enerji, elektrik şebekeleri ve tesisler için gerçek zamanlı izleme, analitik ve optimizasyon sağlayan enerji yazılımları geliştirir. Veriyi tek platformda toplayarak operasyonel verimliliği artırırız.",
-    en: "STR Energy builds energy software for grids and facilities, enabling real-time monitoring, analytics, and optimization. We unify data on a single platform to boost operational efficiency.",
-    ru: "STR Energy разрабатывает ПО для сетей и объектов, обеспечивая мониторинг в реальном времени, аналитику и оптимизацию. Мы объединяем данные на одной платформе для повышения эффективности."
+    tr: "STR Energy, saha ekipmanlarına doğrudan bağlanan, gerçek zamanlı tüketimi analiz eden ve tesislerin enerji maliyetini, israfı ve karbon emisyonlarını azaltmasına yardımcı olan yapay zekâ destekli bir endüstriyel enerji zekâsı platformu geliştirir.",
+    en: "STR Energy develops an AI-powered industrial energy intelligence platform that connects directly to field equipment, analyzes real-time consumption and helps facilities reduce energy cost, waste and carbon emissions.",
+    ru: "STR Energy разрабатывает платформу промышленной энергетической аналитики на базе ИИ, напрямую подключенную к полевому оборудованию и помогающую снижать затраты, потери и выбросы."
   },
   "about.feature1": { tr: "Ölçeklenebilirlik: Sınırsız büyüme", en: "Scalability: Grow without limits", ru: "Масштабируемость: расти без ограничений" },
   "about.feature2": { tr: "Hız: Aylar değil, günler içinde uygulama", en: "Speed: Implementation in days, not months", ru: "Скорость: внедрение за дни, а не месяцы" },
@@ -179,22 +173,18 @@ const translations: Translations = {
     ru: "Снижайте затраты и повышайте эффективность с анализом потерь и оптимизацией."
   },
 
-  // Testimonials
-  "testimonials.title": { tr: "Müşterilerimiz ne diyor", en: "What our clients say", ru: "Что говорят наши клиенты" },
-  "testimonials.subtitle": { tr: "Şirketler STR Enerji'ye güveniyor", en: "Companies trust STR Energy with their business", ru: "Компании доверяют STR Energy" },
-
   // Company pages
-  "about.page.title": { tr: "STR Enerji Hakkında", en: "About STR Energy", ru: "О STR Energy" },
+  "about.page.title": { tr: "STR Energy — Smart Technologies for Renewables", en: "STR Energy — Smart Technologies for Renewables", ru: "STR Energy — Smart Technologies for Renewables" },
   "about.page.subtitle": {
-    tr: "Enerji verisini tek platformda birleştirerek izleme, analiz ve optimizasyonu kolaylaştırıyoruz.",
-    en: "We unify energy data in one platform to simplify monitoring, analytics, and optimization.",
-    ru: "Мы объединяем данные об энергии на одной платформе, упрощая мониторинг, аналитику и оптимизацию."
+    tr: "Endüstriyel enerji verisini ölçülebilir performansa dönüştüren erken aşama bir enerji teknolojileri girişimiyiz.",
+    en: "We are an early-stage energy technology startup turning industrial energy data into measurable performance.",
+    ru: "Мы — энергетический технологический стартап ранней стадии, превращающий промышленные данные в измеримую эффективность."
   },
   "about.page.mission.title": { tr: "Misyonumuz", en: "Our Mission", ru: "Наша миссия" },
   "about.page.mission.desc": {
-    tr: "Şebeke, tesis ve sayaç verilerini tek ekranda birleştirerek, enerji operasyonlarının verimliliğini artıran güvenilir yazılımlar geliştiriyoruz.",
-    en: "We build reliable software that unifies grid, facility, and meter data to improve energy operations efficiency.",
-    ru: "Мы создаем надежное ПО, объединяющее данные сети, объектов и счетчиков для повышения эффективности."
+    tr: "Saha verisini gerçek zamanlı enerji zekâsına dönüştürerek tesislerin üretim performansını artırmasına; enerji maliyetini, israfı ve karbon emisyonlarını azaltmasına yardımcı oluyoruz.",
+    en: "We turn field data into real-time energy intelligence that helps facilities improve production performance and reduce energy cost, waste and carbon emissions.",
+    ru: "Мы превращаем полевые данные в энергетическую аналитику, помогающую повышать производство и снижать затраты, потери и выбросы."
   },
   "about.page.vision.title": { tr: "Vizyonumuz", en: "Our Vision", ru: "Наше видение" },
   "about.page.vision.desc": {
@@ -226,12 +216,6 @@ const translations: Translations = {
     en: "We design every project to deliver measurable value aligned with your business goals.",
     ru: "Мы проектируем каждый проект для измеримой ценности, согласованной с целями бизнеса."
   },
-  "testimonials.page.title": { tr: "Müşterilerimiz ne diyor", en: "What our clients say", ru: "Что говорят наши клиенты" },
-  "testimonials.page.subtitle": {
-    tr: "Binlerce şirket STR Enerji çözümleriyle operasyonlarını hızlandırıyor.",
-    en: "Thousands of companies accelerate operations with STR Energy solutions.",
-    ru: "Тысячи компаний ускоряют операции с решениями STR Energy."
-  },
   "privacy.page.title": { tr: "Gizlilik Politikası", en: "Privacy Policy", ru: "Политика конфиденциальности" },
   "privacy.page.subtitle": {
     tr: "STR Enerji veri gizliliği ve KVKK uyumluluğu hakkında özet bilgiler.",
@@ -246,14 +230,6 @@ const translations: Translations = {
   "privacy.section3.desc": { tr: "Veri saklama süreleri yasal gerekliliklere ve sözleşme şartlarına göre belirlenir.", en: "Retention periods follow legal and contractual requirements.", ru: "Сроки хранения определяются законом и договорами." },
   "privacy.section4.title": { tr: "Haklarınız", en: "Your Rights", ru: "Ваши права" },
   "privacy.section4.desc": { tr: "KVKK kapsamında erişim, düzeltme ve silme taleplerinizi bize iletebilirsiniz.", en: "You can request access, correction, and deletion under applicable laws.", ru: "Вы можете запросить доступ, исправление и удаление данных." },
-  "help.page.title": { tr: "Yardım Merkezi", en: "Help Center", ru: "Центр помощи" },
-  "help.page.subtitle": { tr: "Destek, onboarding ve sık sorulan sorular için hızlı yanıtlar.", en: "Quick answers for support, onboarding, and FAQs.", ru: "Быстрые ответы по поддержке и вопросам." },
-  "help.faq1.q": { tr: "Destek taleplerine ne kadar sürede dönüş yapıyorsunuz?", en: "How fast do you respond to support requests?", ru: "Как быстро вы отвечаете на запросы?" },
-  "help.faq1.a": { tr: "Standart destek paketinde 4 saat içinde, kurumsal pakette 1 saat içinde dönüş sağlıyoruz.", en: "We respond within 4 hours on standard plans and within 1 hour on enterprise plans.", ru: "Мы отвечаем в течение 4 часов (стандарт) и 1 часа (enterprise)." },
-  "help.faq2.q": { tr: "Kurulum süreci nasıl ilerliyor?", en: "How does the setup process work?", ru: "Как проходит установка?" },
-  "help.faq2.a": { tr: "Keşif, entegrasyon ve eğitim adımlarıyla 2-6 hafta içinde canlıya geçiyoruz.", en: "We go live in 2–6 weeks with discovery, integration, and training steps.", ru: "Запуск за 2–6 недель с этапами обследования, интеграции и обучения." },
-  "help.faq3.q": { tr: "Verilerim nerede saklanıyor?", en: "Where is my data stored?", ru: "Где хранятся данные?" },
-  "help.faq3.a": { tr: "Verileriniz KVKK uyumlu olarak Türkiye veya AB veri merkezlerinde saklanır.", en: "Your data is stored in Turkey or EU data centers in compliance with regulations.", ru: "Ваши данные хранятся в центрах обработки данных в Турции или ЕС." },
   "contacts.page.title": { tr: "İletişim", en: "Contacts", ru: "Контакты" },
   "contacts.page.subtitle": { tr: "Ekibimizle hızlıca iletişime geçin.", en: "Get in touch with our team quickly.", ru: "Свяжитесь с нашей командой." },
   "contacts.card.email": { tr: "E‑posta", en: "Email", ru: "Эл. почта" },
@@ -266,15 +242,19 @@ const translations: Translations = {
   // FAQ
   "faq.title": { tr: "Sıkça Sorulan Sorular", en: "Frequently Asked Questions", ru: "Часто задаваемые вопросы" },
   "faq.subtitle": { tr: "STR Enerji platformu hakkında en popüler sorulara cevaplar", en: "Answers to the most popular questions about the STR Energy platform", ru: "Ответы на популярные вопросы о платформе STR Energy" },
-  "faq.q1": { tr: "STR Enerji'yi nasıl kullanmaya başlarım?", en: "How to start using STR Energy?", ru: "Как начать использовать STR Energy?" },
-  "faq.a1": { tr: "Bize danışmanlık için ulaşın, işletmeniz için en iyi mikroservis setini seçmenize yardımcı olacağız.", en: "Contact us for a consultation, and we will help you choose the best set of microservices for your business.", ru: "Свяжитесь с нами для консультации." },
-  "faq.q2": { tr: "Sadece bir ürün kullanabilir miyim?", en: "Can I use only one product?", ru: "Могу ли я использовать только один продукт?" },
-  "faq.a2": { tr: "Evet, her ürün bağımsız olarak çalışabilir. Ancak birlikte kullanıldığında daha güçlü entegrasyonlar elde edersiniz.", en: "Yes, each product can work independently. However, you get stronger integrations when used together.", ru: "Да, каждый продукт может работать независимо." },
+  "faq.q1": { tr: "Platform mevcut enerji analizörlerimize bağlanabilir mi?", en: "Can the platform connect to our existing energy analyzers?", ru: "Может ли платформа подключаться к нашим анализаторам энергии?" },
+  "faq.a1": { tr: "Evet. Keşif aşamasında cihaz, register haritası ve ağ yapısı doğrulanır; RS485 / Modbus RTU veya Modbus TCP üzerinden uygun edge bağlantısı planlanır.", en: "Yes. During discovery, we verify devices, register maps and network topology, then plan the appropriate edge connection over RS485 / Modbus RTU or Modbus TCP.", ru: "Да. На этапе обследования проверяются устройства, карты регистров и топология сети, после чего планируется edge-подключение по RS485 / Modbus RTU или Modbus TCP." },
+  "faq.q2": { tr: "Platform üretim kaybının nedenini açıklayabilir mi?", en: "Can the platform explain the cause of a production gap?", ru: "Может ли платформа объяснить причину производственного разрыва?" },
+  "faq.a2": { tr: "Platform beklenen üretim veya tüketim baz çizgisini gerçekleşen verilerle karşılaştırır; duruş, ekipman verimsizliği, hat hızı, baz yük ve proses sapması gibi olası etkenleri kanıtlarıyla sıralar.", en: "The platform compares expected production or consumption baselines with actual data and ranks likely drivers such as downtime, equipment inefficiency, line speed, base load and process deviation with supporting evidence.", ru: "Платформа сравнивает ожидаемые производственные или потребительские базовые значения с фактическими данными и ранжирует вероятные причины: простои, неэффективность оборудования, скорость линии, базовую нагрузку и отклонения процесса." },
   "faq.q3": { tr: "Teknik destek sağlıyor musunuz?", en: "Do you provide technical support?", ru: "Предоставляете ли вы техническую поддержку?" },
-  "faq.a3": { tr: "Evet, 7/24 teknik destek sağlıyoruz. İstediğiniz zaman bize ulaşabilirsiniz.", en: "Yes, we provide 24/7 technical support. You can reach us anytime.", ru: "Да, мы предоставляем поддержку 24/7." },
+  "faq.a3": { tr: "Evet. Pilot, entegrasyon ve devreye alma sürecinde kurucu ekip ve teknik ekip doğrudan destek verir.", en: "Yes. The founding and technical teams provide direct support throughout pilots, integration and commissioning.", ru: "Да. Команда основателей и технические специалисты напрямую поддерживают пилоты, интеграцию и ввод в эксплуатацию." },
+  "faq.q4": { tr: "STR neyin kısaltmasıdır?", en: "What does STR stand for?", ru: "Что означает STR?" },
+  "faq.a4": { tr: "STR, Smart Technologies for Renewables ifadesinin kısaltmasıdır. Enerji sistemlerini daha akıllı, ölçülebilir ve sürdürülebilir hale getiren teknolojiler geliştiriyoruz.", en: "STR stands for Smart Technologies for Renewables. We build technology that makes energy systems smarter, measurable and more sustainable.", ru: "STR означает Smart Technologies for Renewables. Мы создаем технологии для более умных, измеримых и устойчивых энергосистем." },
+  "faq.q5": { tr: "STR Energy yatırım arıyor mu?", en: "Is STR Energy raising investment?", ru: "STR Energy привлекает инвестиции?" },
+  "faq.a5": { tr: "Evet. Erken aşama ürün geliştirme ve pilot doğrulama sürecindeyiz; yatırımcılar ve stratejik sanayi partnerleriyle görüşmelere açığız.", en: "Yes. We are in early-stage product development and pilot validation, and we are open to conversations with investors and strategic industrial partners.", ru: "Да. Мы находимся на ранней стадии разработки и пилотной проверки и открыты к диалогу с инвесторами и промышленными партнерами." },
 
   // Footer
-  "footer.description": { tr: "Enerji operasyonlarınız için dijital temel. Şebeke, tesis ve sayaç verilerini tek platformda birleştiren çözümler.", en: "Digital foundation for energy operations. Solutions that unify grid, facility, and meter data in one platform.", ru: "Цифровой фундамент для энергетических операций. Решения, объединяющие данные сети, объектов и счетчиков в одной платформе." },
+  "footer.description": { tr: "Smart Technologies for Renewables. Endüstriyel enerji verisini yapay zekâ destekli kararlara dönüştüren erken aşama enerji teknolojileri girişimi.", en: "Smart Technologies for Renewables. An early-stage energy technology startup turning industrial energy data into AI-powered decisions.", ru: "Smart Technologies for Renewables. Энергетический стартап ранней стадии, превращающий промышленные данные в решения на базе ИИ." },
   "footer.navigation": { tr: "Navigasyon", en: "Navigation", ru: "Навигация" },
   "footer.main": { tr: "Ana Sayfa", en: "Main", ru: "Главная" },
   "footer.faq": { tr: "SSS", en: "FAQ", ru: "FAQ" },

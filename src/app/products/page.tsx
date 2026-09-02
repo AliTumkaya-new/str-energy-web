@@ -6,17 +6,11 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { useLanguage } from "@/context/LanguageContext";
 import { useTheme } from "@/context/ThemeContext";
-import { Zap, BarChart3, TrendingUp, Shield, Gauge, Cloud, ArrowRight } from "lucide-react";
+import { BrainCircuit, ArrowRight } from "lucide-react";
 import { useLocaleHref } from "@/lib/useLocaleHref";
 
 const products = [
-  { key: "energypulse", icon: BarChart3, href: "/products/energypulse" },
-  { key: "energyos", icon: Zap, href: "/products/energyos" },
-  { key: "gridanalytics", icon: BarChart3, href: "/products/gridanalytics" },
-  { key: "powerforecast", icon: TrendingUp, href: "/products/powerforecast" },
-  { key: "securegrid", icon: Shield, href: "/products/securegrid" },
-  { key: "smartmeter", icon: Gauge, href: "/products/smartmeter" },
-  { key: "energycloud", icon: Cloud, href: "/products/energycloud" },
+  { key: "intelligence", icon: BrainCircuit, href: "/products/energy-intelligence-platform" },
 ];
 
 export default function ProductsPage() {
@@ -57,7 +51,7 @@ export default function ProductsPage() {
 
       <section className={`pb-20 ${isDark ? "bg-black" : "bg-white"}`}>
         <div className="container">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 gap-6">
             {products.map((product, index) => {
               const Icon = product.icon;
               return (

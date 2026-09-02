@@ -19,7 +19,9 @@ export function proxy(request: NextRequest) {
   const segments = pathname.split("/").filter(Boolean);
   const first = segments[0];
   if (first && supportedLocales.includes(first as typeof supportedLocales[number])) {
-    return NextResponse.next();
+    const requestHeaders = new Headers(request.headers);
+    requestHeaders.set("x-str-locale", first);
+    return NextResponse.next({ request: { headers: requestHeaders } });
   }
 
   const url = request.nextUrl.clone();

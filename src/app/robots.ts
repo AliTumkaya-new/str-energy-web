@@ -6,7 +6,7 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: "*",
         allow: "/",
-        disallow: ["/api/", "/portal/"],
+        disallow: ["/api/", "/portal/", "/platform/", "/video-presentation/"],
       },
     ],
     sitemap: "https://www.str-energy.com/sitemap.xml",

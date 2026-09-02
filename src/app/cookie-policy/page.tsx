@@ -61,6 +61,8 @@ export default function CookiePolicyPage() {
             <p className={`text-sm leading-relaxed ${desc}`}>
               {language === "tr"
                 ? "Çerezler, bir web sitesini ziyaret ettiğinizde tarayıcınız aracılığıyla cihazınıza veya ağ sunucusuna depolanan küçük metin dosyalarıdır. Çerezler sitenin daha verimli çalışmasını, tercihlerinizi hatırlamasını ve size uygun içerik/reklam sunmasını sağlar."
+                : language === "ru"
+                ? "Cookie — это небольшие текстовые файлы, которые браузер сохраняет на устройстве при посещении сайта. Они могут обеспечивать основные функции, запоминать настройки и, при наличии согласия, поддерживать аналитику или рекламу."
                 : "Cookies are small text files stored on your device by your web browser when visiting websites. They help remember preferences, ensure smooth site functionality, and deliver relevant advertising."}
             </p>
           </motion.div>
@@ -72,16 +74,16 @@ export default function CookiePolicyPage() {
             <div className={`space-y-4 text-sm leading-relaxed ${desc}`}>
               <ul className="list-disc pl-5 space-y-3">
                 <li>
-                  <strong>{language === "tr" ? "Zorunlu Çerezler:" : "Essential Cookies:"}</strong>{" "}
-                  {language === "tr" ? "Web sitesinin temel işlevlerini (dil seçimi, tema tercihi, oturum yönetimi) gerçekleştirmek için gereklidir." : "Required for basic site navigation, theme, and language preferences."}
+                  <strong>{language === "tr" ? "Zorunlu Çerezler:" : language === "ru" ? "Обязательные cookie:" : "Essential Cookies:"}</strong>{" "}
+                  {language === "tr" ? "Web sitesinin temel işlevlerini (dil seçimi, tema tercihi ve güvenlik) gerçekleştirmek için gereklidir." : language === "ru" ? "Необходимы для навигации, настроек языка и темы, а также безопасности." : "Required for basic navigation, theme and language preferences, and security."}
                 </li>
                 <li>
-                  <strong>{language === "tr" ? "Performans ve Analitik Çerezleri:" : "Analytics Cookies:"}</strong>{" "}
-                  {language === "tr" ? "Ziyaretçilerin siteyi nasıl kullandığını anlamamıza, sayfa trafiğini ölçmemize ve performansı artırmamıza yardımcı olur (örn. Vercel Analytics)." : "Help us understand visitor counts and page usage patterns."}
+                  <strong>{language === "tr" ? "Performans ve Analitik Çerezleri:" : language === "ru" ? "Аналитические cookie:" : "Analytics Cookies:"}</strong>{" "}
+                  {language === "tr" ? "Ziyaretçilerin siteyi nasıl kullandığını anlamamıza, sayfa trafiğini ölçmemize ve performansı artırmamıza yardımcı olabilir (örn. Vercel Analytics)." : language === "ru" ? "Могут помогать измерять использование страниц и улучшать производительность сайта, например через Vercel Analytics." : "May help measure page usage and improve site performance, for example through Vercel Analytics."}
                 </li>
                 <li>
-                  <strong>{language === "tr" ? "Reklam ve Hedefleme Çerezleri (Google AdSense):" : "Advertising Cookies (Google AdSense):"}</strong>{" "}
-                  {language === "tr" ? "Google AdSense ve 3. taraf ortaklar tarafından kişiselleştirilmiş veya ilginizi çekebilecek reklamlar gösterilmesi amacıyla kullanılır." : "Used by Google AdSense and third-party advertising networks to deliver relevant advertisements."}
+                  <strong>{language === "tr" ? "Reklam Çerezleri (Google AdSense):" : language === "ru" ? "Рекламные cookie (Google AdSense):" : "Advertising Cookies (Google AdSense):"}</strong>{" "}
+                  {language === "tr" ? "Reklam sunumu etkin olduğunda Google ve iş ortakları, kullanıcının seçimi ve geçerli izinlere bağlı olarak reklam sunma, ölçme ve kötüye kullanımı önleme amaçlarıyla çerez veya benzer teknolojiler kullanabilir." : language === "ru" ? "Когда показ рекламы включен, Google и партнеры могут использовать cookie или аналогичные технологии для показа и измерения рекламы и предотвращения злоупотреблений с учетом выбора пользователя и применимых разрешений." : "When ad serving is enabled, Google and its partners may use cookies or similar technologies to deliver and measure ads and prevent abuse, subject to user choices and applicable permissions."}
                 </li>
               </ul>
             </div>
@@ -93,9 +95,27 @@ export default function CookiePolicyPage() {
             </h2>
             <p className={`text-sm leading-relaxed ${desc}`}>
               {language === "tr"
-                ? "Tarayıcı ayarlarınızı değiştirerek çerezleri dilediğiniz zaman engelleyebilir veya silebilirsiniz. Ancak zorunlu çerezleri engellemeniz durumunda web sitemizin bazı özellikleri düzgün çalışmayabilir. Reklam çerezlerini yönetmek için Google Reklam Ayarları (adssettings.google.com) sayfasını kullanabilirsiniz."
+                ? "Tarayıcı ayarlarınızı değiştirerek çerezleri engelleyebilir veya silebilirsiniz. Zorunlu depolamayı engellemek bazı özellikleri etkileyebilir. Google tarafından kullanılan reklam verilerini Google Reklam Ayarları üzerinden yönetebilirsiniz. Avrupa Ekonomik Alanı, Birleşik Krallık ve İsviçre'de reklam sunumu etkin olduğunda izin tercihleri Google sertifikalı onay arayüzü üzerinden sunulmalıdır."
+                : language === "ru"
+                ? "Вы можете блокировать или удалять cookie в настройках браузера. Блокировка обязательного хранения может повлиять на функции сайта. Настройки рекламных данных Google доступны в Google Ads Settings. При показе рекламы пользователям ЕЭЗ, Великобритании и Швейцарии выбор согласия должен предоставляться через сертифицированный Google интерфейс управления согласием."
                 : "You can control or delete cookies at any time through your browser settings. To manage advertising cookies, visit Google Ads Settings (adssettings.google.com)."}
             </p>
+          </motion.div>
+
+          <motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className={`${cardBg} border rounded-2xl p-6 md:p-8`}>
+            <h2 className={`text-xl md:text-2xl font-bold mb-4 ${heading}`}>
+              {language === "tr" ? "4. Üçüncü Taraflar ve Güncelleme" : language === "ru" ? "4. Третьи стороны и обновления" : "4. Third Parties and Updates"}
+            </h2>
+            <p className={`text-sm leading-relaxed ${desc}`}>
+              {language === "tr"
+                ? "Google'ın verileri nasıl kullandığı ve reklam teknolojisi sağlayıcıları zaman içinde değişebilir. Güncel ayrıntılar için Google'ın iş ortağı sitelerindeki veri kullanımı açıklamasını inceleyin. Bu politika en son 2 Eylül 2026 tarihinde gözden geçirilmiştir; sorularınızı support@str-energy.com adresine iletebilirsiniz."
+                : language === "ru"
+                ? "Способы использования данных Google и список рекламных технологических партнеров могут меняться. Актуальные сведения доступны в уведомлении Google об использовании данных на сайтах партнеров. Политика проверена 2 сентября 2026 г.; вопросы можно направлять на support@str-energy.com."
+                : "Google's data practices and advertising technology providers may change. Review Google's explanation of data use on partner sites for current details. This policy was last reviewed on 2 September 2026; questions can be sent to support@str-energy.com."}
+            </p>
+            <a href="https://policies.google.com/technologies/partner-sites" target="_blank" rel="noopener noreferrer" className="mt-4 inline-flex text-sm font-bold text-orange-500 hover:underline">
+              {language === "tr" ? "Google iş ortağı sitelerinde veri kullanımı" : language === "ru" ? "Использование данных Google на сайтах партнеров" : "How Google uses data on partner sites"}
+            </a>
           </motion.div>
 
         </div>

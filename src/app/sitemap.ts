@@ -7,33 +7,28 @@ const routes = [
   "",
   "about",
   "contacts",
-  "news",
-  "testimonials",
   "privacy",
   "terms",
   "cookie-policy",
   "disclaimer",
-  "help",
+  "editorial-policy",
+  "authors/str-energy-editorial-team",
+  "methodology/market-data",
   "products",
-  "products/energypulse",
-  "products/energyos",
-  "products/gridanalytics",
-  "products/powerforecast",
-  "products/securegrid",
-  "products/smartmeter",
-  "products/energycloud",
-  "products/climateos",
+  "products/energy-intelligence-platform",
+  "energy-startup",
+  "projects/market-data",
 ] as const;
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const lastModified = new Date("2026-07-16T00:00:00.000Z");
+  const lastModified = new Date("2026-09-02T00:00:00.000Z");
 
   const coreEntries = routes.flatMap((route) =>
     locales.map((locale) => ({
       url: `${SITE_URL}/${locale}${route ? `/${route}` : ""}`,
       lastModified,
-      changeFrequency: route === "" || route === "news" ? "weekly" as const : "monthly" as const,
-      priority: route === "" ? 1 : route === "products/energypulse" ? 0.95 : route.startsWith("products") ? 0.85 : 0.65,
+      changeFrequency: route === "" ? "weekly" as const : "monthly" as const,
+      priority: route === "" ? 1 : route === "products/energy-intelligence-platform" ? 0.95 : route === "energy-startup" ? 0.9 : route === "projects/market-data" ? 0.8 : route.startsWith("products") ? 0.85 : 0.65,
       alternates: {
         languages: {
           tr: `${SITE_URL}/tr${route ? `/${route}` : ""}`,
@@ -46,7 +41,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   );
   const insightIndexEntries = (["tr", "en"] as const).map((locale) => ({
     url: `${SITE_URL}/${locale}/insights`,
-    lastModified: new Date("2026-08-26T00:00:00.000Z"),
+    lastModified: new Date("2026-09-02T00:00:00.000Z"),
     changeFrequency: "weekly" as const,
     priority: 0.85,
     alternates: { languages: { tr: `${SITE_URL}/tr/insights`, en: `${SITE_URL}/en/insights`, "x-default": `${SITE_URL}/en/insights` } },

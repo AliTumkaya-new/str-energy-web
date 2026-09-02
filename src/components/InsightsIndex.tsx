@@ -8,13 +8,14 @@ import Footer from "@/components/Footer";
 import { useLanguage } from "@/context/LanguageContext";
 import { useTheme } from "@/context/ThemeContext";
 import { useLocaleHref } from "@/lib/useLocaleHref";
-import { insights, type InsightLocale } from "@/lib/insights";
+import { getReadMinutes, insights, type InsightLocale } from "@/lib/insights";
 
 const copy = {
   tr: {
     eyebrow: "ENERJİ BİLGİ MERKEZİ",
     title: "Enerji piyasalarını daha iyi anlamak için pratik rehberler",
-    description: "Elektrik piyasaları, enerji yönetimi, tahminleme, karbon ve şebeke teknolojilerini teknik doğrulukla anlatan güncel STR Energy içerikleri.",
+    description: "Elektrik piyasaları, enerji yönetimi, tahminleme, karbon ve saha veri mimarisini örnekler, kontrol listeleri ve birincil kaynaklarla açıklayan kapsamlı STR Energy rehberleri.",
+    standards: "İçerikleri nasıl hazırlıyoruz?",
     search: "Makale veya konu ara",
     all: "Tümü",
     guide: "rehber",
@@ -27,7 +28,8 @@ const copy = {
   en: {
     eyebrow: "ENERGY INSIGHTS",
     title: "Practical guides for understanding energy markets",
-    description: "Current STR Energy guides explaining electricity markets, energy management, forecasting, carbon and grid technologies with technical clarity.",
+    description: "In-depth STR Energy guides explaining electricity markets, energy management, forecasting, carbon and field-data architecture through examples, checklists and primary sources.",
+    standards: "How we prepare our content",
     search: "Search articles or topics",
     all: "All",
     guide: "guides",
@@ -90,6 +92,9 @@ export default function InsightsIndex() {
             <div className={`mx-auto mt-7 inline-flex items-center rounded-full border px-4 py-2 text-sm font-semibold ${isDark ? "border-white/10 bg-white/5 text-zinc-300" : "border-black/10 bg-white text-zinc-700"}`}>
               {insights.length} {text.guide}
             </div>
+            <div>
+              <Link href={withLocale("/editorial-policy")} className="mt-5 inline-flex text-sm font-bold text-orange-500 hover:underline">{text.standards}</Link>
+            </div>
           </div>
         </section>
 
@@ -135,7 +140,7 @@ export default function InsightsIndex() {
                   <h2 className="mt-4 text-xl font-bold leading-7">{article.title[locale]}</h2>
                   <p className={`mt-3 text-sm leading-6 ${isDark ? "text-zinc-400" : "text-zinc-600"}`}>{article.description[locale]}</p>
                   <div className={`mt-auto flex items-end justify-between gap-4 pt-7 text-xs ${isDark ? "text-zinc-500" : "text-zinc-500"}`}>
-                    <span className="inline-flex items-center gap-1.5"><Clock3 className="h-3.5 w-3.5" />{article.readMinutes ?? 4} {text.minute}</span>
+                    <span className="inline-flex items-center gap-1.5"><Clock3 className="h-3.5 w-3.5" />{getReadMinutes(article, locale)} {text.minute}</span>
                     <Link href={withLocale(`/insights/${article.slug}`)} className="inline-flex items-center gap-2 font-bold text-orange-500">
                       {text.read}<ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                     </Link>

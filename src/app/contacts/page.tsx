@@ -16,7 +16,7 @@ export default function ContactsPage() {
   const { heroRef, patternHot, onHeroPointerEnter, onHeroPointerLeave, onHeroPointerMove } = useHeroSpotlight();
   const cards = [
     { icon: Phone, titleKey: "contacts.card.phone", desc: t("contacts.value.phone"), href: "https://wa.me/905449187090" },
-    { icon: Mail, titleKey: "contacts.card.email", desc: "support@str-energy.com", href: null },
+    { icon: Mail, titleKey: "contacts.card.email", desc: "support@str-energy.com", href: "mailto:support@str-energy.com" },
     { icon: MapPin, titleKey: "contacts.card.office", desc: t("contacts.value.office"), href: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(t("contacts.value.office"))}` },
   ];
 

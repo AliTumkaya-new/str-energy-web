@@ -26,81 +26,45 @@ const knowledgeBase: KBEntry[] = [
   {
     keywords: ["ptf", "piyasa takas", "market clearing", "fiyat", "price"],
     answer: {
-      tr: "PTF (Piyasa Takas Fiyatı), Türkiye'nin saatlik toptan elektrik fiyatıdır. EPİAŞ tarafından gün öncesi piyasasında belirlenir. Güncel PTF verilerini EnergyPulse ürünümüzden 'PTF' veri setini seçerek görüntüleyebilirsiniz.",
-      en: "PTF (Market Clearing Price) is Turkey's hourly wholesale electricity price, determined by EPİAŞ in the day-ahead market. You can view current PTF data in EnergyPulse by selecting the 'PTF' dataset.",
-      ru: "PTF — это часовая оптовая цена электроэнергии в Турции, определяемая EPİAŞ на рынке на сутки вперёд. Вы можете просмотреть текущие данные PTF, выбрав набор данных 'PTF' в нашей панели.",
+      tr: "PTF (Piyasa Takas Fiyatı), Türkiye'nin saatlik toptan elektrik fiyatıdır ve EPİAŞ gün öncesi piyasasında belirlenir. Güncel PTF verilerini bağımsız Piyasa Veri Projesi sayfasından görüntüleyebilirsiniz; bu çalışma endüstriyel platform ürününden ayrıdır.",
+      en: "PTF (Market Clearing Price) is Turkey's hourly wholesale electricity price, determined by EPİAŞ in the day-ahead market. You can view current PTF data in the independent Market Data Project, which is separate from the industrial platform product.",
+      ru: "PTF — часовая оптовая цена электроэнергии в Турции. Данные доступны в независимом проекте рыночных данных, отдельном от промышленной платформы.",
     },
   },
   /* ───── YEKDEM ───── */
   {
     keywords: ["yekdem", "yenilenebilir", "renewable", "возобновляем", "üretim", "generation", "генерация"],
     answer: {
-      tr: "YEKDEM (Yenilenebilir Enerji Kaynaklarını Destekleme Mekanizması) Türkiye'nin yenilenebilir enerji üreticilerine sağladığı teşvik sistemidir. Güneş, rüzgâr, hidroelektrik, jeotermal ve biyokütle kaynaklarını kapsar. YEKDEM birim maliyet verilerini panelimizden takip edebilirsiniz.",
-      en: "YEKDEM is Turkey's Renewable Energy Support Mechanism, providing incentives for renewable energy producers covering solar, wind, hydro, geothermal and biomass. You can track YEKDEM unit cost data from our dashboard panel.",
+      tr: "YEKDEM (Yenilenebilir Enerji Kaynaklarını Destekleme Mekanizması) Türkiye'nin yenilenebilir enerji üreticilerine sağladığı teşvik sistemidir. YEKDEM birim maliyet verileri bağımsız Piyasa Veri Projesi kapsamında takip edilebilir.",
+      en: "YEKDEM is Turkey's Renewable Energy Support Mechanism. YEKDEM unit cost data can be explored within the independent Market Data Project.",
       ru: "YEKDEM — это Механизм поддержки возобновляемых источников энергии Турции, включающий солнечную, ветровую, гидро- и геотермальную энергию. Данные о стоимости YEKDEM доступны на нашей панели.",
     },
   },
-  /* ───── EnergyOS ───── */
+  /* ───── STR Energy Intelligence Platform ───── */
   {
-    keywords: ["energyos", "energy os", "işletim", "operating", "операционная"],
+    keywords: ["intelligence", "platform", "energyos", "energycloud", "powerforecast", "gridanalytics", "securegrid", "smartmeter", "modbus", "rs485", "anomali", "anomaly", "tahmin", "forecast", "dijital ikiz", "digital twin", "iso 50001", "üretim fark", "production gap", "kök neden", "root cause"],
     answer: {
-      tr: "EnergyOS, STR Energy'nin enerji verisi işletim sistemidir. Tüm enerji verilerinizi tek platformda toplar, gerçek zamanlı analiz yapar ve akıllı kararlar almanızı sağlar. PTF tahminleme, portföy yönetimi, otomatik raporlama ve API entegrasyonu gibi özellikler sunar.",
-      en: "EnergyOS is STR Energy's energy data operating system. It centralizes all your energy data, provides real-time analytics, and enables smart decision-making. Features include PTF forecasting, portfolio management, automated reporting, and API integration.",
-      ru: "EnergyOS — это операционная система энергетических данных от STR Energy. Она собирает все данные, обеспечивает аналитику в реальном времени и помогает принимать умные решения. PTF-прогнозирование, управление портфелем и API-интеграция.",
-    },
-  },
-  /* ───── EnergyCloud ───── */
-  {
-    keywords: ["energycloud", "cloud", "bulut", "облак", "depolama", "storage", "хранилище"],
-    answer: {
-      tr: "EnergyCloud, petabayt ölçeğinde enerji verisi depolama ve işleme platformumuzdur. AWS, Azure ve GCP entegrasyonu, KVKK/GDPR uyumlu güvenlik, end-to-end şifreleme ve global CDN dağıtımı sunar. Ücretsiz migration servisi ile verilerinizi kesintisiz taşıyoruz.",
-      en: "EnergyCloud is our petabyte-scale energy data storage and processing platform. It offers AWS, Azure & GCP integration, KVKK/GDPR compliant security, end-to-end encryption, and global CDN. We provide free migration services for seamless data transfer.",
-      ru: "EnergyCloud — наша платформа хранения и обработки данных петабайтного масштаба. AWS, Azure, GCP интеграция, соответствие GDPR, сквозное шифрование и глобальный CDN.",
-    },
-  },
-  /* ───── PowerForecast ───── */
-  {
-    keywords: ["powerforecast", "forecast", "tahmin", "прогноз", "prediction", "öngörü"],
-    answer: {
-      tr: "PowerForecast, yapay zekâ destekli enerji üretim ve tüketim tahminleme platformumuzdur. %97'ye varan doğruluk oranıyla güneş, rüzgâr ve hidroelektrik üretimi tahmin eder. Meteorolojik veri entegrasyonu ve otomatik model güncelleme sunar.",
-      en: "PowerForecast is our AI-powered energy generation and consumption forecasting platform. It predicts solar, wind, and hydro generation with up to 97% accuracy, featuring meteorological data integration and automatic model updates.",
-      ru: "PowerForecast — наша AI-платформа прогнозирования генерации и потребления энергии с точностью до 97%. Интеграция метеоданных и автоматическое обновление моделей.",
-    },
-  },
-  /* ───── GridAnalytics ───── */
-  {
-    keywords: ["gridanalytics", "analytics", "analiz", "grid", "şebeke", "аналитика", "сеть"],
-    answer: {
-      tr: "GridAnalytics, elektrik şebekesi analiz platformumuzdur. Gerçek zamanlı şebeke izleme, kayıp-kaçak tespiti, yük dengeleme ve altyapı optimizasyonu sunar. IoT sensör entegrasyonu ile akıllı şebeke yönetimi sağlar.",
-      en: "GridAnalytics is our power grid analytics platform offering real-time grid monitoring, loss detection, load balancing, and infrastructure optimization with IoT sensor integration for smart grid management.",
-      ru: "GridAnalytics — платформа аналитики электросети: мониторинг в реальном времени, обнаружение потерь, балансировка нагрузки и интеграция IoT-датчиков.",
-    },
-  },
-  /* ───── SecureGrid ───── */
-  {
-    keywords: ["securegrid", "secure", "güvenlik", "security", "безопасност", "siber", "cyber"],
-    answer: {
-      tr: "SecureGrid, enerji altyapısı siber güvenlik platformumuzdur. SCADA/ICS koruma, tehdit tespit ve müdahale, güvenlik denetimi ve uyumluluk yönetimi sunar. ISO 27001 ve IEC 62351 sertifikalıdır.",
-      en: "SecureGrid is our energy infrastructure cybersecurity platform providing SCADA/ICS protection, threat detection & response, security auditing, and compliance management. ISO 27001 and IEC 62351 certified.",
-      ru: "SecureGrid — платформа кибербезопасности энергетической инфраструктуры: защита SCADA/ICS, обнаружение угроз, аудит безопасности. Сертификаты ISO 27001, IEC 62351.",
-    },
-  },
-  /* ───── SmartMeter ───── */
-  {
-    keywords: ["smartmeter", "smart meter", "sayaç", "meter", "счётчик", "ölçüm", "metering"],
-    answer: {
-      tr: "SmartMeter, akıllı sayaç yönetim platformumuzdur. Uzaktan okuma, gerçek zamanlı tüketim analizi, kaçak tespit ve otomatik faturalama sunar. AMR/AMI altyapılarıyla tam uyumludur.",
-      en: "SmartMeter is our smart metering management platform offering remote reading, real-time consumption analytics, fraud detection, and automated billing. Fully compatible with AMR/AMI infrastructure.",
-      ru: "SmartMeter — наша платформа управления умными счётчиками: удалённое считывание, анализ потребления, обнаружение хищений и автоматический биллинг.",
+      tr: "STR Energy Intelligence Platform; RS485 / Modbus üzerinden enerji analizörleri ve saha ekipmanlarına bağlanan tek ürünümüzdür. Gerçek zamanlı izleme, AI anomali tespiti, tüketim ve üretim tahmini, beklenen–gerçekleşen performans farkı, kök neden açıklaması, maliyet ve karbon etkisi, ISO 50001 raporlaması ve ekipman bazlı dijital ikiz analizi sunar.",
+      en: "STR Energy Intelligence Platform is our single product, connecting to energy analyzers and field equipment over RS485 / Modbus. It provides real-time monitoring, AI anomaly detection, consumption and production forecasts, expected-versus-actual performance gaps, root-cause explanations, cost and carbon impact, ISO 50001 reporting and equipment-level digital twin analytics.",
+      ru: "STR Energy Intelligence Platform — наш единый продукт, подключающийся к анализаторам энергии и полевому оборудованию по RS485 / Modbus. Он включает мониторинг, ИИ-аномалии, прогнозы, сравнение ожидаемого и фактического, объяснение причин, затраты, углерод, ISO 50001 и цифровые двойники.",
     },
   },
   /* ───── STR Energy Company ───── */
   {
     keywords: ["str energy", "şirket", "company", "компания", "hakkında", "about", "kim", "who", "кто"],
     answer: {
-      tr: "STR Energy, enerji sektörüne yönelik yazılım çözümleri geliştiren bir teknoloji şirketidir. EnergyOS, EnergyCloud, PowerForecast, GridAnalytics, SecureGrid ve SmartMeter ürünleriyle enerji verisi yönetimi, tahminleme, güvenlik ve analiz hizmetleri sunar.",
-      en: "STR Energy is a technology company developing software solutions for the energy sector. With products like EnergyOS, EnergyCloud, PowerForecast, GridAnalytics, SecureGrid, and SmartMeter, we provide energy data management, forecasting, security, and analytics.",
-      ru: "STR Energy — технологическая компания, разрабатывающая решения для энергетического сектора: EnergyOS, EnergyCloud, PowerForecast, GridAnalytics, SecureGrid и SmartMeter.",
+      tr: "STR, Smart Technologies for Renewables'ın kısaltmasıdır. STR Energy; ürün geliştirme ve pilot doğrulama aşamasındaki erken aşama bir enerji teknolojileri girişimidir. Tek ticari ürünü saha ekipmanlarına bağlanan STR Energy Intelligence Platform'dur; Piyasa Veri Projesi ise bağımsız bir Ar-Ge çalışmasıdır.",
+      en: "STR stands for Smart Technologies for Renewables. STR Energy is an early-stage energy technology startup in product development and pilot validation. Its single commercial product is STR Energy Intelligence Platform; the Market Data Project is a separate R&D initiative.",
+      ru: "STR означает Smart Technologies for Renewables. STR Energy — энергетический стартап ранней стадии на этапе разработки продукта и пилотной проверки. Его единственный коммерческий продукт — STR Energy Intelligence Platform; проект рыночных данных является отдельной R&D-инициативой.",
+    },
+  },
+  /* ───── Investment / partnerships ───── */
+  {
+    keywords: ["yatırım", "yatırımcı", "fon", "funding", "investor", "investment", "startup", "girişim", "seed", "partner", "ortaklık", "инвест", "стартап"],
+    answer: {
+      tr: "Evet. STR Energy ürün geliştirme ve pilot doğrulama aşamasındaki erken aşama bir enerji girişimidir. Erken aşama yatırımcılar, pilot tesis sağlayabilecek sanayi kuruluşları ve stratejik teknoloji ortaklarıyla görüşmeye açığız. Ayrıntılar için Yatırımcılar sayfasını inceleyebilir veya İletişim sayfasından doğrudan ulaşabilirsiniz.",
+      en: "Yes. STR Energy is an early-stage energy startup in product development and pilot validation. We are open to conversations with early-stage investors, industrial organizations able to host pilots and strategic technology partners. See the Investors page or contact us directly.",
+      ru: "Да. STR Energy — энергетический стартап ранней стадии на этапе разработки продукта и пилотной проверки. Мы открыты к диалогу с ранними инвесторами, промышленными пилотными площадками и стратегическими технологическими партнерами.",
     },
   },
   /* ───── Contact ───── */
@@ -116,17 +80,17 @@ const knowledgeBase: KBEntry[] = [
   {
     keywords: ["epiaş", "epias", "canlı", "live", "veri", "data", "данные"],
     answer: {
-      tr: "Canlı enerji verilerine ana sayfamızdaki EnergyPulse ürününden ulaşabilirsiniz. PTF, YEKDEM birim maliyet, gerçek zamanlı üretim, yük tahmin planı ve GİP ağırlıklı ortalama verilerini EPİAŞ API üzerinden çekiyoruz. Tarih aralığı seçip 'Sorgula' butonuna tıklayın.",
-      en: "Access live energy data through EnergyPulse on our homepage. We pull PTF, YEKDEM unit cost, real-time generation, load estimation, and weighted average price data via the EPİAŞ API. Select a date range and click 'Query'.",
-      ru: "Доступ к данным в реальном времени — на главной странице в панели Энергоданных. PTF, YEKDEM, генерация и средневзвешенная цена через API EPİAŞ.",
+      tr: "Canlı piyasa verilerine ayrı Piyasa Veri Projesi sayfasından ulaşabilirsiniz. PTF, YEKDEM birim maliyet, gerçek zamanlı üretim, yük tahmin planı ve GİP ağırlıklı ortalama verileri EPİAŞ API üzerinden sorgulanır. Bu proje STR Energy Intelligence Platform'un modülü değildir.",
+      en: "Access live market data on the separate Market Data Project page. PTF, YEKDEM unit cost, real-time generation, load estimation and weighted average price data are queried through the EPİAŞ API. This project is not a module of STR Energy Intelligence Platform.",
+      ru: "Данные доступны на отдельной странице проекта рыночных данных. Этот проект не является модулем STR Energy Intelligence Platform.",
     },
   },
   /* ───── Demo ───── */
   {
     keywords: ["demo", "deneme", "trial", "демо"],
     answer: {
-      tr: "Ürünlerimizin ücretsiz demosunu talep etmek için İletişim sayfamızı ziyaret edebilir veya +90 544 918 70 90 numarasını arayabilirsiniz. Ekibimiz en kısa sürede size dönecektir.",
-      en: "To request a free demo of our products, visit our Contact page or call +90 544 918 70 90. Our team will get back to you shortly.",
+      tr: "STR Energy Intelligence Platform demosunu talep etmek için İletişim sayfamızı ziyaret edebilir veya +90 544 918 70 90 numarasını arayabilirsiniz.",
+      en: "To request a demo of STR Energy Intelligence Platform, visit our Contact page or call +90 544 918 70 90.",
       ru: "Для бесплатной демо-версии посетите страницу Контакты или позвоните по номеру +90 544 918 70 90.",
     },
   },
@@ -134,18 +98,18 @@ const knowledgeBase: KBEntry[] = [
   {
     keywords: ["fiyat", "ücret", "pricing", "cost", "цена", "стоимость", "tarife"],
     answer: {
-      tr: "Ürünlerimizin fiyatlandırması ihtiyaçlarınıza göre özelleştirilmektedir. Detaylı fiyat bilgisi ve teklif almak için İletişim sayfamızdan bizimle iletişime geçebilirsiniz.",
-      en: "Our product pricing is customized to your needs. For detailed pricing and quotes, please contact us through our Contact page.",
-      ru: "Цены на наши продукты формируются индивидуально. Для получения предложения свяжитесь с нами через страницу Контакты.",
+      tr: "Platform fiyatlandırması; bağlanacak cihaz, veri noktası, tesis ve devreye alma kapsamına göre belirlenir. Teklif almak için İletişim sayfamızdan bize ulaşabilirsiniz.",
+      en: "Platform pricing depends on connected devices, data points, facilities and commissioning scope. Contact us for a proposal.",
+      ru: "Цена платформы зависит от количества устройств, точек данных, объектов и объема внедрения. Свяжитесь с нами для предложения.",
     },
   },
   /* ───── Merhaba / Greetings ───── */
   {
     keywords: ["merhaba", "hello", "hi", "hey", "selam", "привет", "здравствуй"],
     answer: {
-      tr: "Merhaba! 👋 STR Energy Asistanına hoş geldiniz. Size PTF, YEKDEM verileri veya ürünlerimiz hakkında yardımcı olabilirim. Ne sormak istersiniz?",
-      en: "Hello! 👋 Welcome to the STR Energy Assistant. I can help you with PTF, YEKDEM data, or information about our products. What would you like to know?",
-      ru: "Привет! 👋 Добро пожаловать в STR Energy ассистент. Могу помочь с PTF, YEKDEM или информацией о наших продуктах. Что хотите узнать?",
+      tr: "Merhaba! 👋 STR Energy Asistanına hoş geldiniz. Piyasa verileri veya STR Energy Intelligence Platform hakkında yardımcı olabilirim. Ne sormak istersiniz?",
+      en: "Hello! 👋 Welcome to the STR Energy Assistant. I can help with market data or STR Energy Intelligence Platform. What would you like to know?",
+      ru: "Привет! 👋 Я могу помочь с рыночными данными или STR Energy Intelligence Platform. Что хотите узнать?",
     },
   },
   /* ───── Thanks ───── */
@@ -160,9 +124,9 @@ const knowledgeBase: KBEntry[] = [
 ];
 
 const defaultAnswer: { tr: string; en: string; ru: string } = {
-  tr: "Bu konuda şu an detaylı bilgi veremiyorum, ancak PTF ve YEKDEM verileri, STR Energy ürünleri, demo talebi ve iletişim konularında yardımcı olabilirim. Lütfen bu konulardan birini sorun veya +90 544 918 70 90 numarasını arayın.",
-  en: "I don't have detailed information on that topic right now, but I can help with PTF and YEKDEM data, STR Energy products, demo requests, and contact information. Please ask about one of these topics or call +90 544 918 70 90.",
-  ru: "Сейчас у меня нет подробной информации по этой теме, но я могу помочь с PTF, YEKDEM, продуктами STR Energy, демонстрациями и контактами. Задайте вопрос по одной из тем или звоните +90 544 918 70 90.",
+  tr: "Bu konuda şu an detaylı bilgi veremiyorum; ancak PTF/YEKDEM verileri, STR Energy Intelligence Platform, demo ve iletişim konularında yardımcı olabilirim.",
+  en: "I don't have detailed information on that topic right now, but I can help with PTF/YEKDEM data, STR Energy Intelligence Platform, demos and contact information.",
+  ru: "Сейчас у меня нет подробной информации, но я могу помочь с PTF/YEKDEM, STR Energy Intelligence Platform, демо и контактами.",
 };
 
 function findAnswer(question: string, lang: Lang): string {

@@ -61,6 +61,8 @@ export default function TermsPage() {
             <p className={`text-sm leading-relaxed ${desc}`}>
               {language === "tr"
                 ? "Bu web sitesini (str-energy.com) ziyaret ederek ve kullanarak bu Kullanım Şartlarını kabul etmiş sayılırsınız. Şartları kabul etmiyorsanız lütfen siteyi kullanmayınız. STR Enerji, bu şartları önceden haber vermeksizin güncelleme hakkını saklı tutar."
+                : language === "ru"
+                ? "Посещая и используя str-energy.com, вы соглашаетесь с настоящими условиями. Если вы не согласны, прекратите использование сайта. STR Energy может обновлять условия; дата последней проверки указывается на странице."
                 : "By accessing and using str-energy.com, you accept and agree to be bound by these Terms of Service. If you do not agree, please discontinue using the site. STR Energy reserves the right to update these terms at any time."}
             </p>
           </motion.div>
@@ -72,6 +74,8 @@ export default function TermsPage() {
             <p className={`text-sm leading-relaxed ${desc}`}>
               {language === "tr"
                 ? "Sitede yer alan tüm tasarım, kaynak kodları, veri görselleştirme bileşenleri, metinler, grafikler, logolar ve yazılımlar STR Enerji'nin mülkiyetindedir. İzinsiz kopyalanamaz, çoğaltılamaz veya ticari amaçla kullanılamaz."
+                : language === "ru"
+                ? "Дизайн, исходный код, компоненты визуализации, оригинальные тексты, графика, логотипы и программное обеспечение сайта защищены применимыми правами интеллектуальной собственности. Права на материалы третьих сторон принадлежат соответствующим владельцам."
                 : "All content, visual features, design components, algorithms, code, graphics, and trademarks on str-energy.com belong to STR Energy and are protected by intellectual property laws."}
             </p>
           </motion.div>
@@ -83,6 +87,8 @@ export default function TermsPage() {
             <p className={`text-sm leading-relaxed ${desc}`}>
               {language === "tr"
                 ? "Sitede sunulan PTF, YEKDEM, üretim ve piyasa analitiği verileri bilgilendirme ve analitik takip amacıyla sunulmaktadır. Verilerin doğruluğunu korumak için azami çaba gösterilmekle birlikte, kamuya açık sağlayıcılardan (EPİAŞ, ENTSO-E vb.) kaynaklanan kesintilerden veya gecikmelerden doğacak zararlardan STR Enerji sorumlu tutulamaz."
+                : language === "ru"
+                ? "Данные PTF, YEKDEM, генерации и рынков предназначены для информации и аналитического наблюдения. Официальные источники, включая EPİAŞ, ENTSO-E и EIA, могут задерживать, исправлять или пересматривать данные. Перед коммерческим, инженерным или регуляторным решением проверьте официальную запись."
                 : "Market data (PTF, YEKDEM, ENTSO-E, EIA) is provided for informational and analytical purposes only. While we strive for accuracy, STR Energy is not liable for external data feed delays, disruptions, or financial decisions made based on this information."}
             </p>
           </motion.div>
@@ -94,6 +100,8 @@ export default function TermsPage() {
             <p className={`text-sm leading-relaxed ${desc}`}>
               {language === "tr"
                 ? "Kullanım şartları ile ilgili her türlü soru için support@str-energy.com adresinden bizimle iletişime geçebilirsiniz."
+                : language === "ru"
+                ? "По вопросам условий использования напишите на support@str-energy.com. Последняя проверка: 2 сентября 2026 г."
                 : "For questions about these Terms of Service, contact support@str-energy.com."}
             </p>
           </motion.div>

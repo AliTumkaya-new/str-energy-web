@@ -7,20 +7,20 @@ import { useLocaleHref } from "@/lib/useLocaleHref";
 const copyByLanguage = {
   tr: {
     label: "YENİ ÜRÜN",
-    shortText: "EnergyPulse yayında.",
-    text: "EnergyPulse ile enerji piyasası verileri tek ekranda.",
-    action: "Keşfet",
+    shortText: "Yeni ürünümüz yayında.",
+    text: "Yeni ürün: STR Energy Intelligence Platform — sahadan AI destekli enerji kararlarına.",
+    action: "İncele",
   },
   en: {
     label: "NEW PRODUCT",
-    shortText: "EnergyPulse is live.",
-    text: "Explore energy market data in one place with EnergyPulse.",
+    shortText: "Our new product is live.",
+    text: "New product: STR Energy Intelligence Platform — from field data to AI-powered action.",
     action: "Explore",
   },
   ru: {
     label: "НОВЫЙ ПРОДУКТ",
-    shortText: "EnergyPulse уже доступен.",
-    text: "Данные энергорынков в одном месте с EnergyPulse.",
+    shortText: "Наш новый продукт запущен.",
+    text: "Новый продукт: STR Energy Intelligence Platform — от полевых данных к решениям на базе ИИ.",
     action: "Открыть",
   },
 } as const;
@@ -46,7 +46,7 @@ export default function EnergyPulseAnnouncement() {
           <span className="hidden sm:inline">{copy.text}</span>
         </span>
         <a
-          href={withLocale("/products/energypulse")}
+          href={withLocale("/products/energy-intelligence-platform")}
           className="group inline-flex shrink-0 items-center gap-1 text-[10px] font-bold text-orange-300 transition hover:text-orange-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-400 sm:text-xs"
         >
           {copy.action}

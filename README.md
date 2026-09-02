@@ -1,16 +1,18 @@
 # STR Energy Web
 
-STR Enerji | Software R&D | STR Energy
-Şebeke, tesis ve sayaç verilerini tek platformda birleştiren; gerçek zamanlı izleme, analitik ve otomasyon sunan enerji yazılım çözümleri.
+STR Energy — Smart Technologies for Renewables
+
+STR Energy develops an AI-powered industrial energy intelligence platform that connects directly to field equipment, analyzes real-time consumption and helps facilities reduce energy cost, waste and carbon emissions.
+
+STR Energy is an early-stage energy technology startup in product development and pilot validation. The company is open to conversations with early-stage investors, pilot facilities and strategic industrial partners.
 
 ## Features
 
-- **EnergyOS**: Complete energy operation system
-- **GridAnalytics**: Advanced grid analysis
-- **PowerForecast**: AI-powered forecasting
-- **SecureGrid**: Security solutions for energy grids
-- **SmartMeter Hub**: Centralized meter management
-- **EnergyCloud**: Cloud-based energy data management
+- **STR Energy Intelligence Platform**: RS485 / Modbus field integration, real-time monitoring, AI anomaly detection, forecasting, expected-vs-actual production analysis, cost and carbon impact, ISO 50001 reporting, and equipment-level digital twins.
+
+## Independent R&D Project
+
+- **STR Energy Market Data Project**: A separate research and data-visualization project for EPİAŞ, ENTSO-E and EIA datasets. It is not a module of STR Energy Intelligence Platform.
 
 ## Getting Started
 

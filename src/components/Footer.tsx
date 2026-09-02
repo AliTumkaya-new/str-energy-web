@@ -18,20 +18,17 @@ const navigation = [
 ];
 
 const products = [
-  { key: "product.energypulse", href: "/products/energypulse" },
-  { key: "product.energyos", href: "/products/energyos" },
-  { key: "product.gridanalytics", href: "/products/gridanalytics" },
-  { key: "product.powerforecast", href: "/products/powerforecast" },
-  { key: "product.securegrid", href: "/products/securegrid" },
-  { key: "product.smartmeter", href: "/products/smartmeter" },
-  { key: "product.energycloud", href: "/products/energycloud" },
+  { key: "product.intelligence", href: "/products/energy-intelligence-platform" },
 ];
 
 const company = [
+  { key: "nav.investors", href: "/energy-startup" },
+  { key: "nav.marketData", href: "/projects/market-data" },
+  { key: "nav.methodology", href: "/methodology/market-data" },
   { key: "nav.insights", href: "/insights" },
   { key: "nav.about", href: "/about" },
-  { key: "nav.news", href: "/news" },
-  { key: "nav.testimonials", href: "/testimonials" },
+  { key: "nav.editorialPolicy", href: "/editorial-policy" },
+  { key: "nav.editorialTeam", href: "/authors/str-energy-editorial-team" },
   { key: "nav.privacy", href: "/privacy" },
   { key: "nav.terms", href: "/terms" },
   { key: "nav.cookiePolicy", href: "/cookie-policy" },
@@ -133,6 +130,9 @@ export default function Footer({ compact = false }: { compact?: boolean }) {
                   className="h-14 md:h-16 w-auto"
                 />
               </a>
+              <p className="mb-3 text-xs font-semibold uppercase tracking-[0.14em] text-orange-500">
+                {t("brand.expansion")}
+              </p>
               <p className="text-gray-500 mb-6 max-w-sm">
                 {t("footer.description")}
               </p>

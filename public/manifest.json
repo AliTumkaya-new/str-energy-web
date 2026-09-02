@@ -1,7 +1,7 @@
 {
   "name": "STR Energy",
   "short_name": "STR Energy",
-  "description": "Enerji verisi yönetimi, tahminleme, güvenlik ve analiz çözümleri.",
+  "description": "STR — Smart Technologies for Renewables: erken aşama enerji teknolojileri girişimi ve endüstriyel enerji zekâsı platformu.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#09090b",
