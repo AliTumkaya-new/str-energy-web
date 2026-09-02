@@ -40,7 +40,7 @@ export default function PartnerSection() {
       <div className="container">
         <div className="grid lg:grid-cols-[0.7fr_1.3fr] gap-10 items-start">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={false}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
@@ -70,7 +70,7 @@ export default function PartnerSection() {
             {partnerCards.map((card) => (
               <motion.div
                 key={card.key}
-                initial={{ opacity: 0, x: 20 }}
+                initial={false}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 whileHover={{ y: -4 }}

@@ -24,7 +24,7 @@ export default function FAQSection() {
     <section id="faq" className={`py-20 ${isDark ? "bg-black" : "bg-white"}`}>
       <div className="container">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={false}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
@@ -42,7 +42,7 @@ export default function FAQSection() {
           {faqs.map((faq, index) => (
             <motion.div
               key={faq.q}
-              initial={{ opacity: 0, y: 20 }}
+              initial={false}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
               viewport={{ once: true }}

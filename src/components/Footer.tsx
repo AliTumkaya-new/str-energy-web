@@ -57,7 +57,7 @@ export default function Footer({ compact = false }: { compact?: boolean }) {
           <div className={`pointer-events-none absolute inset-0 ${isDark ? "bg-[radial-gradient(circle_at_50%_0%,rgba(249,115,22,0.12),transparent_55%)]" : "bg-[radial-gradient(circle_at_50%_0%,rgba(249,115,22,0.08),transparent_55%)]"}`} />
           <div className="container relative">
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={false}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
               viewport={{ once: true }}
