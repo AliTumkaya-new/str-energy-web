@@ -133,33 +133,6 @@ const translations: Translations = {
     ru: "Мы внедряем мониторинг, автоматизацию и интеграцию для промышленных зон и объектов."
   },
 
-  // Devices
-  "devices.section.badge": { tr: "Özellikler", en: "Features", ru: "Возможности" },
-  "devices.section.title": { tr: "Başarı için gereken her şey", en: "Everything you need to succeed", ru: "Все, что нужно для успеха" },
-  "devices.section.subtitle": {
-    tr: "Enerji operasyonlarınız için entegrasyon, analitik ve otomasyon bileşenleri.",
-    en: "Integration, analytics, and automation for your energy operations.",
-    ru: "Интеграция, аналитика и автоматизация для ваших энергетических операций."
-  },
-  "devices.card1.title": { tr: "Saha entegrasyonu", en: "Field integration", ru: "Полевые интеграции" },
-  "devices.card1.desc": {
-    tr: "SCADA, AMI ve DMS akışlarını tek panelde izleyin, saha ekipleriyle koordinasyonu hızlandırın.",
-    en: "Monitor SCADA, AMI, and DMS flows in one panel and speed up field coordination.",
-    ru: "Отслеживайте потоки SCADA, AMI и DMS в одной панели и ускоряйте координацию с полевыми командами."
-  },
-  "devices.card2.title": { tr: "Operasyon görünürlüğü", en: "Operational visibility", ru: "Операционная прозрачность" },
-  "devices.card2.desc": {
-    tr: "Uyarı, alarm ve rapor akışını tek merkezden yönetin, karar sürecini hızlandırın.",
-    en: "Manage alerts, alarms, and reporting from one place to accelerate decisions.",
-    ru: "Управляйте уведомлениями, авариями и отчетами из одного места, ускоряя решения."
-  },
-  "devices.card3.title": { tr: "Verimlilik ve maliyet", en: "Efficiency and cost", ru: "Эффективность и затраты" },
-  "devices.card3.desc": {
-    tr: "Kayıp/kaçak analizi ve optimizasyon ile maliyetleri düşürün, performansı artırın.",
-    en: "Reduce costs and improve performance with loss analysis and optimization.",
-    ru: "Снижайте затраты и повышайте эффективность с анализом потерь и оптимизацией."
-  },
-
   // Company pages
   "about.page.title": { tr: "STR Energy", en: "STR Energy", ru: "STR Energy" },
   "about.page.subtitle": {
@@ -228,11 +201,11 @@ const translations: Translations = {
 
   // FAQ
   "faq.title": { tr: "Sıkça Sorulan Sorular", en: "Frequently Asked Questions", ru: "Часто задаваемые вопросы" },
-  "faq.subtitle": { tr: "STR Enerji platformu hakkında en popüler sorulara cevaplar", en: "Answers to the most popular questions about the STR Energy platform", ru: "Ответы на популярные вопросы о платформе STR Energy" },
+  "faq.subtitle": { tr: "STR Energy ve çalışmalarımız hakkında merak edilenler", en: "Common questions about STR Energy and our work", ru: "Ответы на частые вопросы о STR Energy и нашей работе" },
   "faq.q1": { tr: "Enerji verisi çalışmalarınıza nasıl dahil ediliyor?", en: "How is energy data incorporated into your work?", ru: "Как энергетические данные используются в ваших проектах?" },
   "faq.a1": { tr: "Önce veri kaynağı, ölçüm kapsamı ve iş hedefi birlikte doğrulanır. Ardından güvenilir veri akışı kurulur; analiz, raporlama veya yazılım geliştirme kapsamı ihtiyaca göre belirlenir.", en: "We first validate the data source, measurement scope and business objective together. We then establish a reliable data flow and define analytics, reporting or software development around the actual need.", ru: "Сначала мы совместно проверяем источник данных, границы измерения и бизнес-цель. Затем выстраиваем надежный поток данных и определяем аналитику, отчетность или разработку ПО под реальную задачу." },
-  "faq.q2": { tr: "Platform üretim kaybının nedenini açıklayabilir mi?", en: "Can the platform explain the cause of a production gap?", ru: "Может ли платформа объяснить причину производственного разрыва?" },
-  "faq.a2": { tr: "Platform beklenen üretim veya tüketim baz çizgisini gerçekleşen verilerle karşılaştırır; duruş, ekipman verimsizliği, hat hızı, baz yük ve proses sapması gibi olası etkenleri kanıtlarıyla sıralar.", en: "The platform compares expected production or consumption baselines with actual data and ranks likely drivers such as downtime, equipment inefficiency, line speed, base load and process deviation with supporting evidence.", ru: "Платформа сравнивает ожидаемые производственные или потребительские базовые значения с фактическими данными и ранжирует вероятные причины: простои, неэффективность оборудования, скорость линии, базовую нагрузку и отклонения процесса." },
+  "faq.q2": { tr: "Bir Ar-Ge çalışmasına nasıl başlanıyor?", en: "How does an R&D project begin?", ru: "Как начинается R&D-проект?" },
+  "faq.a2": { tr: "İlk görüşmede problem, mevcut veri ve beklenen çıktı netleştirilir. Uygun olduğunda kısa bir keşif kapsamı hazırlanır; teknik yaklaşım, doğrulama ölçütleri ve sonraki adımlar birlikte belirlenir.", en: "The first conversation clarifies the problem, available data and expected outcome. When there is a fit, we define a focused discovery scope, technical approach, validation criteria and next steps together.", ru: "На первой встрече мы уточняем задачу, доступные данные и ожидаемый результат. Затем вместе определяем объем исследования, технический подход, критерии проверки и следующие шаги." },
   "faq.q3": { tr: "Teknik destek sağlıyor musunuz?", en: "Do you provide technical support?", ru: "Предоставляете ли вы техническую поддержку?" },
   "faq.a3": { tr: "Evet. Pilot, entegrasyon ve devreye alma sürecinde kurucu ekip ve teknik ekip doğrudan destek verir.", en: "Yes. The founding and technical teams provide direct support throughout pilots, integration and commissioning.", ru: "Да. Команда основателей и технические специалисты напрямую поддерживают пилоты, интеграцию и ввод в эксплуатацию." },
   "faq.q4": { tr: "STR Energy kimler tarafından kuruldu?", en: "Who founded STR Energy?", ru: "Кем основана STR Energy?" },
