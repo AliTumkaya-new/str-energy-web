@@ -2,7 +2,6 @@ import Header from "@/components/Header";
 import HeroSection from "@/components/HeroSection";
 import StatsSection from "@/components/StatsSection";
 import LiveEnergyDashboard from "@/components/LiveEnergyDashboard";
-import ProductsGrid from "@/components/ProductsGrid";
 import AboutSection from "@/components/AboutSection";
 import PartnerSection from "@/components/PartnerSection";
 import DeviceSection from "@/components/DeviceSection";
@@ -19,7 +18,6 @@ export default function Home() {
         <EnergyPulseAnnouncement />
         <HeroSection />
         <StatsSection />
-        <ProductsGrid />
         <StartupSection />
         <LiveEnergyDashboard />
         <AboutSection />
