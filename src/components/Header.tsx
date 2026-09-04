@@ -25,9 +25,12 @@ const companyLinks = [
   { key: "nav.contacts", icon: Mail, href: "/contacts" },
 ];
 
-type HeaderProps = { variant?: "default" | "floating" };
+type HeaderProps = {
+  variant?: "default" | "floating";
+  withAnnouncement?: boolean;
+};
 
-export default function Header({ variant = "default" }: HeaderProps) {
+export default function Header({ variant = "default", withAnnouncement = false }: HeaderProps) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
@@ -84,7 +87,7 @@ export default function Header({ variant = "default" }: HeaderProps) {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      className={`fixed ${withAnnouncement ? "top-10" : "top-0"} left-0 right-0 z-50 transition-all duration-300 ${
         isFloating ? "py-2 md:py-3" : ""
       } ${
         !isFloating && isScrolled

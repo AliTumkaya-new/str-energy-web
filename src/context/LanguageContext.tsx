@@ -59,7 +59,15 @@ const translations: Translations = {
   "hero.cta": { tr: "Projeni Görüşelim", en: "Discuss Your Project", ru: "Обсудить проект" },
   "hero.cta2": { tr: "Çalışmalarımız", en: "Our Work", ru: "Наши проекты" },
 
+  // Stats
+  "stats.stage": { tr: "Girişim aşaması", en: "Venture stage", ru: "Стадия проекта" },
+  "stats.field": { tr: "Saha bağlantısı", en: "Field connectivity", ru: "Полевое подключение" },
+  "stats.intelligence": { tr: "Zekâ katmanı", en: "Intelligence layer", ru: "Уровень аналитики" },
+  "stats.pilot": { tr: "İşbirliği modeli", en: "Collaboration model", ru: "Модель сотрудничества" },
+
   // Products
+  "products.title": { tr: "Yeni ürün: endüstriyel enerjinin karar katmanı", en: "New product: the decision layer for industrial energy", ru: "Новый продукт: уровень принятия решений для промышленной энергетики" },
+  "products.subtitle": { tr: "Sahadan gelen ham enerji verisini; ne olduğunu gösteren, ne olacağını tahmin eden ve performans farkının nedenini açıklayan operasyonel zekâya dönüştürür.", en: "It turns raw field energy data into operational intelligence that shows what is happening, predicts what comes next and explains the cause of performance gaps.", ru: "Она превращает полевые энергетические данные в операционную аналитику: показывает текущую ситуацию, прогнозирует будущее и объясняет причины отклонений." },
   "products.index.title": { tr: "STR Energy Intelligence Platform", en: "STR Energy Intelligence Platform", ru: "STR Energy Intelligence Platform" },
   "products.index.subtitle": { tr: "Endüstriyel tesisler için saha bağlantısı, enerji analitiği, öngörü ve kök neden açıklamasını tek üründe birleştiren platform.", en: "A single product for industrial facilities that combines field connectivity, energy analytics, forecasting and root-cause explanations.", ru: "Единый продукт для промышленных предприятий: подключение оборудования, энергетическая аналитика, прогнозирование и объяснение первопричин." },
   "products.index.details": { tr: "Platformu incele", en: "Explore the platform", ru: "О платформе" },
@@ -131,6 +139,33 @@ const translations: Translations = {
     tr: "OSB ve endüstriyel tesislerde enerji izleme, otomasyon ve entegrasyon sağlıyoruz.",
     en: "We deliver monitoring, automation, and integration for industrial zones and facilities.",
     ru: "Мы внедряем мониторинг, автоматизацию и интеграцию для промышленных зон и объектов."
+  },
+
+  // Devices
+  "devices.section.badge": { tr: "Özellikler", en: "Features", ru: "Возможности" },
+  "devices.section.title": { tr: "Başarı için gereken her şey", en: "Everything you need to succeed", ru: "Все, что нужно для успеха" },
+  "devices.section.subtitle": {
+    tr: "Enerji operasyonlarınız için entegrasyon, analitik ve otomasyon bileşenleri.",
+    en: "Integration, analytics, and automation for your energy operations.",
+    ru: "Интеграция, аналитика и автоматизация для ваших энергетических операций."
+  },
+  "devices.card1.title": { tr: "Saha entegrasyonu", en: "Field integration", ru: "Полевые интеграции" },
+  "devices.card1.desc": {
+    tr: "SCADA, AMI ve DMS akışlarını tek panelde izleyin, saha ekipleriyle koordinasyonu hızlandırın.",
+    en: "Monitor SCADA, AMI, and DMS flows in one panel and speed up field coordination.",
+    ru: "Отслеживайте потоки SCADA, AMI и DMS в одной панели и ускоряйте координацию с полевыми командами."
+  },
+  "devices.card2.title": { tr: "Operasyon görünürlüğü", en: "Operational visibility", ru: "Операционная прозрачность" },
+  "devices.card2.desc": {
+    tr: "Uyarı, alarm ve rapor akışını tek merkezden yönetin, karar sürecini hızlandırın.",
+    en: "Manage alerts, alarms, and reporting from one place to accelerate decisions.",
+    ru: "Управляйте уведомлениями, авариями и отчетами из одного места, ускоряя решения."
+  },
+  "devices.card3.title": { tr: "Verimlilik ve maliyet", en: "Efficiency and cost", ru: "Эффективность и затраты" },
+  "devices.card3.desc": {
+    tr: "Kayıp/kaçak analizi ve optimizasyon ile maliyetleri düşürün, performansı artırın.",
+    en: "Reduce costs and improve performance with loss analysis and optimization.",
+    ru: "Снижайте затраты и повышайте эффективность с анализом потерь и оптимизацией."
   },
 
   // Company pages
