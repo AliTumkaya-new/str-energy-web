@@ -8,7 +8,6 @@ import DeviceSection from "@/components/DeviceSection";
 import FAQSection from "@/components/FAQSection";
 import Footer from "@/components/Footer";
 import EnergyPulseAnnouncement from "@/components/EnergyPulseAnnouncement";
-import StartupSection from "@/components/StartupSection";
 
 export default function Home() {
   return (
@@ -18,7 +17,6 @@ export default function Home() {
         <EnergyPulseAnnouncement />
         <HeroSection />
         <StatsSection />
-        <StartupSection />
         <LiveEnergyDashboard />
         <AboutSection />
         <PartnerSection />
