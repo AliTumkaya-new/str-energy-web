@@ -6,22 +6,22 @@ import { useLocaleHref } from "@/lib/useLocaleHref";
 
 const copyByLanguage = {
   tr: {
-    label: "YENÄ° ÃœRÃœN",
-    shortText: "Yeni Ã¼rÃ¼nÃ¼mÃ¼z yayÄ±nda.",
-    text: "Yeni Ã¼rÃ¼n: STR Energy Intelligence Platform â€” sahadan AI destekli enerji kararlarÄ±na.",
-    action: "Ä°ncele",
+    label: "YENİ ÜRÜN",
+    shortText: "Yeni ürünümüz yayında.",
+    text: "Yeni ürün: STR Energy Intelligence Platform — sahadan AI destekli enerji kararlarına.",
+    action: "İncele",
   },
   en: {
     label: "NEW PRODUCT",
     shortText: "Our new product is live.",
-    text: "New product: STR Energy Intelligence Platform â€” from field data to AI-powered action.",
+    text: "New product: STR Energy Intelligence Platform — from field data to AI-powered action.",
     action: "Explore",
   },
   ru: {
-    label: "ĞĞĞ’Ğ«Ğ™ ĞŸĞ ĞĞ”Ğ£ĞšĞ¢",
-    shortText: "ĞĞ°Ñˆ Ğ½Ğ¾Ğ²Ñ‹Ğ¹ Ğ¿Ñ€Ğ¾Ğ´ÑƒĞºÑ‚ Ğ·Ğ°Ğ¿ÑƒÑ‰ĞµĞ½.",
-    text: "ĞĞ¾Ğ²Ñ‹Ğ¹ Ğ¿Ñ€Ğ¾Ğ´ÑƒĞºÑ‚: STR Energy Intelligence Platform â€” Ğ¾Ñ‚ Ğ¿Ğ¾Ğ»ĞµĞ²Ñ‹Ñ… Ğ´Ğ°Ğ½Ğ½Ñ‹Ñ… Ğº Ñ€ĞµÑˆĞµĞ½Ğ¸ÑĞ¼ Ğ½Ğ° Ğ±Ğ°Ğ·Ğµ Ğ˜Ğ˜.",
-    action: "ĞÑ‚ĞºÑ€Ñ‹Ñ‚ÑŒ",
+    label: "НОВЫЙ ПРОДУКТ",
+    shortText: "Наш новый продукт запущен.",
+    text: "Новый продукт: STR Energy Intelligence Platform — от полевых данных к решениям на базе ИИ.",
+    action: "Открыть",
   },
 } as const;
 

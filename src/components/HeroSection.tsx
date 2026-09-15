@@ -180,7 +180,6 @@ export default function HeroSection() {
               <stop offset="62%" stopColor="#60A5FA" stopOpacity="0.55" />
               <stop offset="100%" stopColor="#2563EB" stopOpacity="0" />
             </linearGradient>
-
           </defs>
 
           {beamSets.beams.map((beam) => (
@@ -258,19 +257,15 @@ export default function HeroSection() {
         </div>
       </div>
 
-      <div className="container relative z-10 hero-static">
-        <div className="max-w-4xl mx-auto text-center">
+      <div className="container relative z-10">
+        <div className="max-w-5xl mx-auto text-center">
           <h1
-            className={`text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight ${
+            className={`text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-8 leading-tight tracking-tight ${
               isDark ? "text-white" : "text-zinc-900"
             }`}
           >
-            <span className="str-hero-line str-hero-line--primary" data-text={t("hero.title1")}>
-              {t("hero.title1")}
-            </span>
-            <br />
-            <span className="str-hero-line str-hero-line--accent" data-text={t("hero.title2")}>
-              {t("hero.title2")}
+            <span className="str-hero-line str-hero-line--accent" data-text={t("hero.title")}>
+              {t("hero.title")}
             </span>
           </h1>
 

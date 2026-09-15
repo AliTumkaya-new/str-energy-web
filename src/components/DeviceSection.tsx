@@ -79,19 +79,24 @@ export default function DeviceSection() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 viewport={{ once: true }}
-                whileHover={{ y: -6 }}
-                className="group relative overflow-hidden border rounded-3xl p-6 text-left transition-all bg-white border-black/10 shadow-[0_14px_30px_rgba(15,23,42,0.10)]"
+                className={`group relative overflow-hidden border rounded-3xl p-6 text-left transition-all ${
+                  theme === "dark"
+                    ? "bg-zinc-950/80 border-white/10 shadow-[0_14px_30px_rgba(0,0,0,0.6)] hover:border-orange-500/40"
+                    : "bg-white border-black/10 shadow-[0_14px_30px_rgba(15,23,42,0.08)] hover:border-orange-500/40"
+                }`}
               >
                 <div className={`absolute -top-12 right-0 h-32 w-32 rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity ${feature.bg}`} />
-                <div className="mb-4 inline-flex items-center justify-center rounded-2xl border border-black/10 bg-zinc-50 p-3">
+                <div className={`mb-4 inline-flex items-center justify-center rounded-2xl border p-3 ${
+                  theme === "dark" ? "border-white/10 bg-white/5" : "border-black/10 bg-zinc-50"
+                }`}>
                   <div className={`w-11 h-11 ${feature.bg} rounded-2xl flex items-center justify-center`}>
                     <Icon className={`w-6 h-6 ${feature.color}`} />
                   </div>
                 </div>
-                <h3 className="text-lg font-semibold text-zinc-900">
+                <h3 className={`text-lg font-semibold ${theme === "dark" ? "text-white" : "text-zinc-900"}`}>
                   {t(feature.title)}
                 </h3>
-                <p className="mt-2 text-sm leading-relaxed text-zinc-600">
+                <p className={`mt-2 text-sm leading-relaxed ${theme === "dark" ? "text-zinc-400" : "text-zinc-600"}`}>
                   {t(feature.desc)}
                 </p>
               </motion.div>

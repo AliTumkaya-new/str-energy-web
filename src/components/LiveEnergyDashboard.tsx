@@ -1216,19 +1216,6 @@ export default function LiveEnergyDashboard() {
           viewport={{ once: true }}
           className="text-center mb-10"
         >
-          <div
-            className={`mb-5 inline-flex items-center gap-2 rounded-full border px-3 py-1.5 text-[11px] font-semibold tracking-wide ${
-              isDark
-                ? "border-emerald-500/25 bg-emerald-500/10 text-emerald-300"
-                : "border-emerald-600/20 bg-emerald-50 text-emerald-700"
-            }`}
-          >
-            <span className="relative flex h-2 w-2">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-60" />
-              <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
-            </span>
-            {copy.badge}
-          </div>
           <h2 className={`text-3xl md:text-4xl font-bold mb-3 ${headingColor}`}>
             {copy.headline}
           </h2>

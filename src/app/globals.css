@@ -226,11 +226,36 @@ h4 {
   color: rgba(165, 243, 252, 0.55);
 }
 
-/* Hero title: lock gradient motion to avoid flicker */
+/* Hero title: lock gradient motion when static is requested */
 .hero-static .str-hero-line--primary,
 .hero-static .str-hero-line--accent {
   animation: none !important;
   background-position: 50% 50%;
+}
+
+/* High-tech HUD card & Glow effects */
+.str-hud-card {
+  position: relative;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.str-hud-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, rgba(249, 115, 22, 0.4), transparent 45%, rgba(59, 130, 246, 0.3));
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  opacity: 0.45;
+  transition: opacity 0.35s ease;
+}
+
+.str-hud-card:hover::before {
+  opacity: 1;
 }
 
 @media (prefers-reduced-motion: reduce) {

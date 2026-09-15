@@ -17,6 +17,8 @@ interface Translations {
 const translations: Translations = {
   // Brand
   "brand.name": { tr: "STR Enerji", en: "STR Energy", ru: "STR Energy" },
+  "brand.expansion": { tr: "Smart Technologies for Renewables", en: "Smart Technologies for Renewables", ru: "Smart Technologies for Renewables" },
+  "brand.badge": { tr: "STR · SMART TECHNOLOGIES FOR RENEWABLES", en: "STR · SMART TECHNOLOGIES FOR RENEWABLES", ru: "STR · SMART TECHNOLOGIES FOR RENEWABLES" },
   // Header
   "nav.products": { tr: "Ar-Ge", en: "R&D", ru: "R&D" },
   "nav.company": { tr: "Şirket", en: "Company", ru: "Компания" },
@@ -49,32 +51,45 @@ const translations: Translations = {
   "nav.products.cta.link": { tr: "İletişime geç", en: "Contact us", ru: "Связаться" },
 
   // Hero
-  "hero.title1": { tr: "Enerji", en: "Energy", ru: "Энергетика" },
-  "hero.title2": { tr: "Yazılım Ar-Ge", en: "Software R&D", ru: "Разработка ПО" },
+  "hero.title": { tr: "Smart Technologies for Renewables", en: "Smart Technologies for Renewables", ru: "Smart Technologies for Renewables" },
   "hero.description": {
-    tr: "Genç girişimciler tarafından Türkiye’de kurulan STR Energy; enerji verisi, yazılım ve Ar-Ge çalışmalarını gerçek ihtiyaçlara odaklanan, anlaşılır ve ölçülebilir çözümlere dönüştürür.",
-    en: "Founded in Türkiye by young entrepreneurs, STR Energy turns energy data, software and R&D into clear, measurable solutions built around real needs.",
-    ru: "STR Energy, основанная в Турции молодыми предпринимателями, превращает энергетические данные, программные разработки и R&D в понятные и измеримые решения для реальных задач."
+    tr: "Genç girişimciler tarafından Türkiye’de kurulan STR Energy — Smart Technologies for Renewables; enerji verisi, yazılım ve Ar-Ge çalışmalarını gerçek ihtiyaçlara odaklanan, anlaşılır ve ölçülebilir çözümlere dönüştürür.",
+    en: "Founded in Türkiye by young entrepreneurs, STR Energy — Smart Technologies for Renewables turns energy data, software and R&D into clear, measurable solutions built around real needs.",
+    ru: "STR Energy — Smart Technologies for Renewables, основанная в Турции молодыми предпринимателями, превращает энергетические данные, программные разработки и R&D в понятные и измеримые решения для реальных задач."
   },
   "hero.cta": { tr: "Projeni Görüşelim", en: "Discuss Your Project", ru: "Обсудить проект" },
   "hero.cta2": { tr: "Çalışmalarımız", en: "Our Work", ru: "Наши проекты" },
 
-  // Stats
-  "stats.stage": { tr: "Girişim aşaması", en: "Venture stage", ru: "Стадия проекта" },
-  "stats.field": { tr: "Saha bağlantısı", en: "Field connectivity", ru: "Полевое подключение" },
-  "stats.intelligence": { tr: "Zekâ katmanı", en: "Intelligence layer", ru: "Уровень аналитики" },
-  "stats.pilot": { tr: "İşbirliği modeli", en: "Collaboration model", ru: "Модель сотрудничества" },
+  // Stats / Capabilities HUD
+  "stats.header.title": { tr: "Sahadan karar katmanına uçtan uca yetkinlik", en: "End-to-End Capability from Field to Decision Layer", ru: "Полный цикл от поля до уровня решений" },
+  
+  "stats.stage.title": { tr: "Uygulamalı Ar-Ge", en: "Applied R&D", ru: "Прикладной R&D" },
+  "stats.stage.tag": { tr: "Faz 1 · Ürün Geliştirme", en: "Phase 1 · Product R&D", ru: "Фаза 1 · Разработка ПО" },
+  "stats.stage.desc": { tr: "Endüstriyel enerji analitiği ve yeni nesil karar zekâsı mimarisi.", en: "Industrial energy analytics and next-generation decision intelligence architecture.", ru: "Промышленная энергетическая аналитика и архитектура принятия решений." },
+
+  "stats.field.title": { tr: "Saha & OT Entegrasyonu", en: "Field & OT Integration", ru: "Полевая OT-интеграция" },
+  "stats.field.tag": { tr: "RS485 · Modbus · PLC", en: "RS485 · Modbus · PLC", ru: "RS485 · Modbus · PLC" },
+  "stats.field.desc": { tr: "Analizör, sayaç ve PLC hatlarından mikrosaniye seviyesinde telemetri.", en: "Sub-second reliable telemetry from analyzers, meters and industrial PLCs.", ru: "Субсекундная телеметрия с анализаторов, счетчиков и промышленных PLC." },
+
+  "stats.intelligence.title": { tr: "AI & Dijital İkiz", en: "AI & Digital Twin", ru: "ИИ и цифровой двойник" },
+  "stats.intelligence.tag": { tr: "Öngörü & Sapma Tespiti", en: "Forecasting & Anomaly Detection", ru: "Прогнозирование и аномалии" },
+  "stats.intelligence.desc": { tr: "Beklenen-gerçekleşen performans sapmalarını ve kök nedenlerini anında açıklama.", en: "Real-time explanation of expected vs actual performance gaps and root causes.", ru: "Объяснение разрывов план/факт и выявление первопричин в реальном времени." },
+
+  "stats.pilot.title": { tr: "Pilot & Doğrulama", en: "Pilot & Validation", ru: "Пилот и валидация" },
+  "stats.pilot.tag": { tr: "Saha Doğrulama Ortaklığı", en: "Field Validation Partnership", ru: "Партнерство по валидации" },
+  "stats.pilot.desc": { tr: "Gerçek tesis verileriyle sıfır riskli proof-of-concept ve ortak Ar-Ge kurulumu.", en: "Zero-risk proof-of-concept and joint R&D deployments with real plant data.", ru: "Пилотное развертывание и совместный R&D на реальных данных объекта." },
 
   // Products
-  "products.title": { tr: "Yeni ürün: endüstriyel enerjinin karar katmanı", en: "New product: the decision layer for industrial energy", ru: "Новый продукт: уровень принятия решений для промышленной энергетики" },
-  "products.subtitle": { tr: "Sahadan gelen ham enerji verisini; ne olduğunu gösteren, ne olacağını tahmin eden ve performans farkının nedenini açıklayan operasyonel zekâya dönüştürür.", en: "It turns raw field energy data into operational intelligence that shows what is happening, predicts what comes next and explains the cause of performance gaps.", ru: "Она превращает полевые энергетические данные в операционную аналитику: показывает текущую ситуацию, прогнозирует будущее и объясняет причины отклонений." },
+  "products.badge": { tr: "YENİ ÜRÜN", en: "NEW PRODUCT", ru: "НОВЫЙ ПРОДУКТ" },
+  "products.title": { tr: "Endüstriyel Enerjinin Karar Katmanı", en: "The Decision Layer for Industrial Energy", ru: "Уровень принятия решений для промышленной энергетики" },
+  "products.subtitle": { tr: "Enerjiyi yalnızca ölçen değil; geleceği öngören, anomalileri tespit eden ve performansı açıklayan yapay zekâ platformu.", en: "An AI platform that doesn't just measure energy, but forecasts the future, detects anomalies and explains performance.", ru: "Платформа ИИ, которая не просто измеряет энергию, а прогнозирует будущее, выявляет аномалии и объясняет эффективность." },
   "products.index.title": { tr: "STR Energy Intelligence Platform", en: "STR Energy Intelligence Platform", ru: "STR Energy Intelligence Platform" },
   "products.index.subtitle": { tr: "Endüstriyel tesisler için saha bağlantısı, enerji analitiği, öngörü ve kök neden açıklamasını tek üründe birleştiren platform.", en: "A single product for industrial facilities that combines field connectivity, energy analytics, forecasting and root-cause explanations.", ru: "Единый продукт для промышленных предприятий: подключение оборудования, энергетическая аналитика, прогнозирование и объяснение первопричин." },
   "products.index.details": { tr: "Platformu incele", en: "Explore the platform", ru: "О платформе" },
 
   // Product
-  "product.intelligence": { tr: "Enerji Yazılım Ar-Ge", en: "Energy Software R&D", ru: "Энергетическое ПО и R&D" },
-  "product.intelligence.desc": { tr: "Veri, yazılım ve uygulamalı araştırma çalışmalarımız", en: "Our data, software and applied research work", ru: "Наши проекты в области данных, ПО и прикладных исследований" },
+  "product.intelligence": { tr: "Smart Technologies for Renewables", en: "Smart Technologies for Renewables", ru: "Smart Technologies for Renewables" },
+  "product.intelligence.desc": { tr: "Enerji yazılımı, saha telemetrisi ve uygulamalı Ar-Ge çalışmalarımız", en: "Our energy software, field telemetry and applied R&D work", ru: "Наши проекты в области энергетического ПО, телеметрии и прикладного R&D" },
 
   // Header dropdown descriptions
   "nav.about.desc": { tr: "STR Enerji hakkında", en: "About STR Energy", ru: "О STR Energy" },
