@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowRight, BookOpen, Clock3, Search, X } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -9,6 +10,7 @@ import { useLanguage } from "@/context/LanguageContext";
 import { useTheme } from "@/context/ThemeContext";
 import { useLocaleHref } from "@/lib/useLocaleHref";
 import { getReadMinutes, insights, type InsightLocale } from "@/lib/insights";
+import AdSenseUnit from "@/components/AdSenseUnit";
 
 const copy = {
   tr: {
@@ -128,6 +130,8 @@ export default function InsightsIndex() {
             </div>
           </div>
 
+          <AdSenseUnit variant="banner" className="mt-8 mb-4" />
+
           <div className={`mb-5 mt-7 text-sm ${isDark ? "text-zinc-500" : "text-zinc-500"}`} aria-live="polite">
             {filteredInsights.length} {text.results}
           </div>
@@ -136,8 +140,21 @@ export default function InsightsIndex() {
             <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
               {filteredInsights.map((article) => (
                 <article key={article.slug} className={`group flex min-h-80 flex-col rounded-2xl border p-6 transition duration-300 hover:-translate-y-1 ${isDark ? "border-white/10 bg-white/[0.03] hover:border-orange-500/40 hover:bg-white/[0.05]" : "border-black/10 bg-zinc-50 hover:border-orange-500/40 hover:bg-white hover:shadow-lg"}`}>
+                  {article.image && (
+                    <div className="relative mb-4 aspect-[1200/630] w-full overflow-hidden rounded-xl bg-zinc-900 border border-inherit">
+                      <Image
+                        src={article.image.src}
+                        alt={article.image.alt[locale]}
+                        title={article.image.title[locale]}
+                        width={600}
+                        height={315}
+                        loading="lazy"
+                        className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      />
+                    </div>
+                  )}
                   <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-orange-500">{article.category[locale]}</p>
-                  <h2 className="mt-4 text-xl font-bold leading-7">{article.title[locale]}</h2>
+                  <h2 className="mt-3 text-xl font-bold leading-7">{article.title[locale]}</h2>
                   <p className={`mt-3 text-sm leading-6 ${isDark ? "text-zinc-400" : "text-zinc-600"}`}>{article.description[locale]}</p>
                   <div className={`mt-auto flex items-end justify-between gap-4 pt-7 text-xs ${isDark ? "text-zinc-500" : "text-zinc-500"}`}>
                     <span className="inline-flex items-center gap-1.5"><Clock3 className="h-3.5 w-3.5" />{getReadMinutes(article, locale)} {text.minute}</span>

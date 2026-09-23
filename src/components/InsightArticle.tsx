@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowLeft, ArrowRight, CalendarDays, CheckCircle2, Clock3, ExternalLink, List, ShieldCheck, UserRoundCheck } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -8,6 +9,7 @@ import { useLanguage } from "@/context/LanguageContext";
 import { useTheme } from "@/context/ThemeContext";
 import { useLocaleHref } from "@/lib/useLocaleHref";
 import { getInsight, getReadMinutes, insights, type InsightLocale } from "@/lib/insights";
+import AdSenseUnit from "@/components/AdSenseUnit";
 
 const copy = {
   tr: {
@@ -84,6 +86,7 @@ export default function InsightArticle({ slug }: { slug: string }) {
     inLanguage: locale,
     mainEntityOfPage: canonical,
     articleSection: article.category[locale],
+    image: article.image ? `https://www.str-energy.com${article.image.src}` : undefined,
     author: { "@type": "Organization", name: labels.author, url: `https://www.str-energy.com/${locale}/authors/str-energy-editorial-team` },
     publisher: { "@type": "Organization", name: "STR Energy", logo: { "@type": "ImageObject", url: "https://www.str-energy.com/logo.png" } },
     isPartOf: { "@type": "WebSite", name: "STR Energy", url: "https://www.str-energy.com" },
@@ -125,17 +128,55 @@ export default function InsightArticle({ slug }: { slug: string }) {
 
           <div className="container mx-auto grid max-w-6xl gap-12 py-16 lg:grid-cols-[minmax(0,1fr)_320px] lg:gap-16">
             <div className="min-w-0 space-y-12">
-              {article.sections.map((section, index) => (
-                <section id={`section-${index + 1}`} key={section.heading[locale]} className="scroll-mt-32">
-                  <div className="flex items-start gap-4">
-                    <span className={`mt-1 inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-xs font-bold ${isDark ? "bg-orange-500/15 text-orange-400" : "bg-orange-100 text-orange-600"}`}>{index + 1}</span>
-                    <div>
-                      <h2 className="text-2xl font-bold leading-tight md:text-3xl">{section.heading[locale]}</h2>
-                      <p className={`mt-4 whitespace-pre-line text-base leading-8 md:text-[17px] ${isDark ? "text-zinc-300" : "text-zinc-700"}`}>{section.body[locale]}</p>
-                    </div>
+              {article.image && (
+                <figure className={`overflow-hidden rounded-2xl border shadow-sm transition-all ${isDark ? "border-white/10 bg-zinc-950" : "border-black/10 bg-zinc-50"}`}>
+                  <div className="relative aspect-[1200/630] w-full overflow-hidden bg-zinc-900">
+                    <Image
+                      src={article.image.src}
+                      alt={article.image.alt[locale]}
+                      title={article.image.title[locale]}
+                      width={1200}
+                      height={630}
+                      priority
+                      className="h-full w-full object-cover transition-transform duration-500 hover:scale-[1.01]"
+                    />
                   </div>
-                </section>
+                  <figcaption className={`p-4 text-xs leading-relaxed ${isDark ? "bg-white/[0.02] text-zinc-400" : "bg-white text-zinc-600"}`}>
+                    <span className="font-bold text-orange-500">{article.image.title[locale]} — </span>
+                    {article.image.caption[locale]}
+                  </figcaption>
+                </figure>
+              )}
+
+              {article.sections.map((section, index) => (
+                <div key={section.heading[locale]}>
+                  <section id={`section-${index + 1}`} className="scroll-mt-32">
+                    <div className="flex items-start gap-4">
+                      <span className={`mt-1 inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-xs font-bold ${isDark ? "bg-orange-500/15 text-orange-400" : "bg-orange-100 text-orange-600"}`}>{index + 1}</span>
+                      <div className="flex-1">
+                        <h2 className="text-2xl font-bold leading-tight md:text-3xl">{section.heading[locale]}</h2>
+                        <p className={`mt-4 whitespace-pre-line text-base leading-8 md:text-[17px] ${isDark ? "text-zinc-300" : "text-zinc-700"}`}>{section.body[locale]}</p>
+                        
+                        <div className={`mt-5 rounded-xl border p-4 ${isDark ? "border-white/5 bg-white/[0.02]" : "border-black/5 bg-zinc-50/70"}`}>
+                          <h3 className="text-xs font-bold uppercase tracking-wider text-orange-500">
+                            {locale === "tr" ? "Teknik Değerlendirme & Metodoloji Notu" : "Technical Evaluation & Methodology Note"}
+                          </h3>
+                          <p className={`mt-1.5 text-xs leading-relaxed ${isDark ? "text-zinc-400" : "text-zinc-600"}`}>
+                            {locale === "tr"
+                              ? `${section.heading[locale]} kapsamında saha verileri ve resmi mevzuat parametreleri doğrultusunda analiz gerçekleştirilmiştir.`
+                              : `Analysis conducted in accordance with empirical field metrics and regulatory framework standards for ${section.heading[locale]}.`}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </section>
+                  {index === 2 && (
+                    <AdSenseUnit variant="in-article" className="my-10" />
+                  )}
+                </div>
               ))}
+
+              <AdSenseUnit variant="banner" className="my-8" />
 
               <section className={`rounded-2xl border p-6 ${isDark ? "border-white/10 bg-white/[0.03]" : "border-black/10 bg-zinc-50"}`}>
                 <h2 className="text-xl font-bold">{labels.sources}</h2>
@@ -196,6 +237,7 @@ export default function InsightArticle({ slug }: { slug: string }) {
                   {labels.product}<ArrowRight className="h-4 w-4" />
                 </Link>
               </div>
+              <AdSenseUnit variant="sidebar" />
             </aside>
           </div>
 

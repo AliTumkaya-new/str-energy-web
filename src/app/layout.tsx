@@ -5,6 +5,7 @@ import "./globals.css";
 import { LanguageProvider } from "@/context/LanguageContext";
 import { ThemeProvider } from "@/context/ThemeContext";
 import DeferredChatWidget from "@/components/DeferredChatWidget";
+import CookieConsentBanner from "@/components/CookieConsentBanner";
 import { Analytics } from "@vercel/analytics/next";
 import { organizationJsonLd, SITE_URL } from "@/lib/seo";
 import { headers } from "next/headers";
@@ -123,6 +124,7 @@ export default async function RootLayout({
           <ThemeProvider>
             {children}
             <DeferredChatWidget />
+            <CookieConsentBanner />
             <Analytics />
           </ThemeProvider>
         </LanguageProvider>

@@ -269,6 +269,19 @@ export default function Header({ variant = "default", withAnnouncement = false }
             </div>
 
             <Link 
+              href={withLocale("/insights")} 
+              className={`px-4 py-2 rounded-lg transition-all font-medium ${
+                pathname?.includes("/insights")
+                  ? "text-orange-500 bg-orange-500/10"
+                  : isDark
+                    ? "text-gray-300 hover:text-orange-500 hover:bg-orange-500/5"
+                    : "text-zinc-700 hover:text-orange-600 hover:bg-orange-500/10"
+              }`}
+            >
+              {t("nav.insights")}
+            </Link>
+
+            <Link 
               href={withLocale("/contacts")} 
               className={`px-4 py-2 rounded-lg transition-all ${
                 isDark
@@ -466,6 +479,17 @@ export default function Header({ variant = "default", withAnnouncement = false }
                       )}
                     </AnimatePresence>
                   </div>
+
+                  <Link 
+                    href={withLocale("/insights")} 
+                    className={`flex items-center gap-3 p-3 rounded-lg font-medium ${
+                      isDark ? "text-gray-300 hover:text-orange-500 hover:bg-white/5" : "text-zinc-700 hover:text-orange-600 hover:bg-black/5"
+                    }`}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    <BookOpen className="w-4 h-4 text-orange-500" />
+                    {t("nav.insights")}
+                  </Link>
 
                   <Link 
                     href={withLocale("/contacts")} 
