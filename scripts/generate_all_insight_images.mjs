@@ -42,6 +42,12 @@ const categoryThemes = {
   "Endüstriyel Enerji Verimliliği": { icon: "⚙️", accent: "#8b5cf6", metricLabel: "VAP HİBE DESTEĞİ", metricVal: "%30 Devlet Teşviki" },
   "Yenilenebilir Enerji Mevzuatı": { icon: "📜", accent: "#f59e0b", metricLabel: "YEKDEM TEŞVİK SİSTEMİ", metricVal: "TL Eskalasyon & Yerli" },
   "Depolama Güvenliği ve Mühendislik": { icon: "🛡️", accent: "#ef4444", metricLabel: "NFPA 855 & UL 9540A", metricVal: "Termal Kaçak Koruması" },
+  "Tarımsal Güneş Sistemleri (Agri-PV)": { icon: "🌾", accent: "#84cc16", metricLabel: "AGRİ-PV ÇİFT KULLANIM", metricVal: "PAR & Mahsul Verimi" },
+  "Veri Merkezleri ve Bilişim Enerjisi": { icon: "🖥️", accent: "#06b6d4", metricLabel: "AI HİPERSCALE PUE", metricVal: "PUE < 1.15 & Sıvı Soğutma" },
+  "Sanal Santraller ve Talep Yönetimi": { icon: "⚡", accent: "#8b5cf6", metricLabel: "VPP & TALEP YANITI", metricVal: "DER Agregasyonu & FFR" },
+  "Yüzer GES ve Hibrit Santraller": { icon: "🌊", accent: "#0284c7", metricLabel: "YÜZER GES (FPV) & HES", metricVal: "%10-15 Verim & Buharlaşma" },
+  "Karbon Yakalama ve Depolama (CCUS)": { icon: "🏭", accent: "#10b981", metricLabel: "CCUS & DEPOLAMA", metricVal: "LCOC $/tCO2 & Amin" },
+  "Enerji Siber Güvenliği ve OT": { icon: "🛡️", accent: "#ef4444", metricLabel: "IEC 62443 & SCADA OT", metricVal: "Purdue IDMZ & Savunma" },
 };
 
 async function generateAll() {
@@ -50,10 +56,15 @@ async function generateAll() {
 
   for (let i = 0; i < articles.length; i++) {
     const art = articles[i];
+    const finalWebp = path.join("public/images/insights", `${art.slug}.webp`);
+    if (fs.existsSync(finalWebp)) {
+      console.log(`[${i + 1}/${articles.length}] Skipping existing WebP for: ${art.slug}`);
+      continue;
+    }
+
     const categoryTr = art.category.tr;
     const theme = categoryThemes[categoryTr] || { icon: "⚡", accent: "#f97316", metricLabel: "STR ENERGY", metricVal: "TEKNİK REHBER" };
     const tempPng = path.join("public/images/insights", `${art.slug}.tmp.png`);
-    const finalWebp = path.join("public/images/insights", `${art.slug}.webp`);
 
     const html = `
       <!DOCTYPE html>

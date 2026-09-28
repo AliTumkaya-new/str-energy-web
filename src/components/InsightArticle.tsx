@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
 import { ArrowLeft, ArrowRight, CalendarDays, CheckCircle2, Clock3, ExternalLink, List, ShieldCheck, UserRoundCheck } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -128,26 +127,6 @@ export default function InsightArticle({ slug }: { slug: string }) {
 
           <div className="container mx-auto grid max-w-6xl gap-12 py-16 lg:grid-cols-[minmax(0,1fr)_320px] lg:gap-16">
             <div className="min-w-0 space-y-12">
-              {article.image && (
-                <figure className={`overflow-hidden rounded-2xl border shadow-sm transition-all ${isDark ? "border-white/10 bg-zinc-950" : "border-black/10 bg-zinc-50"}`}>
-                  <div className="relative aspect-[1200/630] w-full overflow-hidden bg-zinc-900">
-                    <Image
-                      src={article.image.src}
-                      alt={article.image.alt[locale]}
-                      title={article.image.title[locale]}
-                      width={1200}
-                      height={630}
-                      priority
-                      className="h-full w-full object-cover transition-transform duration-500 hover:scale-[1.01]"
-                    />
-                  </div>
-                  <figcaption className={`p-4 text-xs leading-relaxed ${isDark ? "bg-white/[0.02] text-zinc-400" : "bg-white text-zinc-600"}`}>
-                    <span className="font-bold text-orange-500">{article.image.title[locale]} — </span>
-                    {article.image.caption[locale]}
-                  </figcaption>
-                </figure>
-              )}
-
               {article.sections.map((section, index) => (
                 <div key={section.heading[locale]}>
                   <section id={`section-${index + 1}`} className="scroll-mt-32">

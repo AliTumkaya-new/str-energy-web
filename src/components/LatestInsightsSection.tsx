@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
 import { motion } from "framer-motion";
 import { ArrowRight, Clock3, Sparkles } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
@@ -113,19 +112,6 @@ export default function LatestInsightsSection() {
                 }`}
               >
                 <div>
-                  {article.image && (
-                    <div className="relative mb-4 aspect-[1200/630] w-full overflow-hidden rounded-xl bg-zinc-900 border border-inherit">
-                      <Image
-                        src={article.image.src}
-                        alt={article.image.alt[locale]}
-                        title={article.image.title[locale]}
-                        width={600}
-                        height={315}
-                        className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                      />
-                    </div>
-                  )}
-
                   <div className="flex items-center justify-between gap-3 text-xs mb-4">
                     <span className="font-bold uppercase tracking-wider text-[10px] text-orange-500 px-2.5 py-1 rounded-md bg-orange-500/10 border border-orange-500/20">
                       {article.category[locale]}
